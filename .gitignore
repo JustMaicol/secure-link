@@ -1,0 +1,37 @@
+# Secretos
+.env
+.env.*
+*.keystore
+*.jks
+secrets/
+local.properties
+
+# Android
+android/.gradle/
+android/build/
+android/app/build/
+android/.idea/
+*.apk
+*.aab
+*.iml
+
+# Web / simulación
+node_modules/
+dist/
+.vite/
+web/.env*
+simulation/node_modules/
+
+# Supabase local
+supabase/.temp/
+web/supabase/.temp/
+
+# Sistema y editores
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
+
+# Identidad local de cada persona
+WHOAMI.md
