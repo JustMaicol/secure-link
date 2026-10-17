@@ -9,18 +9,18 @@ Al terminar cada task: commit `spec 104: <qué>` (salvo T0, que no se fusiona) y
 
 Proyecto Android aparte, **fuera del repositorio** (o en una rama que no se fusiona). Se instala el APK en 2 Samsung, sin ADB.
 
-- [ ] **T0.1** Proyecto mínimo, `minSdk 34`, con una pantalla: botones "Anunciar" y "Escanear", y una lista de recibidos (hex, RSSI y hora) con contadores.
-- [ ] **T0.2** Pedir en tiempo de ejecución `BLUETOOTH_SCAN`, `BLUETOOTH_ADVERTISE`, `BLUETOOTH_CONNECT` y `ACCESS_FINE_LOCATION`.
-- [ ] **T0.3** Diez payloads escritos a mano: el `ALERT` de la 001, sección 10 (`a711a1b2c3d4e5f600012a03ec084e40d5e3aa6068f09fc008e5f6`), cambiando a mano el contador (bytes 8-9: `0001` … `000a`).
-- [ ] **T0.4** Anunciante: `startAdvertisingSet` con `setLegacyMode(true)`, `setConnectable(false)`, `setScannable(false)`, `INTERVAL_MIN` y `TX_POWER_MEDIUM`; `AdvertiseData` solo con `addManufacturerData(0xFFFF, payload)`; rotación cada 500 ms con `setAdvertisingData`. Mostrar el `status` de cada callback.
-- [ ] **T0.5** Escáner: `ScanFilter.setManufacturerData(0xFFFF, [0xA7, 0x10], [0xFF, 0xF0])`, `SCAN_MODE_LOW_LATENCY` y `CALLBACK_TYPE_ALL_MATCHES`; mostrar `getManufacturerSpecificData(0xFFFF)` en hex.
-- [ ] **T0.6** Pruebas (001 y 104, sección 7):
-  - [ ] **P1:** el anuncio de 27 bytes inicia **sin** `ADVERTISE_FAILED_DATA_TOO_LARGE`.
-  - [ ] **P2:** receptor con la **pantalla apagada** (al encenderla, la lista muestra lo recibido): los bytes coinciden exactamente con el hex enviado.
-  - [ ] **P3:** a 10 m, de los 10 paquetes rotados llegan al menos 9 en menos de 10 s.
-  - [ ] **P4:** un anuncio con byte mágico `0xA8` desde el otro teléfono no aparece en la lista.
-- [ ] **T0.7** Registrar en `memory/P3.md` como `[HALLAZGO]`: modelos, Android, One UI y resultado de P1-P4.
-- [ ] **T0.8** **Decisión:**
+- [x] **T0.1** Proyecto mínimo, `minSdk 34`, con una pantalla: botones "Anunciar" y "Escanear", y una lista de recibidos (hex, RSSI y hora) con contadores.
+- [x] **T0.2** Pedir en tiempo de ejecución `BLUETOOTH_SCAN`, `BLUETOOTH_ADVERTISE`, `BLUETOOTH_CONNECT` y `ACCESS_FINE_LOCATION`.
+- [x] **T0.3** Diez payloads escritos a mano: el `ALERT` de la 001, sección 10 (`a711a1b2c3d4e5f600012a03ec084e40d5e3aa6068f09fc008e5f6`), cambiando a mano el contador (bytes 8-9: `0001` … `000a`).
+- [x] **T0.4** Anunciante: `startAdvertisingSet` con `setLegacyMode(true)`, `setConnectable(false)`, `setScannable(false)`, `INTERVAL_MIN` y `TX_POWER_MEDIUM`; `AdvertiseData` solo con `addManufacturerData(0xFFFF, payload)`; rotación cada 500 ms con `setAdvertisingData`. Mostrar el `status` de cada callback.
+- [x] **T0.5** Escáner: `ScanFilter.setManufacturerData(0xFFFF, [0xA7, 0x10], [0xFF, 0xF0])`, `SCAN_MODE_LOW_LATENCY` y `CALLBACK_TYPE_ALL_MATCHES`; mostrar `getManufacturerSpecificData(0xFFFF)` en hex.
+- [x] **T0.6** Pruebas (001 y 104, sección 7):
+  - [x] **P1:** el anuncio de 27 bytes inicia **sin** `ADVERTISE_FAILED_DATA_TOO_LARGE`.
+  - [x] **P2:** receptor con la **pantalla apagada** (al encenderla, la lista muestra lo recibido): los bytes coinciden exactamente con el hex enviado.
+  - [x] **P3:** a 10 m, de los 10 paquetes rotados llegan al menos 9 en menos de 10 s.
+  - [x] **P4:** un anuncio con byte mágico `0xA8` desde el otro teléfono no aparece en la lista.
+- [x] **T0.7** Registrar en `memory/P3.md` como `[HALLAZGO]`: modelos, Android, One UI y resultado de P1-P4.
+- [x] **T0.8** **Decisión:**
   - Todo pasa → seguir con BLE (`[DECISIÓN]` en `memory/P3.md`).
   - Falla P1 → `[DECISIÓN]` **inmediata** a todo el equipo: hay que achicar la 001. Se detiene la malla hasta decidir.
   - Fallan P2 o P3 → `[DECISIÓN]`: la 104 se reescribe para Nearby (sección 8) antes de la fase 2.
