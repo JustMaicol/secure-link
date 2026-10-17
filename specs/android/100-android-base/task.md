@@ -95,9 +95,9 @@ Al terminar cada task: commit `spec 100: <qué>` y anotar en el propio `memory/P
 ### B2 · Tema y formato
 
 - [ ] **B2.1** `ui/theme/`: `Spacing` (4, 8, 16, 24 y 32 dp), colores de tipo de la 003 (`#DC2626`, `#F97316`, `#EAB308`) y tema Material 3 claro y oscuro temporal.
-- [ ] **B2.2** `UiTone { INFO, SUCCESS, WARNING, ERROR, SIMULATION }`.
-- [ ] **B2.3** `ui/format/`: clasificación **pura** de cada regla de la 100, sección 11 (distancia, tiempo transcurrido, hora, personas, precisión, rumbo cardinal, cuenta atrás, `deviceId` y `relayTag`).
-- [ ] **B2.4** Pruebas JVM con los ejemplos y bordes de la tabla: 999 m, 1000 m, 99,9 km, 100 km, 59 s, 60 min, 24 h, 22,5° / 67,5° del rumbo, 255 personas (criterio 11).
+- [x] **B2.2** `UiTone { INFO, SUCCESS, WARNING, ERROR, SIMULATION }`.
+- [x] **B2.3** `ui/format/`: clasificación **pura** de cada regla de la 100, sección 11 (distancia, tiempo transcurrido, hora, personas, precisión, rumbo cardinal, cuenta atrás, `deviceId` y `relayTag`).
+- [x] **B2.4** Pruebas JVM con los ejemplos y bordes de la tabla: 999 m, 1000 m, 99,9 km, 100 km, 59 s, 60 min, 24 h, 22,5° / 67,5° del rumbo, 255 personas (criterio 11).
 - [ ] **B2.5** Textos de formato en `strings.xml`, con plurales en español.
   *Depende de:* B1 (proyecto).
 
@@ -116,8 +116,8 @@ Al terminar cada task: commit `spec 100: <qué>` y anotar en el propio `memory/P
 
 ### B5 · Pantalla de permisos
 
-- [ ] **B5.1** `AndroidPermissionChecker`: los tres de Bluetooth juntos, ubicación fina y aproximada juntas, notificaciones, adaptador encendido, ubicación del sistema activada y exclusión de batería.
-- [ ] **B5.2** Detección de "negado permanentemente": ya se pidió (guardado en `SharedPreferences`) y `shouldShowRequestPermissionRationale` es falso.
+- [x] **B5.1** `AndroidPermissionChecker`: los tres de Bluetooth juntos, ubicación fina y aproximada juntas, notificaciones, adaptador encendido, ubicación del sistema activada y exclusión de batería.
+- [x] **B5.2** Detección de "negado permanentemente": ya se pidió (guardado en `SharedPreferences`) y `shouldShowRequestPermissionRationale` es falso.
 - [ ] **B5.3** Pantalla según la 100, sección 12: filas con chip de estado (`Listo`, `Falta`, `Lo negaste antes…`) y sus botones (pedir permiso, abrir ajustes de la app, encender Bluetooth, ajustes de ubicación, exclusión de batería). Paso de Samsung con "Ya lo hice" guardado. "Continuar" deshabilitado con `permissions_missing_hint`.
 - [ ] **B5.4** `MainActivity`: consulta `PermissionChecker` en `onResume` y muestra la pantalla de permisos o la navegación; banner `common_lost_permission` si volvió por un permiso perdido.
 - [ ] **B5.5** Al pasar la pantalla de permisos: `MeshServiceStarter.ensureStarted(context)` (contrato de P1). Si todavía no existe, dejarlo anotado y pedirlo con `[PIDE a P1]`.
