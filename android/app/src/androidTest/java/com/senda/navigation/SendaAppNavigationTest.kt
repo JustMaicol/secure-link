@@ -4,6 +4,9 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotSelected
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.performScrollTo
+import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -46,12 +49,12 @@ class SendaAppNavigationTest {
 
         rule.onNodeWithText(text(R.string.nav_nearby)).performClick()
         rule.onNodeWithText(text(R.string.nearby_title)).assertIsDisplayed()
-        rule.onNodeWithText(text(R.string.provisional_pending, "109")).assertIsDisplayed()
+        rule.onNodeWithText(text(R.string.nearby_sort)).assertIsDisplayed()
         rule.onNodeWithText(text(R.string.nav_nearby)).assertIsSelected()
 
         rule.onNodeWithText(text(R.string.nav_status)).performClick()
         rule.onNodeWithText(text(R.string.status_title)).assertIsDisplayed()
-        rule.onNodeWithText(text(R.string.provisional_pending, "109")).assertIsDisplayed()
+        rule.onNodeWithText(text(R.string.status_mesh_title)).assertIsDisplayed()
         rule.onNodeWithText(text(R.string.nav_status)).assertIsSelected()
 
         rule.onNodeWithText(text(R.string.nav_sendalert)).performClick()
@@ -83,5 +86,32 @@ class SendaAppNavigationTest {
 
         rule.onNodeWithText(text(R.string.connectivity_mesh_running)).assertIsDisplayed()
         rule.onNodeWithText(text(R.string.connectivity_internet_off)).assertIsDisplayed()
+    }
+
+    @Test
+    fun anAlertOpensItsDetailAndTheBackActionReturnsToTheList() {
+        rule.setContent { SendaTheme(darkTheme = false) { SendaApp(running) } }
+
+        rule.onNodeWithText(text(R.string.nav_nearby)).performClick()
+        rule.onNodeWithText("-33.49715, -70.64950").performClick()
+        rule.onNodeWithText(text(R.string.nearby_detail_title)).assertIsDisplayed()
+        rule.onNodeWithText(text(R.string.nearby_detail_on_my_way)).assertExists()
+
+        rule.onNodeWithText(text(R.string.nearby_detail_back)).performClick()
+
+        rule.onNodeWithText(text(R.string.nearby_sort)).assertIsDisplayed()
+    }
+
+    @Test
+    fun simulatingAShakeShowsTheCountdownOverAnyTabAndCancelClosesIt() {
+        rule.setContent { SendaTheme(darkTheme = false) { SendaApp(running) } }
+
+        rule.onNodeWithText(text(R.string.nav_status)).performClick()
+        rule.onNodeWithText(text(R.string.status_debug_simulate_shake)).performScrollTo().performClick()
+        rule.onNodeWithText(text(R.string.sendalert_countdown_title)).assertIsDisplayed()
+
+        rule.onNodeWithText(text(R.string.sendalert_countdown_cancel)).performClick()
+
+        rule.onAllNodesWithText(text(R.string.sendalert_countdown_title)).assertCountEquals(0)
     }
 }

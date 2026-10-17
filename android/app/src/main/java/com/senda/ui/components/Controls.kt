@@ -31,7 +31,7 @@ import com.senda.ui.theme.SendaText
 
 /**
  * Interruptor de 44 × 26 dp (Figma, "Interruptor activado"). Apagado: pista del color del borde.
- * PROVISIONAL el aspecto apagado y el del tema oscuro: el diseño solo dibuja el interruptor encendido en claro.
+ * PROVISIONAL el aspecto apagado: el diseño solo dibuja el interruptor encendido (en claro y en oscuro).
  */
 @Composable
 fun SendaSwitch(
@@ -53,16 +53,18 @@ fun SendaSwitch(
             ),
         contentAlignment = Alignment.Center,
     ) {
-        Box(
-            modifier = Modifier
-                .size(width = 44.dp, height = 26.dp)
-                .background(if (checked) colors.accent else colors.border, RoundedCornerShape(13.dp)),
-        ) {
+        // Encendido (Figma): claro = pista de acento y botón blanco; oscuro = pista gris con borde y botón claro.
+        val trackShape = RoundedCornerShape(13.dp)
+        val track = Modifier
+            .size(width = 44.dp, height = 26.dp)
+            .background(if (checked) colors.switchTrackOn else colors.border, trackShape)
+            .let { if (checked && colors.isDark) it.border(BorderStroke(1.dp, colors.actionBorder), trackShape) else it }
+        Box(modifier = track) {
             Box(
                 modifier = Modifier
                     .offset { IntOffset(thumbOffset.roundToPx(), 3.dp.roundToPx()) }
                     .size(20.dp)
-                    .background(if (checked) colors.surface else colors.textSecondary, CircleShape),
+                    .background(if (checked) colors.onActionContainer else colors.textSecondary, CircleShape),
             )
         }
     }

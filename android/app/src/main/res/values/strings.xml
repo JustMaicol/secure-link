@@ -160,6 +160,9 @@
     <string name="nearby_bearing">aprox. · %1$s</string>
     <string name="nearby_footnote">Distancias y rumbos aproximados. La ubicación de cada alerta puede haber cambiado.</string>
     <string name="nearby_updated">Actualización %1$s</string>
+    <!-- Lista vacía: no está en Figma (el diseño solo dibuja la lista con alertas). -->
+    <string name="nearby_empty_title">Sin alertas cercanas</string>
+    <string name="nearby_empty_body">Cuando un teléfono cercano pida ayuda, aparecerá aquí.</string>
     <string name="nearby_demo_data">Datos ilustrativos · actualización %1$s</string>
 
     <!-- C2 · Detalle de alerta cercana -->
@@ -197,6 +200,8 @@
     <string name="status_debug_scope">Solo para la demo</string>
     <string name="status_debug_filter_title">Etiquetas bloqueadas</string>
     <string name="status_debug_filter_add">+ Añadir</string>
+    <!-- No está en Figma: descripción del aspa de cada etiqueta, para TalkBack. -->
+    <string name="status_debug_filter_remove">Quitar %1$s</string>
     <string name="status_debug_motion_label">Movimiento · lectura de prueba</string>
     <string name="status_debug_motion_scale_0">0 g</string>
     <string name="status_debug_motion_scale_1">1 g</string>

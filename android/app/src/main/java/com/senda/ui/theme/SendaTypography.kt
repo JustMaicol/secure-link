@@ -55,6 +55,9 @@ object SendaText {
     val body13SemiBold = style(13, FontWeight.SemiBold)
     val body13Bold = style(13, FontWeight.Bold)
     val caption = style(12, FontWeight.Normal, 1.4f)
+    /** Los mismos tamaños con la altura de línea del tipo de letra (`leading-normal` en Figma): una sola línea corta. */
+    val captionPlain = style(12, FontWeight.Normal)
+    val smallPlain = style(11, FontWeight.Normal)
     val captionMedium = style(12, FontWeight.Medium)
     val captionSemiBold = style(12, FontWeight.SemiBold)
     val captionBold = style(12, FontWeight.Bold)

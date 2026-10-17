@@ -1,6 +1,8 @@
 package com.senda.ui.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -38,6 +40,8 @@ fun SimulationBadge(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .background(colors.warningAction, RoundedCornerShape(Dimens.demoBadgeRadius))
+            // En oscuro el rótulo lleva borde (Figma, "Modo de prueba"); en claro el borde es del color del fondo.
+            .border(BorderStroke(1.dp, colors.warningActionBorder), RoundedCornerShape(Dimens.demoBadgeRadius))
             .padding(horizontal = 9.dp, vertical = 5.dp),
     ) {
         Text(stringResource(R.string.common_simulation_badge), style = SendaText.smallBold, color = colors.onWarningAction)

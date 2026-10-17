@@ -44,6 +44,11 @@ class SendaColors(
     /** Etiqueta de origen y anillo de la cuenta regresiva (E3): ámbar en claro, grises en oscuro. */
     val warningStrong: Color,
     val countdownProgress: Color,
+    /** Interruptor encendido (S1): en claro, el acento; en oscuro, gris con borde. */
+    val switchTrackOn: Color,
+    /** Círculo exterior de la brújula (C2) y borde discontinuo de la tarjeta de simulación (S1). */
+    val compassRing: Color,
+    val dashedBorder: Color,
     val yellow: EmergencyPalette,
     val orange: EmergencyPalette,
     val red: EmergencyPalette,
@@ -96,6 +101,9 @@ val SendaLightColors = SendaColors(
     scrim = Color(0x99243B4A), // rgba(36, 59, 74, 0,6)
     warningStrong = Color(0xFFA35A00),
     countdownProgress = Color(0xFFA35A00),
+    switchTrackOn = Color(0xFF08798A),
+    compassRing = Color(0xFFD7E4EA),
+    dashedBorder = Color(0xFFD7E4EA),
     yellow = EmergencyPalette(Color(0xFF866900), Color(0xFFFFF7D6), Color(0xFF866900)),
     orange = EmergencyPalette(Color(0xFFAA510E), Color(0xFFFFF0E1), Color(0xFFAA510E)),
     red = EmergencyPalette(Color(0xFFB83837), Color(0xFFFCEAEA), Color(0xFFB83837)),
@@ -103,7 +111,8 @@ val SendaLightColors = SendaColors(
 
 // Visto en Figma (marcos P1, E1, E2, E3 y C1 oscuros). Confirmados con E2 y E3: successContainer (negro, "Estoy a
 // salvo"), warningAction y su texto y borde ("Cancelar alerta automática") y scrim (rgba 0, 0, 0, 0,76).
-// PROVISIONAL solo lo que S1 y C2 todavía no mostraron: interruptor apagado y casilla vacía (Controls.kt).
+// Confirmados con S1 y C2 oscuros: interruptor encendido, anillo de la brújula y borde de la tarjeta de simulación.
+// PROVISIONAL solo lo que Figma no dibuja en ningún marco: interruptor apagado y casilla vacía (Controls.kt).
 val SendaDarkColors = SendaColors(
     isDark = true,
     background = Color(0xFF000000),
@@ -128,6 +137,9 @@ val SendaDarkColors = SendaColors(
     scrim = Color(0xC2000000), // rgba(0, 0, 0, 0,76)
     warningStrong = Color(0xFFE5E5E5),
     countdownProgress = Color(0xFFD4D4D4),
+    switchTrackOn = Color(0xFF363636),
+    compassRing = Color(0xFF484848),
+    dashedBorder = Color(0xFF5B5B5B),
     yellow = EmergencyPalette(Color(0xFFF4D56A), Color(0xFF352F18), Color(0xFFF4D56A)),
     orange = EmergencyPalette(Color(0xFFFFB36B), Color(0xFF3C291C), Color(0xFFFFB36B)),
     red = EmergencyPalette(Color(0xFFFF9290), Color(0xFF3B2429), Color(0xFFFF9290)),

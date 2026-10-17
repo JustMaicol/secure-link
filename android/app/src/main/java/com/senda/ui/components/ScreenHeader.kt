@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
-import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -51,9 +50,10 @@ fun ScreenHeader(
         ) {
             Row(
                 modifier = if (onIdentityClick != null) {
+                    // El relleno amplía el toque sin agrandar la cabecera como los 48 dp (que la bajaban ~28 dp respecto de Figma).
                     Modifier
-                        .minimumInteractiveComponentSize()
                         .clickable(role = Role.Button, onClick = onIdentityClick)
+                        .padding(vertical = 4.dp)
                 } else {
                     Modifier
                 },

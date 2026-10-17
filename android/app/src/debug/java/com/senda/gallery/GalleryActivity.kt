@@ -34,7 +34,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.senda.core.protocol.EmergencyType
 import com.senda.core.protocol.Vulnerable
+import com.senda.features.nearby.NearbyDetailScreen
+import com.senda.features.nearby.NearbyListScreen
+import com.senda.features.nearby.NearbyListUiState
 import com.senda.features.nearby.NearbyScreen
+import com.senda.features.nearby.SampleNearbyAlerts
 import com.senda.features.sendalert.AutoAlertCountdown
 import com.senda.features.sendalert.AutoAlertCountdownUiState
 import com.senda.features.sendalert.LocationStatus
@@ -43,6 +47,9 @@ import com.senda.features.sendalert.MyAlertScreen
 import com.senda.features.sendalert.MyAlertUiState
 import com.senda.features.sendalert.SendAlertFormScreen
 import com.senda.features.sendalert.SendAlertFormUiState
+import com.senda.features.status.StatusContent
+import com.senda.features.status.StatusDebugUiState
+import com.senda.features.status.StatusUiState
 import com.senda.ui.components.BottomNavItem
 import com.senda.ui.components.ButtonStyle
 import com.senda.ui.components.CardStyle
@@ -101,7 +108,7 @@ class GalleryActivity : ComponentActivity() {
     companion object {
         const val EXTRA_DARK = "dark"
 
-        /** `--es frame e1|e1-sheet|e1-empty|e2|e2-confirm|e3`: una pantalla completa con datos de prueba (ver Frames.kt). */
+        /** `--es frame e1|e1-sheet|e1-empty|e2|e2-confirm|e3|c1|c1-empty|c2|c2-unknown|s1|s1-stopped`: una pantalla completa con datos de prueba (ver Frames.kt). */
         const val EXTRA_FRAME = "frame"
     }
 }
@@ -356,6 +363,24 @@ private fun Frame(name: String) {
                 coordinates = "-33.50000, -70.65000", accuracyM = 35, locationAgeMs = 120_000,
             ),
             connectivity = connectivity, onSafe = {}, onCancelAlert = {}, initialConfirm = name == "e2-confirm",
+        )
+        "c1" -> NearbyListScreen(
+            NearbyListUiState(SampleNearbyAlerts, updatedAgeMs = 12_000, demoData = true), connectivity, onOpenAlert = {},
+        )
+        "c1-empty" -> NearbyListScreen(NearbyListUiState(), connectivity, onOpenAlert = {})
+        "c2" -> NearbyDetailScreen(SampleNearbyAlerts.first(), connectivity, onBack = {}, onOnMyWay = {}, onOpenMaps = {})
+        "c2-unknown" -> NearbyDetailScreen(
+            SampleNearbyAlerts.first().copy(distanceM = null, bearingDeg = null), connectivity, onBack = {}, onOnMyWay = {}, onOpenMaps = {},
+        )
+        "s1", "s1-stopped" -> StatusContent(
+            state = StatusUiState(
+                meshActive = name == "s1", announcementsActive = 12, neighbors = 4, internetOnline = false, pendingUploads = 1,
+                lastUploadClock = "09:12", lastUploadAgeMs = 29 * 60_000L, deviceId = "NX-PXL-7A2F", relayTag = "R7-K2",
+                motionEnabled = name == "s1", motionCountdownSeconds = 15,
+                debug = StatusDebugUiState(blockedTags = listOf("TEST-04"), motionReadingG = 0.18f),
+            ),
+            connectivity = connectivity, onCopyId = {}, onMotionEnabledChange = {}, onReviewPermissions = {}, onRemoveTag = {},
+            onAddTag = {}, onSimulateShake = {},
         )
         // La capa va sobre la pestaña en la que esté el usuario (en el diseño, Cercanas).
         "e3" -> Box {
