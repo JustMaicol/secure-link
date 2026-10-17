@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- spec 100 · Desde el hito H0 este archivo es de P2. -->
+<resources>
+    <string name="app_name">secure-link</string>
+</resources>

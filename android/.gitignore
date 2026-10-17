@@ -1,0 +1,3 @@
+# spec 100 · Salidas de build que no cubre el .gitignore de la raíz.
+.kotlin/
+core/build/
