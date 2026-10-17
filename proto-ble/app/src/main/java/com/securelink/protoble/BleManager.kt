@@ -43,7 +43,15 @@ data class BleUiState(
     val totalAnnouncedCount: Long = 0,
     val totalReceivedCount: Long = 0,
     val totalDuplicatesDiscarded: Long = 0,
-    val receivedItems: List<ReceivedItem> = emptyList()
+    val receivedItems: List<ReceivedItem> = emptyList(),
+    // Validación de pruebas T0.6 (Spec 104 sección 7)
+    val p1Status: String = "Pendiente",
+    val p2Status: String = "Pendiente",
+    val p3Status: String = "Pendiente",
+    val p4Status: String = "Pendiente",
+    val isP3Running: Boolean = false,
+    val p3ElapsedSec: Int = 0,
+    val p3DistinctCount: Int = 0
 )
 
 class BleManager(private val context: Context) {
@@ -88,17 +96,74 @@ class BleManager(private val context: Context) {
     private val lastSeenTimestamp = HashMap<String, Long>()
     private var itemCounter = 0L
 
+    // Estado de prueba P3 (10m, rotación 10 paquetes en ventana de 10s)
+    private val p3ReceivedCounters = HashSet<String>()
+    private var p3StartTimeMs = 0L
+    private var p3Runnable: Runnable? = null
+
     fun toggleP4ForeignMode() {
         _uiState.update { it.copy(isForeignP4Mode = !it.isForeignP4Mode) }
     }
 
+    fun startP3Evaluation() {
+        p3ReceivedCounters.clear()
+        p3StartTimeMs = System.currentTimeMillis()
+        _uiState.update {
+            it.copy(
+                isP3Running = true,
+                p3ElapsedSec = 0,
+                p3DistinctCount = 0,
+                p3Status = "Evaluando ventana de 10s..."
+            )
+        }
+
+        p3Runnable?.let { handler.removeCallbacks(it) }
+        p3Runnable = object : Runnable {
+            override fun run() {
+                val elapsed = ((System.currentTimeMillis() - p3StartTimeMs) / 1000L).toInt()
+                val distinct = p3ReceivedCounters.size
+
+                if (elapsed >= 10 || distinct >= 9) {
+                    val passed = distinct >= 9
+                    _uiState.update {
+                        it.copy(
+                            isP3Running = false,
+                            p3ElapsedSec = elapsed.coerceAtMost(10),
+                            p3DistinctCount = distinct,
+                            p3Status = if (passed) "PASÓ: $distinct/10 paquetes en ${elapsed}s (umbral >=9/10)" else "FALLÓ: solo $distinct/10 paquetes en 10s"
+                        )
+                    }
+                } else {
+                    _uiState.update {
+                        it.copy(
+                            p3ElapsedSec = elapsed,
+                            p3DistinctCount = distinct,
+                            p3Status = "Evaluando: $distinct/10 recibidos (${elapsed}s/10s)..."
+                        )
+                    }
+                    handler.postDelayed(this, 500L)
+                }
+            }
+        }
+        handler.postDelayed(p3Runnable!!, 500L)
+    }
+
     fun clearReceived() {
         lastSeenTimestamp.clear()
+        p3ReceivedCounters.clear()
+        p3Runnable?.let { handler.removeCallbacks(it) }
+        p3Runnable = null
         _uiState.update {
             it.copy(
                 totalReceivedCount = 0,
                 totalDuplicatesDiscarded = 0,
-                receivedItems = emptyList()
+                receivedItems = emptyList(),
+                isP3Running = false,
+                p3ElapsedSec = 0,
+                p3DistinctCount = 0,
+                p3Status = "Pendiente",
+                p2Status = "Pendiente",
+                p4Status = "Pendiente"
             )
         }
     }
@@ -180,11 +245,13 @@ class BleManager(private val context: Context) {
                 _uiState.update {
                     it.copy(
                         advertiseStatusText = "Activo (txPower=$txPower)",
-                        totalAnnouncedCount = it.totalAnnouncedCount + 1
+                        totalAnnouncedCount = it.totalAnnouncedCount + 1,
+                        p1Status = if (!it.isForeignP4Mode) "PASÓ: 27B sin DATA_TOO_LARGE" else it.p1Status
                     )
                 }
                 startRotationLoop()
             } else {
+                val isDataTooLarge = status == ADVERTISE_FAILED_DATA_TOO_LARGE
                 val errorMsg = when (status) {
                     ADVERTISE_FAILED_DATA_TOO_LARGE -> "FAILED: DATA_TOO_LARGE (P1 FALLÓ - payload > 27b)"
                     ADVERTISE_FAILED_TOO_MANY_ADVERTISERS -> "FAILED: TOO_MANY_ADVERTISERS"
@@ -195,7 +262,8 @@ class BleManager(private val context: Context) {
                 _uiState.update {
                     it.copy(
                         isAdvertising = false,
-                        advertiseStatusText = errorMsg
+                        advertiseStatusText = errorMsg,
+                        p1Status = if (isDataTooLarge) "FALLÓ: DATA_TOO_LARGE" else "Error código=$status"
                     )
                 }
             }
@@ -357,10 +425,27 @@ class BleManager(private val context: Context) {
                 counterHex = counterHex
             )
 
+            // Actualización de pruebas T0.6
+            val isKnownAlert = rawData.size == 27 && validPayloadsHex.contains(hexString)
+            val p2Result = if (isKnownAlert) "PASÓ: 27B íntegro exacto" else _uiState.value.p2Status
+
+            if (_uiState.value.isP3Running) {
+                p3ReceivedCounters.add(counterHex)
+            }
+
+            val p4Result = if (rawData.isNotEmpty() && rawData[0] == 0xA8.toByte()) {
+                "FALLÓ: Paquete ajeno 0xA8 recibido"
+            } else {
+                "PASÓ: Filtro bloquea 0xA8"
+            }
+
             _uiState.update {
                 it.copy(
                     totalReceivedCount = it.totalReceivedCount + 1,
-                    receivedItems = listOf(newItem) + it.receivedItems.take(99) // mantener últimos 100
+                    receivedItems = listOf(newItem) + it.receivedItems.take(99), // mantener últimos 100
+                    p2Status = p2Result,
+                    p4Status = p4Result,
+                    p3DistinctCount = if (it.isP3Running) p3ReceivedCounters.size else it.p3DistinctCount
                 )
             }
         }

@@ -293,7 +293,68 @@ fun ProtoBleScreen(bleManager: BleManager) {
             CounterBox("Duplicados <1s", uiState.totalDuplicatesDiscarded, Color(0xFFF59E0B), Modifier.weight(1.2f))
         }
 
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(10.dp))
+
+        // Panel de Validación Pruebas T0.6 (Spec 104)
+        Card(
+            colors = CardDefaults.cardColors(containerColor = Color.White),
+            elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Column(modifier = Modifier.padding(10.dp)) {
+                Text(
+                    text = "Validación Pruebas T0.6 (Samsung)",
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF1E293B)
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                TestStatusItem("P1 (27B sin DATA_TOO_LARGE):", uiState.p1Status)
+                TestStatusItem("P2 (Pantalla apagada / Hex):", uiState.p2Status)
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 2.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = "P3 (10m · 10 paq en <10s):",
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Medium,
+                            color = Color(0xFF334155)
+                        )
+                        Text(
+                            text = uiState.p3Status,
+                            fontSize = 10.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = when {
+                                uiState.p3Status.contains("PASÓ") -> Color(0xFF16A34A)
+                                uiState.p3Status.contains("FALLÓ") -> Color(0xFFDC2626)
+                                else -> Color(0xFF64748B)
+                            }
+                        )
+                    }
+                    Button(
+                        onClick = { bleManager.startP3Evaluation() },
+                        enabled = !uiState.isP3Running && uiState.isScanning,
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0284C7)),
+                        modifier = Modifier.height(28.dp)
+                    ) {
+                        Text(
+                            text = if (uiState.isP3Running) "${uiState.p3ElapsedSec}s (${uiState.p3DistinctCount}/10)" else "Evaluar P3",
+                            fontSize = 10.sp
+                        )
+                    }
+                }
+
+                TestStatusItem("P4 (Filtro bloquea 0xA8):", uiState.p4Status)
+            }
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
 
         // Cabecera de Lista de Recibidos
         Row(
@@ -434,3 +495,32 @@ fun ReceivedItemCard(item: ReceivedItem) {
         }
     }
 }
+
+@Composable
+fun TestStatusItem(title: String, status: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 2.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = title,
+            fontSize = 11.sp,
+            color = Color(0xFF334155),
+            fontWeight = FontWeight.Medium
+        )
+        Text(
+            text = status,
+            fontSize = 10.sp,
+            fontWeight = FontWeight.Bold,
+            color = when {
+                status.contains("PASÓ") -> Color(0xFF16A34A)
+                status.contains("FALLÓ") -> Color(0xFFDC2626)
+                else -> Color(0xFF64748B)
+            }
+        )
+    }
+}
+
