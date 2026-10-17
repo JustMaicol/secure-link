@@ -1,7 +1,16 @@
 package com.securelink.permissions
 
-// spec 100 · BATTERY_UNRESTRICTED es recomendado, no bloquea (sección 5.2).
-private val BLOCKING = Requirement.entries - Requirement.BATTERY_UNRESTRICTED
+/**
+ * Recomendados, no bloquean el paso (spec 100, sección 5.2): el diseño deja continuar sin notificaciones, y la
+ * ubicación en segundo plano y la exclusión de batería solo hacen más fiable el servicio.
+ */
+val RECOMMENDED_REQUIREMENTS: Set<Requirement> = setOf(
+    Requirement.NOTIFICATIONS,
+    Requirement.BACKGROUND_LOCATION,
+    Requirement.BATTERY_UNRESTRICTED,
+)
+
+private val BLOCKING = Requirement.entries.filterNot { it in RECOMMENDED_REQUIREMENTS }
 
 /**
  * Puro: requisitos bloqueantes que faltan, en el orden del enum.

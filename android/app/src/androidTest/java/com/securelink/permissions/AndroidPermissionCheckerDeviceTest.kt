@@ -27,6 +27,8 @@ class AndroidPermissionCheckerDeviceTest {
         Manifest.permission.ACCESS_FINE_LOCATION,
         Manifest.permission.ACCESS_COARSE_LOCATION,
         Manifest.permission.POST_NOTIFICATIONS,
+        // Va al final: Android solo concede la ubicación en segundo plano con la normal ya concedida.
+        Manifest.permission.ACCESS_BACKGROUND_LOCATION,
     )
 
     @Before
@@ -54,6 +56,7 @@ class AndroidPermissionCheckerDeviceTest {
         assertTrue(state.getValue(Requirement.BLUETOOTH))
         assertTrue(state.getValue(Requirement.LOCATION))
         assertTrue(state.getValue(Requirement.NOTIFICATIONS))
+        assertTrue(state.getValue(Requirement.BACKGROUND_LOCATION))
     }
 
     @Test
