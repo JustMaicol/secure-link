@@ -103,8 +103,8 @@ Al terminar cada task: commit `spec 100: <qué>` y anotar en el propio `memory/P
 
 ### B3 · Componentes
 
-- [ ] **B3.1** Los 9 componentes de la 100, sección 10: `ScreenScaffold`, `SectionCard`, `InfoRow`, `StatusChip`, `MessageBanner`, `PrimaryButton`, `SecondaryButton`, `EmptyState`, `ConfirmDialog` y `SimulationBadge`.
-- [ ] **B3.2** Pantalla `@Preview` con todos los tonos y variantes (criterio 13).
+- [x] **B3.1** Los 9 componentes de la 100, sección 10: `ScreenScaffold`, `SectionCard`, `InfoRow`, `StatusChip`, `MessageBanner`, `PrimaryButton`, `SecondaryButton`, `EmptyState`, `ConfirmDialog` y `SimulationBadge`.
+- [x] **B3.2** Pantalla `@Preview` con todos los tonos y variantes (criterio 13).
   *Depende de:* B2.
 
 ### B4 · Navegación

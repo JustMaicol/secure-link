@@ -33,13 +33,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.senda.core.protocol.EmergencyType
+import com.senda.core.protocol.Vulnerable
+import com.senda.features.nearby.NearbyScreen
+import com.senda.features.sendalert.AutoAlertCountdown
+import com.senda.features.sendalert.AutoAlertCountdownUiState
+import com.senda.features.sendalert.LocationStatus
+import com.senda.features.sendalert.LocationUi
+import com.senda.features.sendalert.MyAlertScreen
+import com.senda.features.sendalert.MyAlertUiState
+import com.senda.features.sendalert.SendAlertFormScreen
+import com.senda.features.sendalert.SendAlertFormUiState
 import com.senda.ui.components.BottomNavItem
 import com.senda.ui.components.ButtonStyle
 import com.senda.ui.components.CardStyle
+import com.senda.ui.components.ConfirmDialog
 import com.senda.ui.components.ConnectivityStrip
 import com.senda.ui.components.DemoBadge
 import com.senda.ui.components.EmergencyBadge
+import com.senda.ui.components.EmptyState
 import com.senda.ui.components.InfoRow
+import com.senda.ui.components.MessageBanner
 import com.senda.ui.components.QuantityStepper
 import com.senda.ui.components.ScreenScaffold
 import com.senda.ui.components.SendaBottomBar
@@ -51,6 +64,7 @@ import com.senda.ui.components.SendaIcons
 import com.senda.ui.components.SendaSwitch
 import com.senda.ui.components.SendaTextButton
 import com.senda.ui.components.SimulationBadge
+import com.senda.ui.components.StatusChip
 import com.senda.ui.components.SmallActionButton
 import com.senda.ui.format.ConnectivityText
 import com.senda.ui.theme.Senda
@@ -66,12 +80,15 @@ class GalleryActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val forcedDark: Boolean? = if (intent.hasExtra(EXTRA_DARK)) intent.getBooleanExtra(EXTRA_DARK, false) else null
+        val frame: String? = intent.getStringExtra(EXTRA_FRAME)
         setContent {
             // Arranca con el tema del teléfono (o el extra "dark") y el interruptor de la pantalla lo cambia.
             val systemDark = isSystemInDarkTheme()
             var dark by rememberSaveable { mutableStateOf(forcedDark ?: systemDark) }
             LaunchedEffect(dark) { applySystemBars(dark) }
-            SendaTheme(darkTheme = dark) { GalleryScreen(dark = dark, onDarkChange = { dark = it }) }
+            SendaTheme(darkTheme = dark) {
+                if (frame != null) Frame(frame) else GalleryScreen(dark = dark, onDarkChange = { dark = it })
+            }
         }
     }
 
@@ -83,6 +100,9 @@ class GalleryActivity : ComponentActivity() {
 
     companion object {
         const val EXTRA_DARK = "dark"
+
+        /** `--es frame e1|e1-sheet|e1-empty|e2|e2-confirm|e3`: una pantalla completa con datos de prueba (ver Frames.kt). */
+        const val EXTRA_FRAME = "frame"
     }
 }
 
@@ -107,6 +127,7 @@ private fun GalleryScreen(dark: Boolean, onDarkChange: (Boolean) -> Unit) {
         Section("Tipografía") { Typography() }
         Section("Íconos") { Icons() }
         Section("Conectividad") { ConnectivityStrips() }
+        Section("Insignias, avisos y estados vacíos") { Feedback() }
         Section("Tarjetas y niveles") { CardsAndLevels() }
         Section("Botones") { Buttons() }
         Section("Controles") { Controls() }
@@ -272,4 +293,74 @@ private fun BottomBar() {
         selectedIndex = selected,
         onSelect = { selected = it },
     )
+}
+
+@Composable
+private fun Feedback() {
+    var dialog by remember { mutableStateOf(false) }
+    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            StatusChip("Información", UiTone.INFO, icon = SendaIcons.Radio)
+            StatusChip("Listo", UiTone.SUCCESS, icon = SendaIcons.Check)
+        }
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            StatusChip("Atención", UiTone.WARNING, icon = SendaIcons.TriangleAlert)
+            StatusChip("Error", UiTone.ERROR, icon = SendaIcons.X)
+            StatusChip("Simulación", UiTone.SIMULATION)
+        }
+        MessageBanner("Información de una acción en curso.", UiTone.INFO)
+        MessageBanner("Algo necesita tu atención.", UiTone.WARNING, actionLabel = "Ir a Ajustes", onAction = {})
+        MessageBanner("No se pudo completar la acción.", UiTone.ERROR)
+        SendaCard { EmptyState(SendaIcons.Radar, "Nada por aquí", body = "Cuando haya alertas cercanas aparecerán en esta lista.") }
+        SendaButton("Abrir diálogo de confirmación", onClick = { dialog = true }, style = ButtonStyle.Secondary)
+    }
+    if (dialog) {
+        ConfirmDialog(
+            title = "Cancelar alerta",
+            body = "¿Cancelar la alerta? Úsalo si la enviaste por error. No se puede deshacer.",
+            confirmLabel = "Cancelar alerta",
+            dismissLabel = "Volver",
+            onConfirm = { dialog = false },
+            onDismiss = { dialog = false },
+            confirmStyle = ButtonStyle.Warning,
+        )
+    }
+}
+
+/** Pantallas completas con datos de prueba, para compararlas con Figma en el teléfono (spec 108, U7). */
+@Composable
+private fun Frame(name: String) {
+    val connectivity = ConnectivityText("Malla activa", UiTone.SUCCESS, "Sin internet")
+    val location = LocationUi(LocationStatus.FIX, coordinates = "-33.50000, -70.65000", accuracyM = 35, ageMs = 20_000)
+    val form = SendAlertFormUiState(
+        selectedType = EmergencyType.MEDICAL,
+        people = 3,
+        vulnerable = Vulnerable(children = true),
+        location = location,
+    )
+    when (name) {
+        "e1", "e1-sheet" -> SendAlertFormScreen(
+            state = form, connectivity = connectivity, onSelectType = {}, onDecrementPeople = {}, onIncrementPeople = {},
+            onVulnerableChange = {}, onUpdateLocation = {}, onEnableLocation = {}, onHoldStart = {}, onHoldEnd = {},
+            initialSheetOpen = name == "e1-sheet",
+        )
+        "e1-empty" -> SendAlertFormScreen(
+            state = SendAlertFormUiState(location = LocationUi(LocationStatus.SEARCHING)),
+            connectivity = connectivity, onSelectType = {}, onDecrementPeople = {}, onIncrementPeople = {},
+            onVulnerableChange = {}, onUpdateLocation = {}, onEnableLocation = {}, onHoldStart = {}, onHoldEnd = {},
+        )
+        "e2", "e2-confirm" -> MyAlertScreen(
+            state = MyAlertUiState(
+                type = EmergencyType.MEDICAL, people = 3, vulnerableCount = 1, createdAtText = "09:39", reference = "NX-204",
+                savedAtText = "09:39", echoCount = 2, lastEchoAgeMs = 12_000, uploadedAtText = null, volunteers = 2,
+                coordinates = "-33.50000, -70.65000", accuracyM = 35, locationAgeMs = 120_000,
+            ),
+            connectivity = connectivity, onSafe = {}, onCancelAlert = {}, initialConfirm = name == "e2-confirm",
+        )
+        // La capa va sobre la pestaña en la que esté el usuario (en el diseño, Cercanas).
+        "e3" -> Box {
+            NearbyScreen(connectivity)
+            AutoAlertCountdown(AutoAlertCountdownUiState(remainingMs = 15_000), onCancel = {})
+        }
+    }
 }

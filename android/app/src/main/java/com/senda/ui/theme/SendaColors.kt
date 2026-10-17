@@ -41,6 +41,9 @@ class SendaColors(
     val warningActionBorder: Color,
     /** Velo detrás de la cuenta regresiva (E3). */
     val scrim: Color,
+    /** Etiqueta de origen y anillo de la cuenta regresiva (E3): ámbar en claro, grises en oscuro. */
+    val warningStrong: Color,
+    val countdownProgress: Color,
     val yellow: EmergencyPalette,
     val orange: EmergencyPalette,
     val red: EmergencyPalette,
@@ -58,6 +61,14 @@ class SendaColors(
         UiTone.SUCCESS -> success
         UiTone.WARNING, UiTone.SIMULATION -> warning
         UiTone.ERROR -> red.content
+    }
+
+    /** Fondo suave que acompaña al color de [tone]: banners e insignias de estado. */
+    fun toneContainer(tone: UiTone): Color = when (tone) {
+        UiTone.ERROR -> red.container
+        UiTone.WARNING, UiTone.SIMULATION -> warningContainer
+        UiTone.SUCCESS -> successContainer
+        UiTone.INFO -> surfaceTint
     }
 }
 
@@ -83,13 +94,16 @@ val SendaLightColors = SendaColors(
     onWarningAction = Color(0xFFFFFFFF),
     warningActionBorder = Color(0xFFA35A00),
     scrim = Color(0x99243B4A), // rgba(36, 59, 74, 0,6)
+    warningStrong = Color(0xFFA35A00),
+    countdownProgress = Color(0xFFA35A00),
     yellow = EmergencyPalette(Color(0xFF866900), Color(0xFFFFF7D6), Color(0xFF866900)),
     orange = EmergencyPalette(Color(0xFFAA510E), Color(0xFFFFF0E1), Color(0xFFAA510E)),
     red = EmergencyPalette(Color(0xFFB83837), Color(0xFFFCEAEA), Color(0xFFB83837)),
 )
 
-// Visto en Figma (marcos P1, C1 y E1 oscuros). PROVISIONAL, a confirmar al construir esas pantallas con sus marcos
-// oscuros: successContainer, warningAction y su texto y borde, y scrim (E2, E3 y S1 todavía no se leyeron).
+// Visto en Figma (marcos P1, E1, E2, E3 y C1 oscuros). Confirmados con E2 y E3: successContainer (negro, "Estoy a
+// salvo"), warningAction y su texto y borde ("Cancelar alerta automática") y scrim (rgba 0, 0, 0, 0,76).
+// PROVISIONAL solo lo que S1 y C2 todavía no mostraron: interruptor apagado y casilla vacía (Controls.kt).
 val SendaDarkColors = SendaColors(
     isDark = true,
     background = Color(0xFF000000),
@@ -102,7 +116,7 @@ val SendaDarkColors = SendaColors(
     accent = Color(0xFFE5E5E5),
     accentStrong = Color(0xFFE5E5E5),
     success = Color(0xFFE5E5E5),
-    successContainer = Color(0xFF0A0A0A),
+    successContainer = Color(0xFF000000),
     warning = Color(0xFFB5B5B5),
     warningContainer = Color(0xFF101010),
     actionContainer = Color(0xFF171717),
@@ -111,7 +125,9 @@ val SendaDarkColors = SendaColors(
     warningAction = Color(0xFF171717),
     onWarningAction = Color(0xFFF5F5F5),
     warningActionBorder = Color(0xFF454545),
-    scrim = Color(0x99000000),
+    scrim = Color(0xC2000000), // rgba(0, 0, 0, 0,76)
+    warningStrong = Color(0xFFE5E5E5),
+    countdownProgress = Color(0xFFD4D4D4),
     yellow = EmergencyPalette(Color(0xFFF4D56A), Color(0xFF352F18), Color(0xFFF4D56A)),
     orange = EmergencyPalette(Color(0xFFFFB36B), Color(0xFF3C291C), Color(0xFFFFB36B)),
     red = EmergencyPalette(Color(0xFFFF9290), Color(0xFF3B2429), Color(0xFFFF9290)),

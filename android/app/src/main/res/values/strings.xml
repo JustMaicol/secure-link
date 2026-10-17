@@ -93,6 +93,18 @@
     <string name="sendalert_hold_title">Mantén pulsado para enviar</string>
     <string name="sendalert_hold_hint">1,5 segundos</string>
     <string name="sendalert_footer">Se guardará en tu teléfono y se anunciará por Bluetooth. El envío no garantiza atención.</string>
+    <!-- Lo que sigue de E1 no está en Figma (textos de la spec 108, sección 3.3): mismo estilo del diseño. -->
+    <string name="sendalert_vulnerable_hint">Toca para indicar cuáles</string>
+    <string name="sendalert_location_searching">Buscando tu ubicación…</string>
+    <string name="sendalert_location_last_known">Se usará tu última ubicación (±%1$d m, %2$s).</string>
+    <string name="sendalert_location_stale">Tu última ubicación es de %1$s. Si te moviste, puede no ser exacta.</string>
+    <string name="sendalert_location_disabled">La ubicación del teléfono está desactivada. Sin ubicación no se puede enviar la alerta.</string>
+    <string name="sendalert_location_unavailable">Todavía no hay ninguna ubicación. Sal a un lugar abierto si puedes; la alerta se podrá enviar en cuanto aparezca.</string>
+    <string name="sendalert_location_activate">Activar</string>
+    <string name="sendalert_hold_release_early">Mantén presionado hasta que se llene.</string>
+    <string name="sendalert_cannot_send_type">Elige qué necesitas para poder enviar.</string>
+    <string name="sendalert_cannot_send_location">Falta tu ubicación para poder enviar.</string>
+    <string name="sendalert_sending">Guardando…</string>
     <!-- Hoja de personas vulnerables: no está en Figma (el diseño solo dibuja la fila que la abre). -->
     <string name="sendalert_vulnerable_sheet_title">Personas vulnerables</string>
     <string name="sendalert_vulnerable_children">Niños</string>
@@ -117,6 +129,12 @@
     <string name="sendalert_mine_location_age">±%1$d m · ubicación de %2$s</string>
     <string name="sendalert_mine_safe">Estoy a salvo</string>
     <string name="sendalert_mine_cancel">Cancelar alerta</string>
+    <!-- Lo que sigue de E2 no está en Figma (spec 108, sección 4.3): mismo estilo del diseño. -->
+    <string name="sendalert_mine_step_relayed_none">Todavía ningún teléfono la retransmite</string>
+    <string name="sendalert_mine_step_upload_done">Subida a las %1$s</string>
+    <string name="sendalert_mine_confirm_safe">¿Confirmas que ya estás a salvo? Los voluntarios dejarán de ver tu alerta como pendiente. No se puede deshacer.</string>
+    <string name="sendalert_mine_confirm_cancel">¿Cancelar la alerta? Úsalo si la enviaste por error. No se puede deshacer.</string>
+    <string name="common_confirm">Confirmar</string>
 
     <!-- E3 · Cuenta regresiva de la alerta automática -->
     <string name="sendalert_countdown_origin">MOVIMIENTO DETECTADO</string>

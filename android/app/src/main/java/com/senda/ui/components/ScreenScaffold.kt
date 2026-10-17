@@ -21,7 +21,8 @@ import com.senda.ui.theme.Senda
 
 /**
  * Estructura de cada pestaña (Figma): márgenes de la barra de estado, encabezado, franja de conectividad y el
- * contenido, que se desplaza si no cabe. La barra inferior no va aquí: es de la navegación (SendaApp).
+ * contenido, que se desplaza si no cabe, y una zona fija opcional debajo ([bottomBar]). La barra de pestañas no va
+ * aquí: es de la navegación (SendaApp).
  */
 @Composable
 fun ScreenScaffold(
@@ -34,6 +35,7 @@ fun ScreenScaffold(
     onIdentityClick: (() -> Unit)? = null,
     contentPadding: PaddingValues = PaddingValues(horizontal = Dimens.screenPadding, vertical = 18.dp),
     verticalSpacing: Dp = 14.dp,
+    bottomBar: (@Composable ColumnScope.() -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit,
 ) {
     Column(
@@ -59,5 +61,15 @@ fun ScreenScaffold(
             verticalArrangement = Arrangement.spacedBy(verticalSpacing),
             content = content,
         )
+        // Zona fija bajo el desplazamiento (el botón de enviar del formulario): siempre a la vista.
+        if (bottomBar != null) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = Dimens.screenPadding, end = Dimens.screenPadding, top = 8.dp, bottom = 18.dp),
+                verticalArrangement = Arrangement.spacedBy(10.dp),
+                content = bottomBar,
+            )
+        }
     }
 }

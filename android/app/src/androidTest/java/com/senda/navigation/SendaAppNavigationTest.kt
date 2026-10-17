@@ -29,11 +29,12 @@ class SendaAppNavigationTest {
     private val running = FakeMeshStatus().state.value
 
     @Test
-    fun startsOnSendAlertWithItsPendingLabel() {
+    fun startsOnSendAlertWithTheForm() {
         rule.setContent { SendaTheme(darkTheme = false) { SendaApp(running) } }
 
         rule.onNodeWithText(text(R.string.sendalert_title)).assertIsDisplayed()
-        rule.onNodeWithText(text(R.string.provisional_pending, "108")).assertIsDisplayed()
+        // La pestaña ya muestra el formulario (E1): su primer bloque es el selector de nivel.
+        rule.onNodeWithText(text(R.string.sendalert_level_label)).assertIsDisplayed()
         rule.onNodeWithText(text(R.string.nav_sendalert)).assertIsSelected()
         rule.onNodeWithText(text(R.string.nav_nearby)).assertIsNotSelected()
         rule.onNodeWithText(text(R.string.nav_status)).assertIsNotSelected()

@@ -31,12 +31,7 @@ fun MessageBanner(
 ) {
     val colors = Senda.colors
     val content = colors.tone(tone)
-    val container = when (tone) {
-        UiTone.ERROR -> colors.red.container
-        UiTone.WARNING, UiTone.SIMULATION -> colors.warningContainer
-        UiTone.SUCCESS -> colors.successContainer
-        UiTone.INFO -> colors.surfaceTint
-    }
+    val container = colors.toneContainer(tone)
     Column(
         modifier = modifier
             .fillMaxWidth()

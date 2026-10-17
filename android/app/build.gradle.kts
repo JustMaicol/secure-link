@@ -60,6 +60,8 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling.preview)
+    // Solo depuración: permite ver las vistas previas (@Preview) en Android Studio.
+    debugImplementation(libs.compose.ui.tooling)
     implementation(libs.activity.compose)
 
     implementation(libs.lifecycle.viewmodel.compose)
