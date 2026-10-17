@@ -27,6 +27,7 @@ val versionCatalog = rootProject.file("gradle/libs.versions.toml")
 tasks.test {
     systemProperty("vectorsDir", vectorsDir)
     systemProperty("androidRootDir", androidRootDir)
-    // Si cambia el catálogo, las pruebas vuelven a correr.
+    // Si cambia el catálogo o algún vector, las pruebas vuelven a correr (no pasan por caché con datos viejos).
     inputs.file(versionCatalog)
+    inputs.files(fileTree(vectorsDir))
 }

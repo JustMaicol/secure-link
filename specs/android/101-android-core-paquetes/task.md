@@ -25,38 +25,38 @@ Al terminar cada task: commit `spec 101: <qué>` y nota en `memory/P1.md`.
 ## PR fase 1 (a) · lo que necesita P3 (C2-C5 juntos, **primer PR de P1 en la fase 1**)
 
 ### C2 · `Hex` y `Mulberry32`
-- [ ] **C2.1** `Hex.encode` (minúsculas, sin separadores) y `Hex.decode` (lanza `IllegalArgumentException` si no es hex par). Pruebas.
-- [ ] **C2.2** `Mulberry32(seed: Int).next(): Long` según la 001, sección 7 (`Int * Int`, `ushr`, `toLong() and 0xFFFFFFFFL`), y `seedOf(deviceId)`.
-- [ ] **C2.3** Prueba con las 4 semillas y las 5 salidas de la 001, sección 7, escritas en el código (criterio 8). Semillas uint32 → `toLong().toInt()`.
+- [x] **C2.1** `Hex.encode` (minúsculas, sin separadores) y `Hex.decode` (lanza `IllegalArgumentException` si no es hex par). Pruebas.
+- [x] **C2.2** `Mulberry32(seed: Int).next(): Long` según la 001, sección 7 (`Int * Int`, `ushr`, `toLong() and 0xFFFFFFFFL`), y `seedOf(deviceId)`.
+- [x] **C2.3** Prueba con las 4 semillas y las 5 salidas de la 001, sección 7, escritas en el código (criterio 8). Semillas uint32 → `toLong().toInt()`.
 
 ### C3 · `PacketCodec`
-- [ ] **C3.1** `encode`: cabecera (`0xA7`, versión y tipo), campos big-endian según la sección 3 de la 001, bit reservado en 0, `createdAtS = createdAtMs / 1000`.
-- [ ] **C3.2** Validación de `encode` **en orden de offset**, que devuelve el primer `FieldError`: rangos de la 001, `deviceId` en 48 bits, `createdAtMs` múltiplo de 1000 y ≤ `4294967295000`, y `relayTag` en `0..65535`.
-- [ ] **C3.3** `decode` en el orden de la 001, sección 5: `NotOurPacket` → `UnsupportedVersion` → `UnknownType` → `InvalidLength` → `InvalidField` (primero por offset). Ignora el bit reservado.
-- [ ] **C3.4** Pruebas con los 3 hex de la 001, sección 10, escritos en el código: `encode` da el hex exacto y `decode` da los campos y la clave (criterio 1).
-- [ ] **C3.5** `EncodeValidationTest`: un caso por cada rechazo.
-- [ ] **C3.6** `RoundTripTest`: 1000 paquetes válidos generados con `Mulberry32(1)`; `decode(encode(w)) == w` (criterio 3).
-- [ ] **C3.7** Bit reservado en 1: se decodifica sin error y vuelve a codificarse en 0 (criterio 4).
-- [ ] **C3.8** 10000 entradas aleatorias de 0 a 255 bytes con `Mulberry32(42)`: `encode` y `decode` nunca lanzan (criterio 6).
+- [x] **C3.1** `encode`: cabecera (`0xA7`, versión y tipo), campos big-endian según la sección 3 de la 001, bit reservado en 0, `createdAtS = createdAtMs / 1000`.
+- [x] **C3.2** Validación de `encode` **en orden de offset**, que devuelve el primer `FieldError`: rangos de la 001, `deviceId` en 48 bits, `createdAtMs` múltiplo de 1000 y ≤ `4294967295000`, y `relayTag` en `0..65535`.
+- [x] **C3.3** `decode` en el orden de la 001, sección 5: `NotOurPacket` → `UnsupportedVersion` → `UnknownType` → `InvalidLength` → `InvalidField` (primero por offset). Ignora el bit reservado.
+- [x] **C3.4** Pruebas con los 3 hex de la 001, sección 10, escritos en el código: `encode` da el hex exacto y `decode` da los campos y la clave (criterio 1).
+- [x] **C3.5** `EncodeValidationTest`: un caso por cada rechazo.
+- [x] **C3.6** `RoundTripTest`: 1000 paquetes válidos generados con `Mulberry32(1)`; `decode(encode(w)) == w` (criterio 3).
+- [x] **C3.7** Bit reservado en 1: se decodifica sin error y vuelve a codificarse en 0 (criterio 4).
+- [x] **C3.8** 10000 entradas aleatorias de 0 a 255 bytes con `Mulberry32(42)`: `encode` y `decode` nunca lanzan (criterio 6).
 
 ### C4 · `PacketFactory`
-- [ ] **C4.1** `newAlert`, `newAutomaticAlert`, `newOnTheWay` y `newStatus` según la sección 6: hora redondeada, `people > 255` → 255, `people < 1` → error, automática = roja con 1 persona y sin vulnerables, `newStatus` solo del origen (`alertDeviceId`), `ttl = ttlMax` y `relayTag` propio; validan igual que `encode`.
-- [ ] **C4.2** `FactoryTest`: una prueba por regla (criterio 7).
+- [x] **C4.1** `newAlert`, `newAutomaticAlert`, `newOnTheWay` y `newStatus` según la sección 6: hora redondeada, `people > 255` → 255, `people < 1` → error, automática = roja con 1 persona y sin vulnerables, `newStatus` solo del origen (`alertDeviceId`), `ttl = ttlMax` y `relayTag` propio; validan igual que `encode`.
+- [x] **C4.2** `FactoryTest`: una prueba por regla (criterio 7).
 
 ### C5 · Constantes
-- [ ] **C5.1** Prueba que busca el byte mágico (`0xA7`, `0xa7` o `167`) en `core/src/main` fuera de `ProtocolConfig` (criterio 9).
+- [x] **C5.1** Prueba que busca el byte mágico (`0xA7`, `0xa7` o `167`) en `core/src/main` fuera de `ProtocolConfig` (criterio 9).
 
 - [ ] **PR fase 1 (a)** hacia `main`, y aviso en `memory/P1.md`: "codec y fábricas listos" (P3 lo espera).
   *Depende de:* C1.
 
 ## C6 · Vectores (cuando P2 fusione `specs/shared/vectors/`)
 
-- [ ] **C6.1** `PacketVectorsTest` con `packets-valid.json` (hex, campos y clave) y `packets-invalid.json` (error y campo), leídos desde `vectorsDir`.
-- [ ] **C6.2** `PrngVectorsTest` con `prng.json` (criterio 2).
+- [x] **C6.1** `PacketVectorsTest` con `packets-valid.json` (hex, campos y clave) y `packets-invalid.json` (error y campo), leídos desde `vectorsDir`.
+- [x] **C6.2** `PrngVectorsTest` con `prng.json` (criterio 2).
 - [ ] Si los vectores no existen todavía: marcar C6 `bloqueada` en `memory/P1.md`.
   *Si un vector contradice la 001:* manda la spec. Avisar a P2 con `[PIDE a P2]`.
 
 ## Cierre
 
-- [ ] `./gradlew :core:test` pasa los criterios 1-10.
+- [x] `./gradlew :core:test` pasa los criterios 1-10.
 - [ ] `memory/P1.md`: 101 `terminada`.
