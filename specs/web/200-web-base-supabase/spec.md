@@ -191,7 +191,7 @@ export function createFakeDashboard(initial: Partial<DashboardState>): ...   // 
 
 ```
 ┌────────────────────────── Barra superior ──────────────────────────────┐
-│ secure-link · Panel de emergencias   [resumen]  [estado RT] [tema] [salir]│
+│ Senda · Panel de emergencias   [resumen]  [estado RT] [tema] [salir]│
 ├──────────── Lista (202) ─────────────┬──────────── Mapa (203) ───────────┤
 │  ~40 % del ancho                     │  ~60 % del ancho                  │
 │  desplazamiento propio               │                                   │
@@ -211,7 +211,7 @@ La barra superior reserva tres huecos: resumen (202), estado del tiempo real (20
 
 | id | Cuándo | Dónde | Tono | Texto provisional | Acción |
 |---|---|---|---|---|---|
-| `common_app_title` | siempre | barra superior | — | secure-link · Panel de emergencias | — |
+| `common_app_title` | siempre | barra superior | — | Senda · Panel de emergencias | — |
 | `auth_title` | sin sesión | inicio de sesión | — | Acceso para autoridades | — |
 | `auth_email` / `auth_password` | sin sesión | campos | — | Correo · Contraseña | — |
 | `auth_submit` | sin sesión | botón | — | Entrar | inicia sesión |

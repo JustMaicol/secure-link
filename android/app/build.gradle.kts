@@ -17,11 +17,11 @@ val localProperties = Properties().apply {
 fun localProperty(name: String): String = localProperties.getProperty(name, "")
 
 android {
-    namespace = "com.securelink"
+    namespace = "com.senda"
     compileSdk = 37
 
     defaultConfig {
-        applicationId = "com.securelink"
+        applicationId = "com.senda"
         minSdk = 34
         targetSdk = 37
         versionCode = 1

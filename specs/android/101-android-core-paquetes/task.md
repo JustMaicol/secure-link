@@ -1,7 +1,7 @@
 # Tasks · 101 android-core-paquetes
 
 Spec: `101-android-core-paquetes/spec.md` · Plan: `101-android-core-paquetes/plan.md` (si algo choca, manda la spec).
-Persona: **P1**. Carpeta: `android/core/src/{main,test}/kotlin/com/securelink/core/protocol/`.
+Persona: **P1**. Carpeta: `android/core/src/{main,test}/kotlin/com/senda/core/protocol/`.
 Referencia de bytes: 001, secciones 2-5 y 10.
 
 Al terminar cada task: commit `spec 101: <qué>` y nota en `memory/P1.md`.

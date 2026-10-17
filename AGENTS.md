@@ -13,6 +13,7 @@ Sistema de alertas y priorización post-emergencia (terremoto, alud, inundación
 - **El nombre de la carpeta (`pwa-comunicacion`) viene de una primera idea que no cuajó. Ignorarlo.** No es una PWA: la app es **Android nativo**.
 - `PROJECT.md` mezcla decisiones y lluvia de ideas. Las decisiones están marcadas como tales.
 - Metodología: **SDD (Spec-Driven Development)**. Sin spec no hay código.
+- **Nombre del proyecto: Senda** (decidido el 2026-10-17). El paquete y el `applicationId` pasaron a `com.senda`; el repositorio de GitHub (`secure-link`) y la carpeta local conservan el nombre anterior hasta que se renombren.
 - **Idioma:** el código va en inglés (identificadores, archivos, clases, funciones, tablas y columnas). Comentarios, specs, memoria y documentación, en español. La UI de la app y del panel, en español por ahora.
 - **Dispositivos objetivo: solo Samsung Galaxy por ahora.** **`minSdk 34` (Android 14)**, `compileSdk`/`targetSdk` al más reciente disponible. Modelos exactos por confirmar.
 
@@ -116,4 +117,3 @@ specs/  shared/ (000-003 + vectors/)  android/  web/  simulation/  integration/
 - Formato exacto de los paquetes (spec 001), incluido `CANCELADA / A_SALVO`, y fórmula de prioridad (spec 003).
 - Seguridad: firmas, límite de envíos, verificación de voluntarios.
 - Ciclo de vida de la alerta y confirmaciones.
-- Nombre del proyecto.

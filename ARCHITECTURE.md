@@ -12,7 +12,7 @@ Estructura de carpetas, modularización y orden de specs. Obligatorio por `CONST
 
 ## 2. Carpetas
 
-### Android (`android/`, paquete `com.securelink`)
+### Android (`android/`, paquete `com.senda`)
 
 Dos módulos Gradle (detalle y dueños de cada carpeta en la spec 100):
 
@@ -175,7 +175,7 @@ Desde el 2026-10-16, los tres trabajan en la app Android para liberar primero el
 
 | Persona | Rol en Android | Specs | Carpetas |
 |---|---|---|---|
-| **P1** | Base y núcleo de la malla | 100-A, 101, 103, 107 | Gradle y manifiesto, `core/common`, `core/protocol`, `core/gossip`, `core/node`, `app/common`, `app/service`, `AppContainer.kt`, `SecureLinkApp.kt` |
+| **P1** | Base y núcleo de la malla | 100-A, 101, 103, 107 | Gradle y manifiesto, `core/common`, `core/protocol`, `core/gossip`, `core/node`, `app/common`, `app/service`, `AppContainer.kt`, `SendaApplication.kt` |
 | **P2** | Interfaz y prototipo visual | 100-B, 108, 109, 106, vectores | `app/permissions`, `app/navigation`, `app/ui`, `app/features/*`, `app/src/debug/**/prototype`, `MainActivity.kt`, `strings.xml`, `core/sync`, `app/sync`, `specs/shared/vectors/` |
 | **P3** | Radio, sensores y datos | 104, 105, 102 | `core/mesh`, `app/mesh/ble`, `app/src/debug/**/mesh`, `core/geo`, `core/motion`, `app/location`, `app/motion`, `core/storage`, `app/storage`, `app/schemas` |
 

@@ -2,7 +2,7 @@
 
 Capa: 2 · Persona: P1
 Depende de: 001, 100 (solo el módulo `:core`)
-Entrega: modelos de paquete, claves de deduplicación, `PacketCodec`, `PacketFactory`, `Mulberry32`, `ProtocolConfig` y `Hex`, en `:core`, paquete `com.securelink.core.protocol`
+Entrega: modelos de paquete, claves de deduplicación, `PacketCodec`, `PacketFactory`, `Mulberry32`, `ProtocolConfig` y `Hex`, en `:core`, paquete `com.senda.core.protocol`
 Consume: ninguna interfaz
 
 ## Objetivo
@@ -211,7 +211,7 @@ La usan las pruebas de vectores y la pantalla de estado (109) para depurar. La e
 
 ## 9. Pruebas
 
-En `core/src/test/kotlin/com/securelink/core/protocol/`. Leen los vectores desde la propiedad `vectorsDir` (100).
+En `core/src/test/kotlin/com/senda/core/protocol/`. Leen los vectores desde la propiedad `vectorsDir` (100).
 
 | Prueba | Qué verifica |
 |---|---|

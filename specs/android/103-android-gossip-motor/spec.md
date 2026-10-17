@@ -2,7 +2,7 @@
 
 Capa: 2 · Persona: P1
 Depende de: 001, 101
-Entrega: `GossipEngine` (motor de reenvío puro) y `GossipEffect`, en `:core`, paquete `com.securelink.core.gossip`; `ScenarioRunner` en las pruebas
+Entrega: `GossipEngine` (motor de reenvío puro) y `GossipEffect`, en `:core`, paquete `com.senda.core.gossip`; `ScenarioRunner` en las pruebas
 Consume: `WirePacket`, `PacketKey`, `ProtocolConfig`, `Mulberry32`, `relayTagOf` y `PacketCodec` (101)
 
 ## Objetivo
@@ -108,7 +108,7 @@ Al arrancar, la 107 crea el motor con `initiallySeen` = todas las claves guardad
 
 ## 5. `ScenarioRunner` (pruebas)
 
-En `core/src/test/kotlin/com/securelink/core/gossip/`. Lee un archivo `gossip/*.json`, crea un `GossipEngine` por teléfono (`Mulberry32(seed)`, `blockedRelayTags` y `config` del escenario) y los ejecuta con el algoritmo de la 001, sección 6.7. Devuelve la secuencia de `Event` con su tiempo y su teléfono, para compararla con `expected`.
+En `core/src/test/kotlin/com/senda/core/gossip/`. Lee un archivo `gossip/*.json`, crea un `GossipEngine` por teléfono (`Mulberry32(seed)`, `blockedRelayTags` y `config` del escenario) y los ejecuta con el algoritmo de la 001, sección 6.7. Devuelve la secuencia de `Event` con su tiempo y su teléfono, para compararla con `expected`.
 
 - Las claves de `config` del JSON usan los nombres de la 001, sección 8 (`TTL_MAX`), y se pasan a los campos de `ProtocolConfig` (`ttlMax`).
 - Los paquetes de `originate.hex` se decodifican con `PacketCodec.decode` (101). Si fallan, la prueba falla.

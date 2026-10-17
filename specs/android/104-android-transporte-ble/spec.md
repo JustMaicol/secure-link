@@ -2,7 +2,7 @@
 
 Capa: 2 · Persona: P3 (reparto "prioridad Android"; antes P1)
 Depende de: 001, 100, 101
-Entrega: `MeshTransport` + `FakeMeshTransport` y `AnnouncementRotation` (puro), en `:core`, paquete `com.securelink.core.mesh`; `BleMeshTransport` en `:app`, paquete `mesh/ble`; prototipo de 1 hora en `src/debug`
+Entrega: `MeshTransport` + `FakeMeshTransport` y `AnnouncementRotation` (puro), en `:core`, paquete `com.senda.core.mesh`; `BleMeshTransport` en `:app`, paquete `mesh/ble`; prototipo de 1 hora en `src/debug`
 Consume: `WirePacket`, `PacketCodec` y `ProtocolConfig` (101); `Clock` (100); `PermissionChecker` (100)
 
 ## Objetivo

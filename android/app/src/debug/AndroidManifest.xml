@@ -4,7 +4,7 @@
     <application>
         <!--
             Tiene su propio ícono en el lanzador ("Senda Galería") para abrirla sin adb. También se abre desde adb con
-            am start -n com.securelink/.gallery.GalleryActivity y el extra booleano "dark" para forzar el tema.
+            am start -n com.senda/.gallery.GalleryActivity y el extra booleano "dark" para forzar el tema.
         -->
         <activity
             android:name=".gallery.GalleryActivity"
