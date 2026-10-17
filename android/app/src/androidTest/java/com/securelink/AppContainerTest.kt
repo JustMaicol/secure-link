@@ -16,7 +16,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class AppContainerTest {
 
-    private val app = InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as SecureLinkApp
+    private val app = InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as SendaApplication
 
     @Test
     fun applicationExposesASingleContainer() {

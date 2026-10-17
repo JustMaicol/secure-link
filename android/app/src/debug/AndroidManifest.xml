@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Solo en la versión de depuración: galería de tema, íconos y componentes. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <!--
+            Tiene su propio ícono en el lanzador ("Senda Galería") para abrirla sin adb. También se abre desde adb con
+            am start -n com.securelink/.gallery.GalleryActivity y el extra booleano "dark" para forzar el tema.
+        -->
+        <activity
+            android:name=".gallery.GalleryActivity"
+            android:exported="true"
+            android:label="Senda Galería"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

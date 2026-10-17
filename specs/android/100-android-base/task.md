@@ -24,8 +24,8 @@ Al terminar cada task: commit `spec 100: <qué>` y anotar en el propio `memory/P
   *Hecho cuando:* `./gradlew :core:test` corre (aunque no haya pruebas).
 - [x] **A1.4 Módulo `:app`.** `com.android.application`, `namespace` y `applicationId` = `com.securelink`, `minSdk 34`, `compileSdk` y `targetSdk` = último estable instalado, Compose activado, `buildConfig` con `SUPABASE_URL` y `SUPABASE_ANON_KEY` leídos de `local.properties` (cadena vacía si faltan), KSP con `room.schemaLocation` = `android/app/schemas/`, y dependencia de `:core`.
   *Hecho cuando:* `./gradlew :app:assembleDebug` genera el APK.
-- [x] **A1.5 Manifiesto.** Todos los permisos de la 100, sección 5.1 (sin `neverForLocation` en `BLUETOOTH_SCAN`); `uses-feature` `bluetooth_le` obligatorio; `application` con `android:name=".SecureLinkApp"`; `MainActivity` como lanzador con `android:screenOrientation="portrait"`.
-- [x] **A1.6 Arranque mínimo.** `SecureLinkApp` vacía; `MainActivity` con un único texto Compose; `res/values/strings.xml` solo con `app_name` = `secure-link`.
+- [x] **A1.5 Manifiesto.** Todos los permisos de la 100, sección 5.1 (sin `neverForLocation` en `BLUETOOTH_SCAN`); `uses-feature` `bluetooth_le` obligatorio; `application` con `android:name=".SendaApplication"`; `MainActivity` como lanzador con `android:screenOrientation="portrait"`.
+- [x] **A1.6 Arranque mínimo.** `SendaApplication` vacía; `MainActivity` con un único texto Compose; `res/values/strings.xml` solo con `app_name` = `Senda`.
   *Nota:* desde el hito H0, `MainActivity.kt` y `strings.xml` **son de P2**. P1 no los vuelve a tocar.
 - [x] **A1.7 Carpetas de todas las specs** con `.gitkeep`, según el árbol de la 100, sección 2 (`core/.../protocol`, `gossip`, `mesh`, `storage`, `sync`, `node`, `geo`, `motion`; `app/.../mesh/ble`, `storage`, `location`, `motion`, `sync`, `service`, `permissions`, `navigation`, `ui/theme`, `ui/components`, `ui/format`, `features/sendalert`, `features/nearby`, `features/status`).
 - [x] **A1.8 Verificación y PR.** Desde un clon limpio, con solo `sdk.dir` en `local.properties`: `./gradlew build` pasa (criterio 1). PR 1 hacia `main`.
@@ -57,7 +57,7 @@ Al terminar cada task: commit `spec 100: <qué>` y anotar en el propio `memory/P
 ### A3 · `AppContainer` de prototipo (fase 0.3)
 
 - [x] **A3.1** `AppContainer(context)` con `clock = SystemClock()`, `deviceIdentity = PrefsDeviceIdentity(...)` y `permissionChecker = FakePermissionChecker(todo concedido)`, con un comentario `// provisional: A3'`.
-- [x] **A3.2** `SecureLinkApp` crea **un solo** `AppContainer` y lo expone como propiedad (sin singletons globales).
+- [x] **A3.2** `SendaApplication` crea **un solo** `AppContainer` y lo expone como propiedad (sin singletons globales).
 - [ ] **A3.3** Cablear cada fake **cuando su contrato se fusione**:
   - [ ] 102: `InMemoryStorage` (todas las interfaces de almacenamiento)
   - [ ] 104: `FakeMeshTransport`
@@ -94,11 +94,11 @@ Al terminar cada task: commit `spec 100: <qué>` y anotar en el propio `memory/P
 
 ### B2 · Tema y formato
 
-- [ ] **B2.1** `ui/theme/`: `Spacing` (4, 8, 16, 24 y 32 dp), colores de tipo de la 003 (`#DC2626`, `#F97316`, `#EAB308`) y tema Material 3 claro y oscuro temporal.
+- [x] **B2.1** `ui/theme/`: `Spacing` (4, 8, 16, 24 y 32 dp), colores de tipo de la 003 (`#DC2626`, `#F97316`, `#EAB308`) y tema Material 3 claro y oscuro temporal.
 - [x] **B2.2** `UiTone { INFO, SUCCESS, WARNING, ERROR, SIMULATION }`.
 - [x] **B2.3** `ui/format/`: clasificación **pura** de cada regla de la 100, sección 11 (distancia, tiempo transcurrido, hora, personas, precisión, rumbo cardinal, cuenta atrás, `deviceId` y `relayTag`).
 - [x] **B2.4** Pruebas JVM con los ejemplos y bordes de la tabla: 999 m, 1000 m, 99,9 km, 100 km, 59 s, 60 min, 24 h, 22,5° / 67,5° del rumbo, 255 personas (criterio 11).
-- [ ] **B2.5** Textos de formato en `strings.xml`, con plurales en español.
+- [x] **B2.5** Textos de formato en `strings.xml`, con plurales en español.
   *Depende de:* B1 (proyecto).
 
 ### B3 · Componentes
@@ -109,9 +109,9 @@ Al terminar cada task: commit `spec 100: <qué>` y anotar en el propio `memory/P
 
 ### B4 · Navegación
 
-- [ ] **B4.1** Rutas `sendalert`, `nearby` y `status`, con barra inferior.
-- [ ] **B4.2** Pantallas provisionales `SendAlertScreen`, `NearbyScreen` y `StatusScreen`, rotuladas "Pendiente: spec 108" / "spec 109".
-- [ ] **B4.3** Prueba de Compose: los tres destinos navegan y muestran su rótulo (criterio 8).
+- [x] **B4.1** Rutas `sendalert`, `nearby` y `status`, con barra inferior.
+- [x] **B4.2** Pantallas provisionales `SendAlertScreen`, `NearbyScreen` y `StatusScreen`, rotuladas "Pendiente: spec 108" / "spec 109".
+- [x] **B4.3** Prueba de Compose: los tres destinos navegan y muestran su rótulo (criterio 8).
   *Depende de:* B3.
 
 ### B5 · Pantalla de permisos

@@ -1,5 +1,252 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- spec 100 · Desde el hito H0 este archivo es de P2. -->
+<!--
+    Textos de la app, en español (regla 34). Salen del diseño de Figma "SENDA APP" (fuente de verdad visual).
+    Convención: id en inglés con el prefijo de su pantalla (permissions_, sendalert_, nearby_, status_, common_, format_).
+    Donde el diseño trae datos de ejemplo (nombres de lugar, NX-204, R7-K2) aquí van los textos con marcadores
+    (%1$s) y el dato real lo pone la pantalla. Los textos que Figma no trae están marcados "no está en Figma".
+-->
 <resources>
-    <string name="app_name">secure-link</string>
+    <string name="app_name">Senda</string>
+    <string name="brand_name">SENDA</string>
+
+    <!-- Comunes -->
+    <string name="common_demo_badge">DEMO</string>
+    <string name="common_simulation_badge">SIMULACIÓN</string>
+    <string name="common_decrease">Disminuir</string>
+    <string name="common_increase">Aumentar</string>
+    <string name="common_back">Volver</string>
+    <string name="common_copy">Copiar</string>
+
+    <!-- Barra inferior -->
+    <string name="nav_sendalert">Enviar alerta</string>
+    <string name="nav_nearby">Cercanas</string>
+    <string name="nav_status">Estado</string>
+
+    <!-- Franja de conectividad. Figma: "Malla activa · Sin internet". El resto de estados de la malla no está en Figma. -->
+    <string name="connectivity_mesh_running">Malla activa</string>
+    <string name="connectivity_mesh_starting">Iniciando malla</string>
+    <string name="connectivity_mesh_stopped">Malla detenida</string>
+    <string name="connectivity_mesh_bluetooth_off">Bluetooth apagado</string>
+    <string name="connectivity_mesh_no_permission">Faltan permisos</string>
+    <string name="connectivity_mesh_advertise_unsupported">Sin anuncios Bluetooth</string>
+    <string name="connectivity_mesh_advertise_failed">Error al anunciar</string>
+    <string name="connectivity_mesh_scan_failed">Error al escanear</string>
+    <string name="connectivity_internet_off">Sin internet</string>
+    <string name="connectivity_internet_on">Con internet</string>
+
+    <!-- Pantallas todavía sin su contenido (spec 100, sección 6) -->
+    <string name="provisional_pending">Pendiente: spec %1$s</string>
+
+    <!-- P1 · Permisos -->
+    <string name="permissions_title">Preparar tu teléfono</string>
+    <string name="permissions_subtitle">Una red de ayuda, incluso sin internet.</string>
+    <string name="permissions_intro">Estos permisos permiten compartir y recibir alertas entre teléfonos.</string>
+    <string name="permissions_bluetooth_title">Bluetooth</string>
+    <string name="permissions_bluetooth_body">Comparte alertas con la malla cercana.</string>
+    <string name="permissions_nearby_title">Dispositivos cercanos</string>
+    <string name="permissions_nearby_body">Detecta y conecta con otros teléfonos.</string>
+    <string name="permissions_location_title">Ubicación</string>
+    <string name="permissions_location_body">Añade una posición aproximada a tu alerta.</string>
+    <string name="permissions_notifications_title">Notificaciones</string>
+    <string name="permissions_notifications_body">Recibe avisos aunque no abras la app.</string>
+    <string name="permissions_state_active">✓ Activo</string>
+    <string name="permissions_state_granted_masculine">✓ Permitido</string>
+    <string name="permissions_state_granted_feminine">✓ Permitida</string>
+    <string name="permissions_state_pending">○ Pendiente</string>
+    <string name="permissions_action_review">Revisar</string>
+    <string name="permissions_action_allow">Permitir</string>
+    <string name="permissions_continue_hint">Puedes continuar sin notificaciones y activarlas después en Estado.</string>
+    <string name="permissions_continue">Continuar</string>
+    <string name="permissions_demo_notice">Demostración · No se enviarán alertas reales</string>
+
+    <!-- E1 · Formulario de alerta -->
+    <string name="sendalert_title">Enviar una alerta</string>
+    <string name="sendalert_subtitle">Comparte lo esencial con la red cercana.</string>
+    <string name="sendalert_level_label">Nivel de emergencia</string>
+    <string name="sendalert_people_title">Personas afectadas</string>
+    <string name="sendalert_people_hint">Incluyéndote a ti</string>
+    <string name="sendalert_vulnerable_title">Hay personas vulnerables</string>
+    <string name="sendalert_location_title">Ubicación aproximada</string>
+    <string name="sendalert_location_precision">Precisión ±%1$d m · actualizada %2$s</string>
+    <string name="sendalert_location_update">Actualizar ubicación</string>
+    <string name="sendalert_hold_title">Mantén pulsado para enviar</string>
+    <string name="sendalert_hold_hint">1,5 segundos</string>
+    <string name="sendalert_footer">Se guardará en tu teléfono y se anunciará por Bluetooth. El envío no garantiza atención.</string>
+    <!-- Hoja de personas vulnerables: no está en Figma (el diseño solo dibuja la fila que la abre). -->
+    <string name="sendalert_vulnerable_sheet_title">Personas vulnerables</string>
+    <string name="sendalert_vulnerable_children">Niños</string>
+    <string name="sendalert_vulnerable_elderly">Adultos mayores</string>
+    <string name="sendalert_vulnerable_injured">Personas heridas</string>
+    <string name="sendalert_vulnerable_reduced_mobility">Movilidad reducida</string>
+    <string name="sendalert_vulnerable_done">Listo</string>
+
+    <!-- E2 · Mi alerta -->
+    <string name="sendalert_mine_title">Mi alerta</string>
+    <string name="sendalert_mine_subtitle">Creada a las %1$s · referencia %2$s</string>
+    <string name="sendalert_mine_step_saved_title">Guardada en tu teléfono</string>
+    <string name="sendalert_mine_step_saved_body">%1$s · disponible sin conexión</string>
+    <string name="sendalert_mine_step_announcing_title">Anunciándose por Bluetooth</string>
+    <string name="sendalert_mine_step_announcing_body">Tu teléfono sigue emitiendo la alerta</string>
+    <string name="sendalert_mine_step_relayed_title">Retransmitida en la malla</string>
+    <string name="sendalert_mine_step_upload_title">Subida al servidor</string>
+    <string name="sendalert_mine_step_upload_pending">Pendiente · sin conexión a internet</string>
+    <string name="sendalert_mine_volunteers_title">Voluntarios en camino</string>
+    <string name="sendalert_mine_volunteers_hint">Han indicado que se acercan; no es llegada.</string>
+    <string name="sendalert_mine_location_label">Ubicación</string>
+    <string name="sendalert_mine_location_age">±%1$d m · ubicación de %2$s</string>
+    <string name="sendalert_mine_safe">Estoy a salvo</string>
+    <string name="sendalert_mine_cancel">Cancelar alerta</string>
+
+    <!-- E3 · Cuenta regresiva de la alerta automática -->
+    <string name="sendalert_countdown_origin">MOVIMIENTO DETECTADO</string>
+    <string name="sendalert_countdown_title">¿Necesitas ayuda?</string>
+    <string name="sendalert_countdown_unit">segundos</string>
+    <string name="sendalert_countdown_body">Al llegar a 0, se creará una alerta automática con tu última ubicación y se anunciará a la malla.</string>
+    <string name="sendalert_countdown_cancel">Cancelar alerta automática</string>
+    <string name="sendalert_countdown_hint">Si estás bien, cancela. La alerta todavía no se ha enviado.</string>
+
+    <!-- Niveles de emergencia (E1, E2, C1 y C2) -->
+    <string name="emergency_option_yellow">Amarillo</string>
+    <string name="emergency_option_orange">Naranja</string>
+    <string name="emergency_option_red">Rojo</string>
+    <string name="emergency_level_yellow">Nivel amarillo</string>
+    <string name="emergency_level_orange">Nivel naranja</string>
+    <string name="emergency_level_red">Nivel rojo</string>
+
+    <!-- C1 · Alertas cercanas: lista -->
+    <string name="nearby_title">Alertas cercanas</string>
+    <string name="nearby_subtitle">Ofrece apoyo a personas de tu comunidad.</string>
+    <string name="nearby_sort">Más cercanas primero</string>
+    <string name="nearby_location_title">Ubicación aproximada</string>
+    <string name="nearby_bearing">aprox. · %1$s</string>
+    <string name="nearby_footnote">Distancias y rumbos aproximados. La ubicación de cada alerta puede haber cambiado.</string>
+    <string name="nearby_updated">Actualización %1$s</string>
+    <string name="nearby_demo_data">Datos ilustrativos · actualización %1$s</string>
+
+    <!-- C2 · Detalle de alerta cercana -->
+    <string name="nearby_detail_title">Alerta cercana</string>
+    <string name="nearby_detail_subtitle">%1$s · recibida %2$s</string>
+    <string name="nearby_detail_back">CERCANAS</string>
+    <string name="nearby_detail_compass_hint">Orientación aproximada · no es una ruta</string>
+    <string name="nearby_detail_compass_bearing">%1$s · %2$d°</string>
+    <string name="nearby_detail_people_label">Personas</string>
+    <string name="nearby_detail_people_value">%1$d · %2$s</string>
+    <string name="nearby_detail_location_note">Ubicación de %1$s · precisión ±%2$d m. La persona puede haberse desplazado.</string>
+    <string name="nearby_detail_on_my_way">Voy en camino</string>
+    <string name="nearby_detail_open_maps">Abrir en Google Maps</string>
+    <string name="nearby_detail_maps_note">Google Maps requiere conexión o mapas sin conexión disponibles en tu teléfono.</string>
+
+    <!-- S1 · Estado -->
+    <string name="status_title">Estado de la red</string>
+    <string name="status_subtitle">Conectividad y herramientas de demostración.</string>
+    <string name="status_mesh_title">Malla Bluetooth</string>
+    <string name="status_mesh_active">● Activa</string>
+    <string name="status_mesh_stopped">○ Detenida</string>
+    <string name="status_metric_announcements">Anuncios activos</string>
+    <string name="status_metric_neighbors">Teléfonos cerca</string>
+    <string name="status_server_title">Servidor</string>
+    <string name="status_server_pending_label">Por subir</string>
+    <string name="status_server_last_label">Última subida</string>
+    <string name="status_server_last_value">%1$s · %2$s</string>
+    <string name="status_phone_title">Este teléfono</string>
+    <string name="status_phone_id_label">ID</string>
+    <string name="status_phone_relay_label">relayTag</string>
+    <string name="status_settings_title">Ajustes</string>
+    <string name="status_settings_motion_title">Alerta por movimiento</string>
+    <string name="status_settings_motion_body">Cuenta regresiva de %1$d s antes de enviar</string>
+    <string name="status_settings_permissions">Revisar permisos</string>
+    <string name="status_debug_scope">Solo para la demo</string>
+    <string name="status_debug_filter_title">Etiquetas bloqueadas</string>
+    <string name="status_debug_filter_add">+ Añadir</string>
+    <string name="status_debug_motion_label">Movimiento · lectura de prueba</string>
+    <string name="status_debug_motion_scale_0">0 g</string>
+    <string name="status_debug_motion_scale_1">1 g</string>
+    <string name="status_debug_motion_scale_2">2 g</string>
+    <string name="status_debug_simulate_shake">Simular movimiento brusco</string>
+    <string name="status_debug_simulate_hint">Activa la cuenta regresiva de prueba. No genera una emergencia real ni avisa a personas reales.</string>
+
+    <!-- Rumbo cardinal: siglas (lista) y nombre completo (detalle) -->
+    <string name="cardinal_short_n">N</string>
+    <string name="cardinal_short_ne">NE</string>
+    <string name="cardinal_short_e">E</string>
+    <string name="cardinal_short_se">SE</string>
+    <string name="cardinal_short_s">S</string>
+    <string name="cardinal_short_so">SO</string>
+    <string name="cardinal_short_o">O</string>
+    <string name="cardinal_short_no">NO</string>
+    <string name="cardinal_name_n">Norte</string>
+    <string name="cardinal_name_ne">Noreste</string>
+    <string name="cardinal_name_e">Este</string>
+    <string name="cardinal_name_se">Sureste</string>
+    <string name="cardinal_name_s">Sur</string>
+    <string name="cardinal_name_so">Suroeste</string>
+    <string name="cardinal_name_o">Oeste</string>
+    <string name="cardinal_name_no">Noroeste</string>
+
+    <!-- Formato de valores (spec 100, sección 11). La clasificación es pura (ui/format); estos son los textos. -->
+    <string name="format_unknown">—</string>
+    <string name="format_distance_meters">%1$d m</string>
+    <string name="format_distance_kilometers">%1$s km</string>
+    <string name="format_elapsed_now">ahora</string>
+    <string name="format_people_max">%1$d o más personas</string>
+    <string name="format_vulnerable_none">sin vulnerables</string>
+    <string name="format_people_and_vulnerable">%1$s · %2$s</string>
+
+    <plurals name="format_elapsed_seconds">
+        <item quantity="one">hace %1$d s</item>
+        <item quantity="many">hace %1$d s</item>
+        <item quantity="other">hace %1$d s</item>
+    </plurals>
+    <plurals name="format_elapsed_minutes">
+        <item quantity="one">hace %1$d min</item>
+        <item quantity="many">hace %1$d min</item>
+        <item quantity="other">hace %1$d min</item>
+    </plurals>
+    <plurals name="format_elapsed_hours">
+        <item quantity="one">hace %1$d h</item>
+        <item quantity="many">hace %1$d h</item>
+        <item quantity="other">hace %1$d h</item>
+    </plurals>
+    <plurals name="format_elapsed_days">
+        <item quantity="one">hace %1$d d</item>
+        <item quantity="many">hace %1$d d</item>
+        <item quantity="other">hace %1$d d</item>
+    </plurals>
+    <plurals name="format_people">
+        <item quantity="one">%1$d persona</item>
+        <item quantity="many">%1$d personas</item>
+        <item quantity="other">%1$d personas</item>
+    </plurals>
+    <plurals name="format_vulnerable">
+        <item quantity="one">%1$d vulnerable</item>
+        <item quantity="many">%1$d vulnerables</item>
+        <item quantity="other">%1$d vulnerables</item>
+    </plurals>
+
+    <!-- Plurales de las pantallas -->
+    <plurals name="nearby_alert_count">
+        <item quantity="one">%1$d alerta</item>
+        <item quantity="many">%1$d alertas</item>
+        <item quantity="other">%1$d alertas</item>
+    </plurals>
+    <plurals name="nearby_volunteers_on_the_way">
+        <item quantity="one">%1$d en camino</item>
+        <item quantity="many">%1$d en camino</item>
+        <item quantity="other">%1$d en camino</item>
+    </plurals>
+    <plurals name="sendalert_vulnerable_summary">
+        <item quantity="one">%1$d de %2$d persona</item>
+        <item quantity="many">%1$d de las %2$d personas</item>
+        <item quantity="other">%1$d de las %2$d personas</item>
+    </plurals>
+    <plurals name="sendalert_mine_step_relayed_body">
+        <item quantity="one">%1$d teléfono la retransmite · %2$s</item>
+        <item quantity="many">%1$d teléfonos la retransmiten · %2$s</item>
+        <item quantity="other">%1$d teléfonos la retransmiten · %2$s</item>
+    </plurals>
+    <plurals name="status_server_pending_value">
+        <item quantity="one">%1$d alerta pendiente</item>
+        <item quantity="many">%1$d alertas pendientes</item>
+        <item quantity="other">%1$d alertas pendientes</item>
+    </plurals>
 </resources>

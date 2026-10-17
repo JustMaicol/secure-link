@@ -59,11 +59,19 @@ class FormatTest {
     // ---------------- Tiempo transcurrido ----------------
 
     @Test
-    fun `under a minute is now, including 59 s and a clock that is ahead`() {
+    fun `under a second is now, including a clock that is ahead`() {
         assertEquals(ElapsedLabel.Now, classifyElapsed(0))
-        assertEquals(ElapsedLabel.Now, classifyElapsed(59_000))
-        assertEquals(ElapsedLabel.Now, classifyElapsed(59_999))
+        assertEquals(ElapsedLabel.Now, classifyElapsed(999))
         assertEquals(ElapsedLabel.Now, classifyElapsed(-5_000))
+    }
+
+    @Test
+    fun `seconds run from 1 s up to 60 s exclusive`() {
+        assertEquals(ElapsedLabel.Seconds(1), classifyElapsed(1_000))
+        assertEquals(ElapsedLabel.Seconds(12), classifyElapsed(12_400))
+        assertEquals(ElapsedLabel.Seconds(20), classifyElapsed(20_000))
+        assertEquals(ElapsedLabel.Seconds(59), classifyElapsed(59_000))
+        assertEquals(ElapsedLabel.Seconds(59), classifyElapsed(59_999))
     }
 
     @Test
@@ -180,6 +188,24 @@ class FormatTest {
         assertEquals("1:01", countdownMinutesSeconds(60_001))
         assertEquals("2:05", countdownMinutesSeconds(125_000))
         assertEquals("0:00", countdownMinutesSeconds(-1))
+    }
+
+    // ---------------- Coordenadas ----------------
+
+    @Test
+    fun `coordinates are decimal degrees with a comma and four decimals`() {
+        assertEquals("-33,5000, -70,6500", formatCoordinates(-335_000_000, -706_500_000))
+        assertEquals("0,0000, 0,0000", formatCoordinates(0, 0))
+        assertEquals("12,3457, 98,7654", formatCoordinates(123_456_789, 987_654_321)) // redondea la mitad hacia arriba
+        assertEquals("90,0000, 180,0000", formatCoordinates(900_000_000, 1_800_000_000))
+        assertEquals("-90,0000, -180,0000", formatCoordinates(-900_000_000, -1_800_000_000))
+    }
+
+    @Test
+    fun `coordinates never show minus zero and keep leading zeros of the decimals`() {
+        assertEquals("0,0000, 0,0000", formatCoordinates(-499, -1)) // se redondea a cero: sin signo
+        assertEquals("-0,0001, 0,0100", formatCoordinates(-1_000, 100_000))
+        assertEquals("1,0005, -2,0050", formatCoordinates(10_005_000, -20_050_000))
     }
 
     // ---------------- deviceId y relayTag ----------------

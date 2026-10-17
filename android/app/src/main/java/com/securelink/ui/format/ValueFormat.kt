@@ -32,6 +32,20 @@ private fun ceilSeconds(remainingMs: Long): Int =
 fun formatDeviceId(deviceId: Long): String =
     (deviceId and 0xFFFF_FFFF_FFFFL).toString(16).padStart(12, '0').chunked(4).joinToString(" ")
 
+/**
+ * Coordenadas como grados decimales con coma y 4 decimales (unos 11 m): `-33,5000, -70,6500`. Se calcula con
+ * enteros (grados × 10^7, regla 11), sin pasar por flotantes. Sustituye al nombre del lugar del diseño, que sin
+ * internet no existe (el paquete solo lleva latitud y longitud).
+ */
+fun formatCoordinates(latE7: Int, lonE7: Int): String = "${degrees(latE7)}, ${degrees(lonE7)}"
+
+private fun degrees(e7: Int): String {
+    val abs = Math.abs(e7.toLong())
+    val tenThousandths = (abs + 500) / 1000 // redondeo a 4 decimales, mitad hacia arriba
+    val sign = if (e7 < 0 && tenThousandths != 0L) "-" else ""
+    return "$sign${tenThousandths / 10_000},${(tenThousandths % 10_000).toString().padStart(4, '0')}"
+}
+
 /** `relayTag` de 16 bits como 4 hexadecimales en minúscula: `e5f6`. */
 fun formatRelayTag(relayTag: Int): String = (relayTag and 0xFFFF).toString(16).padStart(4, '0')
 

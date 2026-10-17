@@ -3,7 +3,7 @@ package com.securelink
 import android.app.Application
 
 // spec 100 · Crea el único AppContainer y lo expone como propiedad (no hay singletons globales).
-class SecureLinkApp : Application() {
+class SendaApplication : Application() {
     lateinit var container: AppContainer
         private set
 
