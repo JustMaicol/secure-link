@@ -20,6 +20,13 @@ dependencies {
 // Ruta de los vectores compartidos para las pruebas (spec 100, sección 3).
 val vectorsDir = rootProject.projectDir.resolve("../specs/shared/vectors").normalize().absolutePath
 
+// Las pruebas de reglas del proyecto (A5) leen core/src y el catálogo de versiones.
+val androidRootDir = rootProject.projectDir.absolutePath
+val versionCatalog = rootProject.file("gradle/libs.versions.toml")
+
 tasks.test {
     systemProperty("vectorsDir", vectorsDir)
+    systemProperty("androidRootDir", androidRootDir)
+    // Si cambia el catálogo, las pruebas vuelven a correr.
+    inputs.file(versionCatalog)
 }

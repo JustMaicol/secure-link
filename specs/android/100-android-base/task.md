@@ -49,9 +49,9 @@ Al terminar cada task: commit `spec 100: <qué>` y anotar en el propio `memory/P
 
 ### A5 · Reglas del proyecto
 
-- [ ] **A5.1** Prueba en `:core`: falla si algún archivo de `core/src` contiene `import android` (criterio 2).
-- [ ] **A5.2** Prueba: falla si `libs.versions.toml` contiene `+`, `latest` o un rango (criterio 3).
-- [ ] **A5.3** Prueba: la carpeta de `vectorsDir` existe (criterio 9).
+- [x] **A5.1** Prueba en `:core`: falla si algún archivo de `core/src` contiene `import android` (criterio 2).
+- [x] **A5.2** Prueba: falla si `libs.versions.toml` contiene `+`, `latest` o un rango (criterio 3).
+- [x] **A5.3** Prueba: la carpeta de `vectorsDir` existe (criterio 9).
   *Depende de:* A1.
 
 ### A3 · `AppContainer` de prototipo (fase 0.3)
@@ -68,7 +68,7 @@ Al terminar cada task: commit `spec 100: <qué>` y anotar en el propio `memory/P
 
 ### A6 · Instalación
 
-- [ ] **A6.1** Instalar el APK de depuración en un Samsung con Android 14 o superior, sin ADB (criterio 10). Registrar el modelo y la versión de One UI en `memory/P1.md`.
+- [x] **A6.1** Instalar el APK de depuración en un Samsung con Android 14 o superior, sin ADB (criterio 10). Registrar el modelo y la versión de One UI en `memory/P1.md`.
 
 ### A3' · Permisos reales (cuando P2 lo pida)
 
