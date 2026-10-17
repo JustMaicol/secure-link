@@ -12,8 +12,13 @@ import com.senda.core.node.FakeMeshControl
 import com.senda.core.node.FakeMeshStatus
 import com.senda.core.node.MeshControl
 import com.senda.core.node.MeshStatus
-import com.senda.permissions.FakePermissionChecker
+import com.senda.permissions.AndroidPermissionChecker
+import com.senda.permissions.AndroidPlatformState
 import com.senda.permissions.PermissionChecker
+import com.senda.permissions.PermissionsModel
+import com.senda.permissions.PlatformState
+import com.senda.permissions.SharedPreferencesPermissionFlowStore
+import com.senda.permissions.SharedPreferencesPermissionHistory
 import java.security.SecureRandom
 
 // spec 100 · Cableado manual, sin singletons ni inyección por reflexión (regla 10).
@@ -26,8 +31,15 @@ class AppContainer(context: Context) {
     val deviceIdentity: DeviceIdentity =
         PrefsDeviceIdentity(SharedPreferencesIdStore(appContext), SecureRandom()::nextLong)
 
-    // provisional: A3' (cambiar por AndroidPermissionChecker cuando P2 termine la B5)
-    val permissionChecker: PermissionChecker = FakePermissionChecker.allGranted()
+    // Permisos reales (A3'): lo que lee el verificador y lo que recuerda la pantalla de permisos.
+    val platformState: PlatformState = AndroidPlatformState(appContext)
+    val permissionChecker: PermissionChecker = AndroidPermissionChecker(platformState)
+    val permissionsModel: PermissionsModel = PermissionsModel(
+        checker = permissionChecker,
+        platform = platformState,
+        history = SharedPreferencesPermissionHistory(appContext),
+        flow = SharedPreferencesPermissionFlowStore(appContext),
+    )
 
     // provisional: 107 (S4 los cambia por las implementaciones reales del nodo y del servicio)
     val meshStatus: MeshStatus = FakeMeshStatus()

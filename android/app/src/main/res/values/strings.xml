@@ -58,6 +58,27 @@
     <string name="permissions_continue_hint">Puedes continuar sin notificaciones y activarlas después en Estado.</string>
     <string name="permissions_continue">Continuar</string>
     <string name="permissions_demo_notice">Demostración · No se enviarán alertas reales</string>
+    <!-- Lo que sigue de Permisos no está en Figma: mismo estilo, a confirmar por quien diseña. -->
+    <string name="permissions_state_granted_feminine_plural">✓ Permitidas</string>
+    <string name="permissions_state_battery_ok">✓ Sin restricción</string>
+    <string name="permissions_state_denied">Lo negaste antes: actívalo en Ajustes.</string>
+    <string name="permissions_action_enable">Encender</string>
+    <string name="permissions_action_activate">Activar</string>
+    <string name="permissions_action_settings">Ajustes</string>
+    <string name="permissions_location_services_title">Ubicación del teléfono</string>
+    <string name="permissions_location_services_body">Activa la ubicación del sistema para calcular distancias.</string>
+    <string name="permissions_background_title">Ubicación en segundo plano</string>
+    <string name="permissions_background_body">Mantiene la ubicación si el sistema reinicia la app. En Ajustes, elige «Permitir todo el tiempo».</string>
+    <string name="permissions_background_locked">Primero permite la ubicación.</string>
+    <string name="permissions_battery_title">Sin restricción de batería</string>
+    <string name="permissions_battery_body">Evita que el sistema detenga la app.</string>
+    <string name="permissions_recommended_title">Recomendado</string>
+    <string name="permissions_samsung_title">Aplicaciones en suspensión</string>
+    <string name="permissions_samsung_body">Samsung: en Ajustes > Batería > Límites de uso en segundo plano, quita Senda de «Aplicaciones en suspensión».</string>
+    <string name="permissions_samsung_open">Abrir ajustes</string>
+    <string name="permissions_samsung_done">Ya lo hice</string>
+    <string name="permissions_missing_hint">Faltan permisos obligatorios.</string>
+    <string name="common_lost_permission">Se perdió un permiso necesario. Concédelo de nuevo para seguir.</string>
 
     <!-- E1 · Formulario de alerta -->
     <string name="sendalert_title">Enviar una alerta</string>

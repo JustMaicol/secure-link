@@ -5,7 +5,8 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.senda.core.common.DEVICE_ID_MAX
 import com.senda.core.node.CountdownState
 import com.senda.core.node.MeshHealth
-import com.senda.permissions.missingBlocking
+import com.senda.permissions.AndroidPermissionChecker
+import com.senda.permissions.Requirement
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
@@ -29,8 +30,9 @@ class AppContainerTest {
 
         assertTrue(container.clock.nowMs() > 0)
         assertTrue(container.deviceIdentity.deviceId in 0L..DEVICE_ID_MAX)
-        // Provisional hasta A3': el fake lo concede todo.
-        assertTrue(missingBlocking(container.permissionChecker.check()).isEmpty())
+        // A3': el verificador es el real y contesta todos los requisitos, estén o no concedidos.
+        assertEquals(Requirement.entries.toSet(), container.permissionChecker.check().keys)
+        assertTrue(container.permissionChecker is AndroidPermissionChecker)
     }
 
     @Test

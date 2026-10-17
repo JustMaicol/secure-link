@@ -27,6 +27,7 @@ object SendaIcons {
     val ArrowUp = R.drawable.ic_arrow_up
     val ArrowUpLeft = R.drawable.ic_arrow_up_left
     val ArrowUpRight = R.drawable.ic_arrow_up_right
+    val BatteryFull = R.drawable.ic_battery_full
     val Bell = R.drawable.ic_bell
     val Bluetooth = R.drawable.ic_bluetooth
     val Check = R.drawable.ic_check
@@ -56,7 +57,7 @@ object SendaIcons {
             "activity" to Activity, "arrow-down" to ArrowDown, "arrow-down-left" to ArrowDownLeft,
             "arrow-down-right" to ArrowDownRight, "arrow-left" to ArrowLeft, "arrow-right" to ArrowRight,
             "arrow-up" to ArrowUp, "arrow-up-left" to ArrowUpLeft, "arrow-up-right" to ArrowUpRight,
-            "bell" to Bell, "bluetooth" to Bluetooth, "check" to Check, "chevron-right" to ChevronRight,
+            "battery-full" to BatteryFull, "bell" to Bell, "bluetooth" to Bluetooth, "check" to Check, "chevron-right" to ChevronRight,
             "cloud-off" to CloudOff, "copy" to Copy, "fingerprint" to Fingerprint, "list-filter" to ListFilter,
             "map" to Map, "map-pin" to MapPin, "minus" to Minus, "navigation" to Navigation,
             "network" to Network, "plus" to Plus, "radar" to Radar, "radio" to Radio,
