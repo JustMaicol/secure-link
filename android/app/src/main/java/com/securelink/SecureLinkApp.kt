@@ -2,5 +2,13 @@ package com.securelink
 
 import android.app.Application
 
-// spec 100 · Vacía en el esqueleto (A1). En A3 crea el único AppContainer.
-class SecureLinkApp : Application()
+// spec 100 · Crea el único AppContainer y lo expone como propiedad (no hay singletons globales).
+class SecureLinkApp : Application() {
+    lateinit var container: AppContainer
+        private set
+
+    override fun onCreate() {
+        super.onCreate()
+        container = AppContainer(this)
+    }
+}
