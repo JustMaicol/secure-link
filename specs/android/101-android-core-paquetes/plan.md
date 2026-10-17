@@ -2,7 +2,7 @@
 
 Spec: `specs/android/101-android-core-paquetes/spec.md` (manda la spec; si este plan la contradice, se corrige el plan).
 Persona: **P1**. Contexto: `specs/plan-prioridades-android.md`, fases 0 y 1.
-Carpeta: `android/core/src/main/kotlin/com/securelink/core/protocol/` y sus pruebas. Nada fuera de ella.
+Carpeta: `android/core/src/main/kotlin/com/senda/core/protocol/` y sus pruebas. Nada fuera de ella.
 
 ## 1. Por qué el orden importa
 

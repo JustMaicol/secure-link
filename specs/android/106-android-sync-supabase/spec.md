@@ -3,7 +3,7 @@
 Capa: 3 · Persona: P2
 Depende de: 002, 100, 101, 102
 Entrega:
-- En `:core`, paquete `com.securelink.core.sync`: `SyncEngine`, `SyncStatus` + `FakeSyncStatus`, `RetryPolicy`, el mapeo de paquete a fila, y los puertos `HttpPort` y `ConnectivityPort` con sus fakes.
+- En `:core`, paquete `com.senda.core.sync`: `SyncEngine`, `SyncStatus` + `FakeSyncStatus`, `RetryPolicy`, el mapeo de paquete a fila, y los puertos `HttpPort` y `ConnectivityPort` con sus fakes.
 - En `:app`, paquete `sync`: `OkHttpPort`, `AndroidConnectivityPort`, `UploadWorker` y `SyncScheduler`.
 
 Consume: `UploadQueue` (102); `WirePacket` y `PacketKey` (101); `Clock`, `DeviceIdentity` y la configuración de Supabase (100); contrato de subida (002, sección 6)

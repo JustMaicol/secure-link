@@ -47,7 +47,7 @@ android/
   gradle/wrapper/                [100]
   core/
     build.gradle.kts             [100]
-    src/main/kotlin/com/securelink/core/
+    src/main/kotlin/com/senda/core/
       common/        Clock, DeviceIdentity y sus fakes            [100]
       protocol/      modelos, codec, claves, config 001           [101]
       gossip/        motor de reenvío puro                        [103]
@@ -57,11 +57,11 @@ android/
       node/          coordinador del nodo y política de energía   [107]
       geo/           distancia y rumbo                            [105]
       motion/        ShakeDetector                                [105]
-    src/test/kotlin/com/securelink/core/<mismo paquete>/          [dueño del paquete]
+    src/test/kotlin/com/senda/core/<mismo paquete>/          [dueño del paquete]
   app/
     build.gradle.kts             [100]
     src/main/AndroidManifest.xml [100]
-    src/main/java/com/securelink/
+    src/main/java/com/senda/
       SendaApplication.kt           Application: crea AppContainer   [100]
       AppContainer.kt            cableado                         [100]
       MainActivity.kt            permisos + navegación            [100]
@@ -94,7 +94,7 @@ android/
 - Las versiones se fijan en la tarea 1 con la última estable disponible ese día y se registran en `memory/P1.md`. Esta spec no las inventa (regla 3).
 - `minSdk = 34`. `compileSdk` y `targetSdk` = el nivel estable más reciente instalado al hacer la tarea 1.
 - Toolchain de Java 17 en ambos módulos.
-- `applicationId` y `namespace`: `com.securelink`.
+- `applicationId` y `namespace`: `com.senda`.
 
 Dependencias que la 100 deja declaradas para la capa 2:
 

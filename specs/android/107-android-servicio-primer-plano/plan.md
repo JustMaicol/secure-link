@@ -2,7 +2,7 @@
 
 Spec: `specs/android/107-android-servicio-primer-plano/spec.md` (manda la spec; si este plan la contradice, se corrige el plan).
 Persona: **P1**. Contexto: `specs/plan-prioridades-android.md`, fases 0, 2 y 3.
-Carpetas: `core/**/node/`, `app/**/service/`, y además `AppContainer.kt`, `SecureLinkApp.kt` y `AndroidManifest.xml` (dueño P1).
+Carpetas: `core/**/node/`, `app/**/service/`, y además `AppContainer.kt`, `SendaApplication.kt` y `AndroidManifest.xml` (dueño P1).
 **No toca:** `MainActivity.kt`, `navigation/` ni `strings.xml` (P2). Los textos de las notificaciones ya existen en los catálogos de la 108 y la 109, y los escribe P2.
 
 ## 1. Tres entregas
@@ -38,7 +38,7 @@ Carpetas: `core/**/node/`, `app/**/service/`, y además `AppContainer.kt`, `Secu
 | **S6** · energía | `PowerPolicy` pura; cambios de modo con `MODE_MIN_DWELL_MS`; `setScanMode` (104); wake lock solo con anuncios activos y con tiempo límite; `AppVisibilityPort` con `ProcessLifecycleOwner` | criterio 8 |
 | **S7** · alerta automática | `AutoAlertController` (sección 5): cuenta regresiva, vibración, alta precisión solo durante la cuenta, espera de ubicación sin límite, reintentos y `Failed` | criterio 9 |
 | **S8** · notificaciones | Canales; alerta cercana nueva (una por alerta, agrupadas, sonido una vez por minuto, nunca con la app visible); ayuda en camino; cuenta regresiva y enviada; destinos con `NotificationRoutes` | criterios 10 y 14 |
-| **S9** · subida | `SyncRunner.runOnce()` al pasar a con internet, al crecer la cola y al vencer el reintento; `SyncScheduler.ensureScheduled()` en `SecureLinkApp` | criterio 12 con `FakeSyncRunner` |
+| **S9** · subida | `SyncRunner.runOnce()` al pasar a con internet, al crecer la cola y al vencer el reintento; `SyncScheduler.ensureScheduled()` en `SendaApplication` | criterio 12 con `FakeSyncRunner` |
 | **S10** · dispositivo | Demo con **apps cerradas y pantallas apagadas**; notificación con la app cerrada; **consumo** de 1 h en reposo y 1 h con anuncios; quitar de recientes y "Forzar detención" | criterios 13, 15 y 16, registrados en `memory/P1.md`. Con la medición de consumo se acuerda el objetivo con el equipo |
 
 **Orden:** S0 (fase 0) → S1 → S2 → S3 → S4 → S5 (fase 2) → S6 → S7 → S8 → S9 → S10 (fase 3). En la fase 3, S6-S9 son independientes entre sí: pueden ir en PR separados.

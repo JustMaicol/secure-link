@@ -20,6 +20,8 @@ Los comandos son para **Windows (PowerShell)**, el sistema del equipo. En macOS,
 
 ## 1. Clonar y elegir tu rama
 
+> El proyecto se llama **Senda**, pero el repositorio de GitHub y la carpeta siguen llamándose `secure-link` hasta que se renombren (los comandos de abajo usan ese nombre).
+
 ```bash
 git clone https://github.com/JustMaicol/secure-link.git
 cd secure-link
@@ -162,7 +164,7 @@ Gradle se instala una sola vez, para crear `gradlew`. Desde ese momento, todos (
 | Vistas previas de Compose (`@Preview`) | la **galería de frames** del prototipo (`app/src/debug/**/prototype`), instalada en el teléfono con `installDebug` |
 | Logcat gráfico | `adb logcat` filtrado por la app (tabla de abajo) |
 | Depurador con puntos de interrupción en el teléfono | pruebas automáticas (la lógica está en `:core`, sin Android) y registros con `Log` |
-| Inspector de la base Room | `adb shell run-as com.securelink ls databases/` y pruebas de la 102 |
+| Inspector de la base Room | `adb shell run-as com.senda ls databases/` y pruebas de la 102 |
 | Emparejar la depuración inalámbrica con QR | `adb pair` y `adb connect` (sección 11) |
 
 Comandos útiles (desde `android/`; en PowerShell, `.\gradlew.bat` en lugar de `./gradlew`):
@@ -176,7 +178,7 @@ Comandos útiles (desde `android/`; en PowerShell, `.\gradlew.bat` en lugar de `
 | `./gradlew :app:connectedDebugAndroidTest` | pruebas en el teléfono conectado por ADB |
 | `./gradlew tasks` | lista de tareas disponibles |
 | `adb devices` | ver los teléfonos conectados |
-| `adb logcat --pid=$(adb shell pidof -s com.securelink)` | registros solo de la app (con la app abierta) |
+| `adb logcat --pid=$(adb shell pidof -s com.senda)` | registros solo de la app (con la app abierta) |
 | `adb logcat -c` | limpiar los registros antes de una prueba |
 
 Antes de A1 (mientras no exista `android/`), basta con verificar las secciones 5 y 6.
@@ -248,7 +250,7 @@ La app y el panel **no** usan cadenas de conexión de Postgres: hablan con la AP
 **Para instalar el APK sin cable (pruebas manuales, prototipo y demo):**
 1. Copiar `app-debug.apk` al teléfono (cable, Drive, mensajería…) y abrirlo.
 2. Permitir **"Instalar apps desconocidas"** para la app desde la que se abre.
-3. **Ajustes → Batería → Límites de uso en segundo plano:** quitar secure-link de **"Aplicaciones en suspensión"**. Si no, Samsung la congela con la pantalla apagada.
+3. **Ajustes → Batería → Límites de uso en segundo plano:** quitar Senda de **"Aplicaciones en suspensión"**. Si no, Samsung la congela con la pantalla apagada.
 
 **Para depurar (Logcat, `installDebug` y pruebas en el teléfono):**
 1. **Ajustes → Acerca del teléfono → Información de software:** tocar 7 veces **"Número de compilación"**.

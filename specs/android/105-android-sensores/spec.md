@@ -3,7 +3,7 @@
 Capa: 2 · Persona: P3 (reparto "prioridad Android"; antes P2)
 Depende de: 100
 Entrega:
-- En `:core`: `LocationSource`, `Compass`, `MapsLauncher` y `MotionSource` (interfaces + fakes); funciones puras de distancia, rumbo y estado de ubicación; `HeadingSmoother`; `ShakeDetector`; `SensorsConfig`. Paquetes `com.securelink.core.geo` y `com.securelink.core.motion`.
+- En `:core`: `LocationSource`, `Compass`, `MapsLauncher` y `MotionSource` (interfaces + fakes); funciones puras de distancia, rumbo y estado de ubicación; `HeadingSmoother`; `ShakeDetector`; `SensorsConfig`. Paquetes `com.senda.core.geo` y `com.senda.core.motion`.
 - En `:app`: implementaciones con FusedLocationProvider, SensorManager e intents. Paquetes `location` y `motion`.
 
 Consume: `Clock` y `PermissionChecker` (100)

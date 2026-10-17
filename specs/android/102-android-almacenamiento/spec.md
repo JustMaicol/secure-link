@@ -2,7 +2,7 @@
 
 Capa: 2 · Persona: P3 (reparto "prioridad Android"; antes P2)
 Depende de: 001, 100, 101
-Entrega: interfaces `OwnPacketRepository`, `NearbyRepository`, `PacketStore`, `UploadQueue`, `StorageStats` y `SettingsRepository`, con sus fakes, en `:core`, paquete `com.securelink.core.storage`; implementación con Room y `SharedPreferences` en `:app`, paquete `storage`
+Entrega: interfaces `OwnPacketRepository`, `NearbyRepository`, `PacketStore`, `UploadQueue`, `StorageStats` y `SettingsRepository`, con sus fakes, en `:core`, paquete `com.senda.core.storage`; implementación con Room y `SharedPreferences` en `:app`, paquete `storage`
 Consume: `Alert`, `OnTheWay`, `Status`, `WirePacket`, `PacketKey`, `PacketFactory` y `ProtocolConfig` (101); `Clock` y `DeviceIdentity` (100)
 
 ## Objetivo

@@ -3,7 +3,7 @@
 Capa: 3 · Persona: P1
 Depende de: 100, 101, 102, 103, 104, 105, 106 (solo interfaces)
 Entrega:
-- En `:core`, paquete `com.securelink.core.node`: `MeshNode` (coordinador, con la lógica sin Android), `MeshStatus`, `MeshControl` y `AutoAlertController` (interfaces + fakes), `PowerPolicy` (pura), `NodeConfig`, y los puertos `NotificationPort`, `WakeLockPort` y `AppVisibilityPort`.
+- En `:core`, paquete `com.senda.core.node`: `MeshNode` (coordinador, con la lógica sin Android), `MeshStatus`, `MeshControl` y `AutoAlertController` (interfaces + fakes), `PowerPolicy` (pura), `NodeConfig`, y los puertos `NotificationPort`, `WakeLockPort` y `AppVisibilityPort`.
 - En `:app`, paquete `service`: `MeshService` (Foreground Service), notificaciones, wake lock, visibilidad de la app y el cableado en `AppContainer`.
 
 Consume: `GossipEngine` (103); `MeshTransport` (104); `PacketStore`, `OwnPacketRepository`, `SettingsRepository` y `UploadQueue` (102); `LocationSource`, `MotionSource` y geo (105); `SyncEngine`, `SyncScheduler` y `ConnectivityPort` (106); `Clock`, `DeviceIdentity` y `PermissionChecker` (100); `PacketKey`, `Mulberry32`, `seedOf`, `relayTagOf` y `ProtocolConfig` (101)
@@ -194,7 +194,7 @@ Canales: **Servicio** (importancia baja) y **Alertas** (importancia alta), con l
 
 ## 7. Subida (106)
 
-- `SyncEngine` y `SyncScheduler` se crean en `AppContainer`. `ensureScheduled()` se llama en `SecureLinkApp.onCreate`.
+- `SyncEngine` y `SyncScheduler` se crean en `AppContainer`. `ensureScheduled()` se llama en `SendaApplication.onCreate`.
 - El nodo llama a `SyncRunner.runOnce()` (interfaz de la 106; `SyncEngine` la implementa):
   - cuando `online` pasa a `true`;
   - cuando aumenta `pendingCount` estando `online`;
@@ -211,7 +211,7 @@ Canales: **Servicio** (importancia baja) y **Alertas** (importancia alta), con l
 | Detención | `MeshControl.setEnabled(false)` guarda `meshEnabled = false`, detiene el transporte y llama a `stopSelf()`. La subida por WorkManager sigue (106) |
 | Manifiesto | la 107 declara `MeshService` en el `AndroidManifest.xml` (es spec de composición) |
 | Visibilidad de la app | `ProcessLifecycleOwner` → `AppVisibilityPort` |
-| Wake lock | `PowerManager.PARTIAL_WAKE_LOCK`, etiqueta `securelink:announce`, siempre con `acquire(WAKELOCK_TIMEOUT_MS)` |
+| Wake lock | `PowerManager.PARTIAL_WAKE_LOCK`, etiqueta `senda:announce`, siempre con `acquire(WAKELOCK_TIMEOUT_MS)` |
 
 **Pendiente heredado de `AGENTS.md`:** antes de implementar, revisar la documentación oficial de Android 15 y 16 (y 17 si ya salió) sobre servicios en primer plano, tipos, límites de arranque desde segundo plano y reinicio con `START_STICKY`, y sobre BLE en segundo plano. Lo que cambie se registra como `[HALLAZGO]` en `memory/P1.md` y, si hace falta, se revisa esta spec.
 

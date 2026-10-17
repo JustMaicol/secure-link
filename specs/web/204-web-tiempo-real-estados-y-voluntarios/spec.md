@@ -82,7 +82,7 @@ export function createFakeRealtimeSource(): RealtimeSource & { emit...(row): voi
 | `lastUpdateMs` | último evento o última carga | tiempo transcurrido (200) | `Actualizado hace 5 s` | `—` |
 | `toast.items` | alertas nuevas agrupadas | tipo, personas y tiempo | `Atrapado o grave · 3 personas · hace 1 min` | — |
 | `toast.count` | tamaño del grupo | número | `5 alertas graves nuevas` | — |
-| `unseenCount` | alertas nuevas mientras la pestaña estaba oculta | número en el título | `(3) secure-link` | sin número |
+| `unseenCount` | alertas nuevas mientras la pestaña estaba oculta | número en el título | `(3) Senda` | sin número |
 
 ## 6. Mensajes
 
@@ -96,7 +96,7 @@ export function createFakeRealtimeSource(): RealtimeSource & { emit...(row): voi
 | `rt_last_update` | siempre | junto al chip | — | Actualizado hace 5 s | — |
 | `rt_toast_single` | una alerta grave nueva | aviso | ERROR | Nueva alerta: Atrapado o grave · 3 personas | Ver · Cerrar |
 | `rt_toast_group` | varias en `TOAST_GROUP_MS` | aviso | ERROR | 5 alertas graves nuevas | Ver · Cerrar |
-| `rt_tab_title` | `unseenCount > 0` con la pestaña oculta | título del navegador | — | (3) secure-link | — |
+| `rt_tab_title` | `unseenCount > 0` con la pestaña oculta | título del navegador | — | (3) Senda | — |
 
 ## Criterios de aceptación
 

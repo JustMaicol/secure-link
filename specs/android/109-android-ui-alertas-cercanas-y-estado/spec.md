@@ -213,8 +213,8 @@ Además de las de la tarjeta (sección 2.3):
 | id | Cuándo | Título | Texto | Acciones |
 |---|---|---|---|---|
 | `nearby_notif_new_alert` | `RECEIVED` de un `ALERT` ajeno y no resuelto | Nueva alerta: Atrapado o grave | 3 personas · a 120 m · hace 1 min (sin ubicación: "distancia desconocida") | Abrir (→ detalle) |
-| `status_notif_service` | el servicio en primer plano funciona | secure-link activo | Escuchando alertas cercanas · 4 teléfonos cerca | Abrir |
-| `status_notif_service_bt_off` | servicio con `BLUETOOTH_OFF` | secure-link en pausa | Bluetooth apagado: no se reciben alertas. | Abrir |
+| `status_notif_service` | el servicio en primer plano funciona | Senda activo | Escuchando alertas cercanas · 4 teléfonos cerca | Abrir |
+| `status_notif_service_bt_off` | servicio con `BLUETOOTH_OFF` | Senda en pausa | Bluetooth apagado: no se reciben alertas. | Abrir |
 
 Canales: "Alertas cercanas" (importancia alta) y "Servicio" (importancia baja).
 

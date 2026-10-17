@@ -7,7 +7,7 @@ Consume: `PROJECT.md`, `AGENTS.md`
 
 ## Objetivo
 
-Definir qué construye, qué simula y qué deja fuera el MVP de **secure-link** (nombre provisional) para el rally de un día, de modo que cada spec posterior pueda derivarse de aquí sin reinterpretar la idea.
+Definir qué construye, qué simula y qué deja fuera el MVP de **Senda** para el rally de un día, de modo que cada spec posterior pueda derivarse de aquí sin reinterpretar la idea.
 
 ## Problema
 
@@ -93,7 +93,7 @@ Los criterios no dependen del transporte: valen igual con BLE o con el respaldo 
 - Fórmula de prioridad (spec 003).
 - Umbral del movimiento brusco (spec 105). La cuenta regresiva quedó en 15 s (spec 108).
 - Esquema, políticas RLS y usuario "autoridad" (spec 002).
-- Nombre definitivo del proyecto.
+- Logo e identidad visual del proyecto (el nombre es **Senda**, decidido el 2026-10-17).
 
 ## Tareas
 

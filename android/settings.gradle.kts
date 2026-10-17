@@ -15,5 +15,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "secure-link"
+rootProject.name = "Senda"
 include(":core", ":app")

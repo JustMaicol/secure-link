@@ -2,7 +2,7 @@
 
 Spec: `specs/android/103-android-gossip-motor/spec.md` (manda la spec; si este plan la contradice, se corrige el plan).
 Persona: **P1**. Contexto: `specs/plan-prioridades-android.md`, fase 1.
-Carpeta: `android/core/src/main/kotlin/com/securelink/core/gossip/` y sus pruebas (`ScenarioRunner` vive en las pruebas).
+Carpeta: `android/core/src/main/kotlin/com/senda/core/gossip/` y sus pruebas (`ScenarioRunner` vive en las pruebas).
 
 ## 1. Lugar en el plan
 

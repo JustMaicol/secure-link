@@ -29,7 +29,7 @@ Orden de trabajo de las specs Android para tres personas en paralelo, sin que el
 
 | Persona | Rol en Android | Specs | Carpetas |
 |---|---|---|---|
-| **P1** | Base y núcleo de la malla | 100-A (proyecto, build, primitivas, `AppContainer`), 101, 103, 107 | `android/` raíz y Gradle, `core/common`, `core/protocol`, `core/gossip`, `core/node`, `app/common`, `app/service`, `AppContainer.kt`, `SecureLinkApp.kt` |
+| **P1** | Base y núcleo de la malla | 100-A (proyecto, build, primitivas, `AppContainer`), 101, 103, 107 | `android/` raíz y Gradle, `core/common`, `core/protocol`, `core/gossip`, `core/node`, `app/common`, `app/service`, `AppContainer.kt`, `SendaApplication.kt` |
 | **P2** | Interfaz y prototipo visual | 100-B (permisos, componentes, formato, navegación, tema), 108, 109, 106 (+ vectores de prueba) | `app/permissions`, `app/navigation`, `app/ui`, `app/features/*`, `app/src/debug/**/prototype` (galería y datos de prueba), `MainActivity.kt`, `strings.xml`, `core/sync`, `app/sync`, `specs/shared/vectors/` |
 | **P3** | Radio, sensores y datos | 104, 105, 102 | `core/mesh`, `app/mesh/ble`, `app/src/debug/**/mesh` (pantalla del prototipo BLE), `core/geo`, `core/motion`, `app/location`, `app/motion`, `core/storage`, `app/storage`, `app/schemas` |
 
