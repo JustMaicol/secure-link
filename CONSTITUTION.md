@@ -46,5 +46,8 @@ Reglas base para Android, web y simulación. Si una regla choca con una spec, se
 29. La IA declara lo que no pudo verificar. Nunca afirma que algo funciona sin haberlo ejecutado.
 30. Lo simulado se rotula como simulación en el código, la interfaz y la presentación.
 31. Estructura y specs: `ARCHITECTURE.md`. Memoria: leer `MEMORY.md` y `memory/`; escribir solo en tu `memory/Pn.md`.
-32. Al clonar el repositorio se crea `WHOAMI.md` en la raíz (1-2 líneas: `Soy Pn; escribo solo en memory/Pn.md`). No se sube (`.gitignore`). Sin él, el agente lo pide antes de actuar.
+32. Al clonar el repositorio se crea `WHOAMI.md` en la raíz con la identidad y las specs asignadas (plantilla en `ENTORNO.md`). No se sube (`.gitignore`). Sin él, el agente lo pide antes de actuar. **Cada persona, y su agente, trabaja solo en las specs y carpetas asignadas a su `Pn`** (`ARCHITECTURE.md`, sección 6). Si una tarea exige tocar archivos, specs o memoria de otra persona, se detiene y lo pide con `[PIDE a Pn]` en su propio `memory/Pn.md`; nunca lo edita.
 33. Al completar cada task: se marca `terminada` en tu `memory/Pn.md` y el resumen final incluye el `git commit -m "spec NNN: ..."` listo para subir sus cambios.
+
+## 8. Idioma
+34. El código va en inglés: identificadores, nombres de archivos, clases, funciones, tablas y columnas. Los comentarios, las specs, la memoria y la documentación van en español. La interfaz de la app y del panel, en español por ahora (spec 000).

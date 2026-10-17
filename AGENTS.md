@@ -13,6 +13,7 @@ Sistema de alertas y priorización post-emergencia (terremoto, alud, inundación
 - **El nombre de la carpeta (`pwa-comunicacion`) viene de una primera idea que no cuajó. Ignorarlo.** No es una PWA: la app es **Android nativo**.
 - `PROJECT.md` mezcla decisiones y lluvia de ideas. Las decisiones están marcadas como tales.
 - Metodología: **SDD (Spec-Driven Development)**. Sin spec no hay código.
+- **Idioma:** el código va en inglés (identificadores, archivos, clases, funciones, tablas y columnas). Comentarios, specs, memoria y documentación, en español. La UI de la app y del panel, en español por ahora.
 - **Dispositivos objetivo: solo Samsung Galaxy por ahora.** **`minSdk 34` (Android 14)**, `compileSdk`/`targetSdk` al más reciente disponible. Modelos exactos por confirmar.
 
 ## Stack
@@ -24,7 +25,7 @@ Sistema de alertas y priorización post-emergencia (terremoto, alud, inundación
 | Segundo plano | Foreground Service |
 | Ubicación y orientación | FusedLocationProvider, acelerómetro y brújula (SensorManager) |
 | Servidor | Supabase (Postgres, API REST, Realtime, RLS) |
-| Panel web | HTML + JavaScript/TypeScript, Leaflet, `supabase-js` |
+| Panel web | React + Vite + TypeScript, Leaflet (mapa base CARTO), `supabase-js`; desplegado en GitHub Pages |
 | Simulación | JavaScript en el navegador |
 
 La malla va detrás de una interfaz `MeshTransport`. **Nearby Connections queda como respaldo**: si el prototipo BLE de la primera hora no funciona en los Samsung de la demo, se cambia la implementación sin tocar la lógica de reenvío. iOS está fuera de alcance.
@@ -39,10 +40,13 @@ specs/  shared/ (000-003 + vectors/)  android/  web/  simulation/  integration/
 ```
 
 - Las specs se nombran `NNN-nombre-de-la-spec` y avanzan por capas: contratos (0xx) → base de cada área (x00) → módulos independientes → composición → integración.
+- **Cada spec es una carpeta** `specs/<área>/NNN-nombre-de-la-spec/` con `spec.md` (manda), `plan.md` y `task.md`. Detalle en `ARCHITECTURE.md`, sección 2.
 - Cada spec declara de qué depende, qué entrega (interfaz + fake) y qué consume. Solo depende de interfaces, nunca de implementaciones.
 - Reparto (detalle y olas en `ARCHITECTURE.md`): **Persona 1** malla y servicio (100, 101, 103, 104, 107) · **Persona 2** datos, sensores y UI (102, 105, 106, 108, 109) · **Persona 3** web y Supabase (200-205) y la simulación (300). Todos: 000-003 y 400.
+- **Fase actual, prioridad Android (temporal):** los tres trabajan en Android con otro reparto. **P1** 100-A, 101, 103, 107 · **P2** 100-B, 108, 109, 106 y vectores · **P3** 104, 105, 102. Detalle en `specs/plan-prioridades-android.md` y `ARCHITECTURE.md`, sección 6.1. Ese plan manda sobre el reparto original mientras dure la fase.
 - El trabajo va por olas: dentro de una ola nadie toca la misma carpeta. Cada spec es dueña de su carpeta.
 - **Memoria obligatoria:** al empezar una tarea, `git pull` y leer `MEMORY.md` y `memory/P1.md`, `P2.md`, `P3.md`. Al terminar, registrar **solo en tu propio `memory/Pn.md`**. Nunca editar el de otro.
+- **Identidad obligatoria (`WHOAMI.md`):** antes de actuar, el agente lee `WHOAMI.md` en la raíz. Si no existe, lo pide y no hace nada más. Solo trabaja en las specs y carpetas que lista ese archivo (para P1, la parte A de la 100; para P2, la parte B). Si una tarea exige tocar algo de otra persona, se detiene y propone el `[PIDE a Pn]`. Preparación al clonar: `ENTORNO.md`.
 - Git: una rama por persona (`p1`, `p2`, `p3`), cada una edita solo sus carpetas y su archivo de memoria, así los PRs no chocan. Guía en `MEMORY.md`.
 - La simulación (3xx) se trabaja al final y es lo primero que se recorta.
 - El protocolo se comparte entre Android y el simulador mediante vectores de prueba en `specs/shared/vectors/`.
@@ -57,9 +61,9 @@ specs/  shared/ (000-003 + vectors/)  android/  web/  simulation/  integration/
 
 ### Paquetes (spec 001)
 - Límite duro: **27 bytes** útiles por anuncio legacy.
-- Tipos: `ALERTA` (≈22 bytes: tipo de paquete, deviceId, contador, tipo de emergencia, vulnerables, personas, latitud, longitud, hora, TTL) y `VOY_EN_CAMINO` (≈16 bytes: ID de la alerta, deviceId del voluntario, hora, TTL). Una posible tercera clase `CANCELADA / A_SALVO` se define en el spec 001.
+- Tipos (formato exacto en la spec 001): `ALERTA` (27 bytes: byte mágico, versión y tipo, deviceId de 6 bytes, contador, tipo de emergencia, vulnerables, personas, latitud, longitud, hora, TTL, etiqueta de relay), `VOY_EN_CAMINO` (23 bytes) y `CANCELADA / A_SALVO` (18 bytes, reservado y opcional).
 - **La deduplicación usa solo campos inmutables.** `ALERTA`: `(deviceId, contador)`. `VOY_EN_CAMINO`: `(alertId, deviceId del voluntario)`. Nunca un hash del paquete completo, porque el TTL y la marca de relay cambian en cada salto.
-- Marca del relay: contador de saltos (TTL). Una etiqueta de 2 bytes del último relay es opcional. No se acumula la ruta completa.
+- Marca del relay: contador de saltos (TTL) y etiqueta de 2 bytes del último relay (`relayTag`, la usa el filtro de depuración). Ambos son mutables y no entran en la deduplicación. No se acumula la ruta completa.
 
 ### Zonas y mapa
 - La ubicación del mensaje agrupa en celdas. Se cuentan IDs distintos por celda.
