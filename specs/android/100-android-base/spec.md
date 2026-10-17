@@ -26,7 +26,7 @@ Dejar listo el proyecto Android sobre el que cada spec de la capa 2 trabaja en s
 - Lógica del protocolo (101, 103), BLE (104), Room (102), sensores (105), sync (106), servicio en primer plano (107) y pantallas reales (108, 109).
 - Declarar el servicio en el manifiesto: lo agrega la 107 (capa 3).
 - Cliente de Supabase: lo elige y lo agrega la 106 (capa 3).
-- Reinicio al encender el teléfono (`BOOT_COMPLETED`) y ubicación en segundo plano (`ACCESS_BACKGROUND_LOCATION`). Si la 107 confirma que hacen falta, los agrega.
+- Reinicio al encender el teléfono (`BOOT_COMPLETED`). Si la 107 confirma que hace falta, lo agrega.
 
 ## 1. Módulos
 
@@ -175,6 +175,7 @@ El contador de alertas no está aquí: se asigna al guardar la alerta, en la mis
 | `BLUETOOTH_ADVERTISE` | en tiempo de ejecución | anunciar (104) |
 | `BLUETOOTH_CONNECT` | en tiempo de ejecución | pedir que se encienda el Bluetooth y leer el estado del adaptador |
 | `ACCESS_FINE_LOCATION`, `ACCESS_COARSE_LOCATION` | en tiempo de ejecución, se piden juntos | ubicación de la alerta y escaneo (105, 104) |
+| `ACCESS_BACKGROUND_LOCATION` | en tiempo de ejecución, **se pide aparte y después** de la ubicación | que el servicio en primer plano (107) conserve la ubicación tras un reinicio automático: Android no deja crear un servicio de tipo `location` ni darle ubicación desde segundo plano sin él. En Android 11 o superior no hay diálogo: el sistema abre los ajustes de ubicación de la app y el usuario elige "Permitir todo el tiempo" (2026-10-17, hallazgo de la 107 · S1) |
 | `POST_NOTIFICATIONS` | en tiempo de ejecución | notificación del servicio en primer plano (107) |
 | `FOREGROUND_SERVICE`, `FOREGROUND_SERVICE_CONNECTED_DEVICE`, `FOREGROUND_SERVICE_LOCATION` | normales | servicio en primer plano (107) |
 | `INTERNET`, `ACCESS_NETWORK_STATE` | normales | subida y detección de red (106) |
@@ -187,7 +188,7 @@ Además: `<uses-feature android:name="android.hardware.bluetooth_le" android:req
 
 ```kotlin
 // spec 100 (paquete permissions de :app)
-enum class Requirement { BLUETOOTH, LOCATION, NOTIFICATIONS, BLUETOOTH_ON, LOCATION_ON, BATTERY_UNRESTRICTED }
+enum class Requirement { BLUETOOTH, LOCATION, NOTIFICATIONS, BLUETOOTH_ON, LOCATION_ON, BACKGROUND_LOCATION, BATTERY_UNRESTRICTED }
 
 interface PermissionChecker {
     /** Estado actual de cada requisito; se vuelve a consultar al volver a la app. */
@@ -202,8 +203,9 @@ class FakePermissionChecker(var state: Map<Requirement, Boolean>) : PermissionCh
 fun missingBlocking(state: Map<Requirement, Boolean>): List<Requirement>
 ```
 
-- **Bloqueantes:** `BLUETOOTH` (los tres de Bluetooth), `LOCATION`, `NOTIFICATIONS`, `BLUETOOTH_ON` (adaptador encendido) y `LOCATION_ON` (ubicación del sistema activada).
-- **Recomendado, no bloqueante:** `BATTERY_UNRESTRICTED`.
+- **Bloqueantes:** `BLUETOOTH` (los tres de Bluetooth), `LOCATION`, `BLUETOOTH_ON` (adaptador encendido) y `LOCATION_ON` (ubicación del sistema activada).
+- **Recomendados, no bloqueantes:** `NOTIFICATIONS` (el diseño de Figma deja continuar sin ellas; el servicio en primer plano funciona igual, solo no se ve su notificación), `BACKGROUND_LOCATION` y `BATTERY_UNRESTRICTED`.
+- `BACKGROUND_LOCATION` solo se puede pedir con `LOCATION` concedido (`prerequisiteOf`): la pantalla deshabilita su botón hasta entonces.
 - Las demás specs no piden permisos. Si una operación falla por falta de permiso, devuelve un error explícito (regla 16) y la app vuelve a la pantalla de permisos.
 
 ### 5.3 Pantalla de permisos
@@ -327,7 +329,7 @@ Reglas comunes en `ui/format/` (dueño: 100). La clasificación es pura y se pru
 3. Ningún archivo de Gradle contiene `+`, `latest` ni rangos de versión. Lo comprueba una prueba que lee `libs.versions.toml`.
 4. `FakeClock` devuelve la hora fijada y avanza solo con `advanceBy` o `set`. `advanceBy` con un valor negativo lanza una excepción.
 5. `PrefsDeviceIdentity` llama al generador una sola vez. Una segunda instancia sobre las mismas preferencias devuelve el mismo `deviceId`. El valor siempre está en `0..DEVICE_ID_MAX`, aunque el generador devuelva un `Long` negativo.
-6. `missingBlocking` devuelve los requisitos bloqueantes que faltan, en orden, e ignora `BATTERY_UNRESTRICTED`.
+6. `missingBlocking` devuelve los requisitos bloqueantes que faltan, en orden, e ignora `NOTIFICATIONS`, `BACKGROUND_LOCATION` y `BATTERY_UNRESTRICTED`.
 7. Con `FakePermissionChecker`, una prueba de Compose muestra la pantalla de permisos si falta un requisito bloqueante y la navegación si no falta ninguno.
 8. La navegación muestra los tres destinos con sus pantallas provisionales rotuladas.
 9. Una prueba de `:core` encuentra la carpeta `vectorsDir`.
