@@ -62,7 +62,7 @@ android/
     build.gradle.kts             [100]
     src/main/AndroidManifest.xml [100]
     src/main/java/com/securelink/
-      SecureLinkApp.kt           Application: crea AppContainer   [100]
+      SendaApplication.kt           Application: crea AppContainer   [100]
       AppContainer.kt            cableado                         [100]
       MainActivity.kt            permisos + navegación            [100]
       common/        SystemClock, PrefsDeviceIdentity             [100]
@@ -236,7 +236,7 @@ class AppContainer(context: Context) {
 }
 ```
 
-- `SecureLinkApp` (la `Application`) crea un único `AppContainer` y lo expone como propiedad. No hay singletons globales ni inyección por reflexión (regla 10, `ARCHITECTURE.md`).
+- `SendaApplication` (la `Application`) crea un único `AppContainer` y lo expone como propiedad. No hay singletons globales ni inyección por reflexión (regla 10, `ARCHITECTURE.md`).
 - Los ViewModel se crean con `viewModelFactory { initializer { ... } }` y toman lo que necesitan del contenedor.
 
 ## 8. Textos
@@ -254,7 +254,10 @@ Tonos (`UiTone`): `INFO`, `SUCCESS`, `WARNING`, `ERROR` y `SIMULATION`. Este úl
 
 Cada pantalla tiene un `UiState` inmutable (una `data class`) con exactamente sus variables visibles. El ViewModel lo arma a partir de las interfaces que consume, y la pantalla solo lo dibuja.
 
-## 10. Diseño temporal y componentes base
+## 10. Diseño y componentes base
+
+**Desde el 2026-10-17 el diseño sale del Figma "SENDA APP"** (tokens en `ui/theme/`: `SendaColors`, `SendaText` con Roboto, `Dimens`; íconos Lucide en `res/drawable`; textos en `strings.xml`). Quedan construidos: `ScreenScaffold`, `ScreenHeader`, `ConnectivityStrip`, `SendaCard`, `EmergencyBadge`, `DemoBadge`, `SimulationBadge`, `SendaButton`, `SmallActionButton`, `SendaTextButton`, `SendaBottomBar`, `SendaSwitch`, `SendaCheckbox`, `QuantityStepper` e `InfoRow`. Faltan `StatusChip`, `MessageBanner`, `EmptyState` y `ConfirmDialog`, que Figma no dibuja: se construyen con la primera pantalla que los necesite, en el mismo estilo. La vista previa de los componentes es una galería solo para depuración (`gallery.GalleryActivity`), no `@Preview`. El texto que sigue conserva la descripción original.
+
 
 El diseño final (colores, tipografía y espaciado) sale de Figma. Hasta entonces, la app usa un diseño temporal cuyo único objetivo es que cada pantalla se entienda: textos, botones y contenedores separados, nunca todo apilado.
 
@@ -273,7 +276,7 @@ Componentes base en `ui/components/` (dueño: 100), con estilos Material 3 por d
 | `SimulationBadge()` | etiqueta "SIMULACIÓN" |
 
 - Espaciado temporal: una sola escala en `ui/theme/Spacing.kt` (4, 8, 16, 24 y 32 dp).
-- Colores temporales del tipo de emergencia: los de la 003 (rojo `#DC2626`, naranja `#F97316`, amarillo `#EAB308`), definidos una vez en `ui/theme/`. El tipo **nunca** se comunica solo por color: siempre va con su texto.
+- Colores del tipo de emergencia: los del diseño de Figma (amarillo `#866900` sobre `#fff7d6`, naranja `#aa510e` sobre `#fff0e1`, rojo `#b83837` sobre `#fceaea`; en oscuro `#f4d56a`, `#ffb36b` y `#ff9290`), definidos una vez en `ui/theme/SendaColors.kt`. **No coinciden con los de la 003** (rojo `#DC2626`, naranja `#F97316`, amarillo `#EAB308`, del panel web): hay que alinearlos (hallazgo 2026-10-17). El tipo **nunca** se comunica solo por color: siempre va con su texto.
 
 ## 11. Formato de valores
 
@@ -282,7 +285,7 @@ Reglas comunes en `ui/format/` (dueño: 100). La clasificación es pura y se pru
 | Valor | Regla | Ejemplos |
 |---|---|---|
 | Distancia | < 1000 m: redondeo a 10 m; de 1 a 100 km: un decimal con coma; ≥ 100 km: entero | `850 m`, `1,2 km`, `123 km`; sin dato: `—` |
-| Tiempo transcurrido | < 1 min: "ahora"; < 1 h: minutos; < 24 h: horas; si no, días | `ahora`, `hace 5 min`, `hace 3 h`, `hace 2 d` |
+| Tiempo transcurrido | < 1 s: "ahora"; < 1 min: segundos; < 1 h: minutos; < 24 h: horas; si no, días (los segundos salen del diseño de Figma) | `ahora`, `hace 20 s`, `hace 5 min`, `hace 3 h`, `hace 2 d` |
 | Hora | `HH:mm` en la zona horaria del teléfono (solo al mostrar; internamente, UTC, regla 11) | `07:33` |
 | Personas | singular, plural y tope de la 001 | `1 persona`, `3 personas`, `255 o más personas` |
 | Precisión | metros enteros | `±15 m` |
@@ -307,14 +310,14 @@ Reglas comunes en `ui/format/` (dueño: 100). La clasificación es pura y se pru
 | id | Cuándo | Dónde | Tono | Texto provisional | Acción |
 |---|---|---|---|---|---|
 | `permissions_title` | siempre | barra superior | — | Antes de empezar | — |
-| `permissions_intro` | siempre | encabezado | INFO | secure-link necesita estos permisos para enviar y recibir alertas sin internet. | — |
+| `permissions_intro` | siempre | encabezado | INFO | Senda necesita estos permisos para enviar y recibir alertas sin internet. | — |
 | `permissions_bluetooth` | fila `BLUETOOTH` | fila | — | Bluetooth cercano: para enviar y recibir alertas de teléfonos cercanos sin internet. | Conceder |
 | `permissions_location` | fila `LOCATION` | fila | — | Ubicación: para compartir dónde estás cuando pides ayuda y calcular la distancia a otras alertas. | Conceder |
 | `permissions_notifications` | fila `NOTIFICATIONS` | fila | — | Notificaciones: para avisarte de alertas cercanas y mantener la app activa. | Conceder |
 | `permissions_bluetooth_on` | fila `BLUETOOTH_ON` sin cumplir | fila | WARNING | El Bluetooth está apagado. | Encender |
 | `permissions_location_on` | fila `LOCATION_ON` sin cumplir | fila | WARNING | La ubicación del teléfono está desactivada. | Activar |
 | `permissions_battery` | fila `BATTERY_UNRESTRICTED` | fila | INFO | Recomendado: quita la restricción de batería para que el sistema no detenga la app. | Permitir |
-| `permissions_samsung` | mientras `samsungAcknowledged = false` | fila | INFO | Samsung: en Ajustes > Batería > Límites de uso en segundo plano, quita secure-link de "Aplicaciones en suspensión". | Abrir ajustes · Ya lo hice |
+| `permissions_samsung` | mientras `samsungAcknowledged = false` | fila | INFO | Samsung: en Ajustes > Batería > Límites de uso en segundo plano, quita Senda de "Aplicaciones en suspensión". | Abrir ajustes · Ya lo hice |
 | `permissions_state_granted` | `row.state = GRANTED` | chip de la fila | SUCCESS | Listo | — |
 | `permissions_state_missing` | `row.state = MISSING` | chip de la fila | WARNING | Falta | — |
 | `permissions_state_denied` | `row.state = DENIED_PERMANENTLY` | chip de la fila | ERROR | Lo negaste antes: actívalo en Ajustes. | Abrir ajustes |
@@ -346,7 +349,7 @@ Reglas comunes en `ui/format/` (dueño: 100). La clasificación es pura y se pru
 4. `:app/common`: `SystemClock` y `PrefsDeviceIdentity`, con sus pruebas (criterio 5).
 5. `permissions/`: `PermissionChecker`, `AndroidPermissionChecker`, `FakePermissionChecker`, `missingBlocking` y la pantalla, con sus pruebas (criterios 6 y 7).
 6. Navegación, tema, pantallas provisionales y carpetas vacías de las demás specs (criterio 8).
-7. `AppContainer` y `SecureLinkApp`.
+7. `AppContainer` y `SendaApplication`.
 8. Pruebas de reglas del proyecto (criterios 2, 3 y 9).
 9. Instalar en un Samsung y registrar el resultado (criterio 10).
 10. `ui/format/` con sus pruebas (criterio 11).
