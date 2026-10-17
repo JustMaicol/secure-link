@@ -56,8 +56,8 @@ Al terminar cada task: commit `spec 100: <qué>` y anotar en el propio `memory/P
 
 ### A3 · `AppContainer` de prototipo (fase 0.3)
 
-- [ ] **A3.1** `AppContainer(context)` con `clock = SystemClock()`, `deviceIdentity = PrefsDeviceIdentity(...)` y `permissionChecker = FakePermissionChecker(todo concedido)`, con un comentario `// provisional: A3'`.
-- [ ] **A3.2** `SecureLinkApp` crea **un solo** `AppContainer` y lo expone como propiedad (sin singletons globales).
+- [x] **A3.1** `AppContainer(context)` con `clock = SystemClock()`, `deviceIdentity = PrefsDeviceIdentity(...)` y `permissionChecker = FakePermissionChecker(todo concedido)`, con un comentario `// provisional: A3'`.
+- [x] **A3.2** `SecureLinkApp` crea **un solo** `AppContainer` y lo expone como propiedad (sin singletons globales).
 - [ ] **A3.3** Cablear cada fake **cuando su contrato se fusione**:
   - [ ] 102: `InMemoryStorage` (todas las interfaces de almacenamiento)
   - [ ] 104: `FakeMeshTransport`
@@ -87,9 +87,9 @@ Al terminar cada task: commit `spec 100: <qué>` y anotar en el propio `memory/P
 
 ### B1 · Contrato de permisos (fase 0.2, apenas se fusione A1)
 
-- [ ] **B1.1** `enum class Requirement { BLUETOOTH, LOCATION, NOTIFICATIONS, BLUETOOTH_ON, LOCATION_ON, BATTERY_UNRESTRICTED }`, en ese orden.
-- [ ] **B1.2** `PermissionChecker` (`check(): Map<Requirement, Boolean>`) y `FakePermissionChecker(var state)`.
-- [ ] **B1.3** `missingBlocking(state)`: los bloqueantes que faltan, en el orden del enum, ignorando `BATTERY_UNRESTRICTED`. Pruebas JVM (criterio 6).
+- [x] **B1.1** `enum class Requirement { BLUETOOTH, LOCATION, NOTIFICATIONS, BLUETOOTH_ON, LOCATION_ON, BATTERY_UNRESTRICTED }`, en ese orden.
+- [x] **B1.2** `PermissionChecker` (`check(): Map<Requirement, Boolean>`) y `FakePermissionChecker(var state)`.
+- [x] **B1.3** `missingBlocking(state)`: los bloqueantes que faltan, en el orden del enum, ignorando `BATTERY_UNRESTRICTED`. Pruebas JVM (criterio 6).
   *Depende de:* A1.
 
 ### B2 · Tema y formato
