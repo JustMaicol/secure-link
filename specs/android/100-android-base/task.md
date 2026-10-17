@@ -40,11 +40,11 @@ Al terminar cada task: commit `spec 100: <qué>` y anotar en el propio `memory/P
 
 ### A4 · Implementaciones `common`
 
-- [ ] **A4.1** `SystemClock` en `app/.../common/`: **única** clase con `System.currentTimeMillis()`.
-- [ ] **A4.2** Interfaz `IdStore` (leer y escribir un texto), con `SharedPreferencesIdStore` (`identity` / `device_id`) y `FakeIdStore`.
-- [ ] **A4.3** `PrefsDeviceIdentity(store, generate)`: la primera vez llama a `generate()`, aplica `and DEVICE_ID_MAX` y guarda 12 hexadecimales; después lee.
-- [ ] **A4.4** Pruebas JVM con `FakeIdStore` (criterio 5): un solo llamado al generador; una segunda instancia devuelve el mismo valor; un generador que devuelve un `Long` negativo da un valor dentro de rango.
-- [ ] **A4.5** Una prueba en dispositivo con `SharedPreferences` reales (necesita ADB).
+- [x] **A4.1** `SystemClock` en `app/.../common/`: **única** clase con `System.currentTimeMillis()`.
+- [x] **A4.2** Interfaz `IdStore` (leer y escribir un texto), con `SharedPreferencesIdStore` (`identity` / `device_id`) y `FakeIdStore`.
+- [x] **A4.3** `PrefsDeviceIdentity(store, generate)`: la primera vez llama a `generate()`, aplica `and DEVICE_ID_MAX` y guarda 12 hexadecimales; después lee.
+- [x] **A4.4** Pruebas JVM con `FakeIdStore` (criterio 5): un solo llamado al generador; una segunda instancia devuelve el mismo valor; un generador que devuelve un `Long` negativo da un valor dentro de rango.
+- [x] **A4.5** Una prueba en dispositivo con `SharedPreferences` reales (necesita ADB).
   *Depende de:* A2.
 
 ### A5 · Reglas del proyecto
