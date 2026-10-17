@@ -1,0 +1,112 @@
+{
+  "name": "triangle-c-blocks-a",
+  "config": {},
+  "nodes": [
+    {
+      "id": "A",
+      "deviceId": 177789161760246,
+      "seed": 3285509622
+    },
+    {
+      "id": "B",
+      "deviceId": 12142057818891,
+      "seed": 185273099
+    },
+    {
+      "id": "C",
+      "deviceId": 13245881256972,
+      "seed": 202116108
+    }
+  ],
+  "links": [
+    [
+      "A",
+      "B"
+    ],
+    [
+      "B",
+      "C"
+    ],
+    [
+      "A",
+      "C"
+    ]
+  ],
+  "blockedRelayTags": {
+    "C": [
+      58870
+    ]
+  },
+  "nowMs": 1760600000000,
+  "events": [
+    {
+      "t": 0,
+      "node": "A",
+      "originate": {
+        "hex": "a711a1b2c3d4e5f600012a03ec084e40d5e3aa6068f09fc008e5f6"
+      }
+    }
+  ],
+  "expected": [
+    {
+      "t": 0,
+      "event": "ANNOUNCE",
+      "node": "A",
+      "key": "a1b2c3d4e5f6-0001",
+      "ttl": 8
+    },
+    {
+      "t": 0,
+      "event": "RECEIVED",
+      "node": "B",
+      "key": "a1b2c3d4e5f6-0001",
+      "ttl": 8
+    },
+    {
+      "t": 0,
+      "event": "BLOCKED",
+      "node": "C",
+      "key": "a1b2c3d4e5f6-0001",
+      "relayTag": 58870
+    },
+    {
+      "t": 1220,
+      "event": "ANNOUNCE",
+      "node": "B",
+      "key": "a1b2c3d4e5f6-0001",
+      "ttl": 7
+    },
+    {
+      "t": 1220,
+      "event": "DUPLICATE",
+      "node": "A",
+      "key": "a1b2c3d4e5f6-0001"
+    },
+    {
+      "t": 1220,
+      "event": "RECEIVED",
+      "node": "C",
+      "key": "a1b2c3d4e5f6-0001",
+      "ttl": 7
+    },
+    {
+      "t": 2790,
+      "event": "ANNOUNCE",
+      "node": "C",
+      "key": "a1b2c3d4e5f6-0001",
+      "ttl": 6
+    },
+    {
+      "t": 2790,
+      "event": "DUPLICATE",
+      "node": "A",
+      "key": "a1b2c3d4e5f6-0001"
+    },
+    {
+      "t": 2790,
+      "event": "DUPLICATE",
+      "node": "B",
+      "key": "a1b2c3d4e5f6-0001"
+    }
+  ]
+}

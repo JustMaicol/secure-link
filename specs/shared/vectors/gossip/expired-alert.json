@@ -1,0 +1,55 @@
+{
+  "name": "expired-alert",
+  "config": {},
+  "nodes": [
+    {
+      "id": "A",
+      "deviceId": 177789161760246,
+      "seed": 3285509622
+    },
+    {
+      "id": "B",
+      "deviceId": 12142057818891,
+      "seed": 185273099
+    }
+  ],
+  "links": [
+    [
+      "A",
+      "B"
+    ]
+  ],
+  "blockedRelayTags": {},
+  "nowMs": 1760600000000,
+  "events": [
+    {
+      "t": 0,
+      "node": "A",
+      "originate": {
+        "hex": "a711a1b2c3d4e5f600030001ec084e40d5e3aa6068ef4e3f08e5f6"
+      }
+    }
+  ],
+  "expected": [
+    {
+      "t": 0,
+      "event": "ANNOUNCE",
+      "node": "A",
+      "key": "a1b2c3d4e5f6-0003",
+      "ttl": 8
+    },
+    {
+      "t": 0,
+      "event": "RECEIVED",
+      "node": "B",
+      "key": "a1b2c3d4e5f6-0003",
+      "ttl": 8
+    },
+    {
+      "t": 0,
+      "event": "NO_FORWARD_EXPIRED",
+      "node": "B",
+      "key": "a1b2c3d4e5f6-0003"
+    }
+  ]
+}

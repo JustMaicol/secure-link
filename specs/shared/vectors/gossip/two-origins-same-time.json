@@ -1,0 +1,96 @@
+{
+  "name": "two-origins-same-time",
+  "config": {},
+  "nodes": [
+    {
+      "id": "A",
+      "deviceId": 177789161760246,
+      "seed": 3285509622
+    },
+    {
+      "id": "B",
+      "deviceId": 12142057818891,
+      "seed": 185273099
+    }
+  ],
+  "links": [
+    [
+      "A",
+      "B"
+    ]
+  ],
+  "blockedRelayTags": {},
+  "nowMs": 1760600000000,
+  "events": [
+    {
+      "t": 0,
+      "node": "A",
+      "originate": {
+        "hex": "a711a1b2c3d4e5f600012a03ec084e40d5e3aa6068f09fc008e5f6"
+      }
+    },
+    {
+      "t": 0,
+      "node": "B",
+      "originate": {
+        "hex": "a7110b0b0b0b0b0b00010102ec082730d5e3835068f09fc0080b0b"
+      }
+    }
+  ],
+  "expected": [
+    {
+      "t": 0,
+      "event": "ANNOUNCE",
+      "node": "A",
+      "key": "a1b2c3d4e5f6-0001",
+      "ttl": 8
+    },
+    {
+      "t": 0,
+      "event": "ANNOUNCE",
+      "node": "B",
+      "key": "0b0b0b0b0b0b-0001",
+      "ttl": 8
+    },
+    {
+      "t": 0,
+      "event": "RECEIVED",
+      "node": "A",
+      "key": "0b0b0b0b0b0b-0001",
+      "ttl": 8
+    },
+    {
+      "t": 0,
+      "event": "RECEIVED",
+      "node": "B",
+      "key": "a1b2c3d4e5f6-0001",
+      "ttl": 8
+    },
+    {
+      "t": 1121,
+      "event": "ANNOUNCE",
+      "node": "A",
+      "key": "0b0b0b0b0b0b-0001",
+      "ttl": 7
+    },
+    {
+      "t": 1121,
+      "event": "DUPLICATE",
+      "node": "B",
+      "key": "0b0b0b0b0b0b-0001"
+    },
+    {
+      "t": 1220,
+      "event": "ANNOUNCE",
+      "node": "B",
+      "key": "a1b2c3d4e5f6-0001",
+      "ttl": 7
+    },
+    {
+      "t": 1220,
+      "event": "DUPLICATE",
+      "node": "A",
+      "key": "a1b2c3d4e5f6-0001"
+    }
+  ]
+}
