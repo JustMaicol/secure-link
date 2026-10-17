@@ -63,7 +63,7 @@ Al terminar cada task: commit `spec 100: <qué>` y anotar en el propio `memory/P
   - [ ] 104: `FakeMeshTransport`
   - [ ] 105: `FakeLocationSource`, `FakeCompass`, `FakeMapsLauncher`, `FakeMotionSource`
   - [ ] 106: `FakeSyncStatus`, `FakeSyncRunner`
-  - [ ] 107: `FakeMeshStatus`, `FakeMeshControl`, `FakeAutoAlertController`
+  - [x] 107: `FakeMeshStatus`, `FakeMeshControl`, `FakeAutoAlertController`
   *Depende de:* A4 y B1 (contrato de permisos de P2).
 
 ### A6 · Instalación
