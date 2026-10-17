@@ -28,23 +28,23 @@ Al terminar cada task: commit `spec 100: <qué>` y anotar en el propio `memory/P
 - [x] **A1.6 Arranque mínimo.** `SecureLinkApp` vacía; `MainActivity` con un único texto Compose; `res/values/strings.xml` solo con `app_name` = `secure-link`.
   *Nota:* desde el hito H0, `MainActivity.kt` y `strings.xml` **son de P2**. P1 no los vuelve a tocar.
 - [x] **A1.7 Carpetas de todas las specs** con `.gitkeep`, según el árbol de la 100, sección 2 (`core/.../protocol`, `gossip`, `mesh`, `storage`, `sync`, `node`, `geo`, `motion`; `app/.../mesh/ble`, `storage`, `location`, `motion`, `sync`, `service`, `permissions`, `navigation`, `ui/theme`, `ui/components`, `ui/format`, `features/sendalert`, `features/nearby`, `features/status`).
-- [ ] **A1.8 Verificación y PR.** Desde un clon limpio, con solo `sdk.dir` en `local.properties`: `./gradlew build` pasa (criterio 1). PR 1 hacia `main`.
+- [x] **A1.8 Verificación y PR.** Desde un clon limpio, con solo `sdk.dir` en `local.properties`: `./gradlew build` pasa (criterio 1). PR 1 hacia `main`.
   *Depende de:* nada.
 
 ### A2 · Contrato `common` (fase 0.2)
 
-- [ ] **A2.1** `Clock` (`fun interface`) y `FakeClock(nowMs)` con `advanceBy` (exige ms ≥ 0) y `set` (100, sección 4).
-- [ ] **A2.2** `DeviceIdentity`, `FixedDeviceIdentity` (exige `0..DEVICE_ID_MAX`) y `DEVICE_ID_MAX = 0xFFFF_FFFF_FFFFL`.
-- [ ] **A2.3** Pruebas: `FakeClock` devuelve la hora fijada; avanza solo con `advanceBy` o `set`; `advanceBy(-1)` lanza (criterio 4). `FixedDeviceIdentity` fuera de rango lanza.
+- [x] **A2.1** `Clock` (`fun interface`) y `FakeClock(nowMs)` con `advanceBy` (exige ms ≥ 0) y `set` (100, sección 4).
+- [x] **A2.2** `DeviceIdentity`, `FixedDeviceIdentity` (exige `0..DEVICE_ID_MAX`) y `DEVICE_ID_MAX = 0xFFFF_FFFF_FFFFL`.
+- [x] **A2.3** Pruebas: `FakeClock` devuelve la hora fijada; avanza solo con `advanceBy` o `set`; `advanceBy(-1)` lanza (criterio 4). `FixedDeviceIdentity` fuera de rango lanza.
   *Depende de:* A1.
 
 ### A4 · Implementaciones `common`
 
-- [ ] **A4.1** `SystemClock` en `app/.../common/`: **única** clase con `System.currentTimeMillis()`.
-- [ ] **A4.2** Interfaz `IdStore` (leer y escribir un texto), con `SharedPreferencesIdStore` (`identity` / `device_id`) y `FakeIdStore`.
-- [ ] **A4.3** `PrefsDeviceIdentity(store, generate)`: la primera vez llama a `generate()`, aplica `and DEVICE_ID_MAX` y guarda 12 hexadecimales; después lee.
-- [ ] **A4.4** Pruebas JVM con `FakeIdStore` (criterio 5): un solo llamado al generador; una segunda instancia devuelve el mismo valor; un generador que devuelve un `Long` negativo da un valor dentro de rango.
-- [ ] **A4.5** Una prueba en dispositivo con `SharedPreferences` reales (necesita ADB).
+- [x] **A4.1** `SystemClock` en `app/.../common/`: **única** clase con `System.currentTimeMillis()`.
+- [x] **A4.2** Interfaz `IdStore` (leer y escribir un texto), con `SharedPreferencesIdStore` (`identity` / `device_id`) y `FakeIdStore`.
+- [x] **A4.3** `PrefsDeviceIdentity(store, generate)`: la primera vez llama a `generate()`, aplica `and DEVICE_ID_MAX` y guarda 12 hexadecimales; después lee.
+- [x] **A4.4** Pruebas JVM con `FakeIdStore` (criterio 5): un solo llamado al generador; una segunda instancia devuelve el mismo valor; un generador que devuelve un `Long` negativo da un valor dentro de rango.
+- [x] **A4.5** Una prueba en dispositivo con `SharedPreferences` reales (necesita ADB).
   *Depende de:* A2.
 
 ### A5 · Reglas del proyecto
