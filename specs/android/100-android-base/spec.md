@@ -209,10 +209,11 @@ fun missingBlocking(state: Map<Requirement, Boolean>): List<Requirement>
 - Las demás specs no piden permisos. Si una operación falla por falta de permiso, devuelve un error explícito (regla 16) y la app vuelve a la pantalla de permisos.
 
 ### 5.3 Pantalla de permisos
-1. Al abrir la app, o al volver a ella, `MainActivity` consulta `PermissionChecker`. Si `missingBlocking` no está vacío, muestra la pantalla de permisos en lugar de la navegación.
+1. Al abrir la app, o al volver a ella, `MainActivity` consulta `PermissionChecker`. Si `missingBlocking` no está vacío, muestra la pantalla de permisos en lugar de la navegación. La primera vez también se muestra aunque no falte nada, hasta que el usuario toca "Continuar" (se guarda como `onboardingDone`); si después se pierde un permiso bloqueante, vuelve con un aviso.
 2. La pantalla lista cada requisito con una frase en español que explica para qué sirve y un botón:
-   - "Conceder" para los permisos en tiempo de ejecución.
-   - "Abrir ajustes" si el usuario los negó de forma permanente, para el Bluetooth apagado y para la ubicación desactivada.
+   - "Permitir" para los permisos en tiempo de ejecución y "Revisar" cuando ya están concedidos (abre los ajustes que correspondan).
+   - "Ajustes" si el usuario los negó de forma permanente; "Encender" para el Bluetooth apagado y "Activar" para la ubicación del sistema desactivada.
+   - La ubicación en segundo plano solo se puede pedir con la ubicación concedida; en Android 11 o superior el sistema abre los ajustes de la app.
 3. Paso recomendado: "Quitar restricción de batería" (abre la solicitud de exclusión).
 4. Paso informativo para Samsung: cómo desactivar "Aplicaciones en suspensión" para la app, con un botón a los ajustes de la app. La app no puede comprobarlo, así que se muestra hasta que el usuario toca "Ya lo hice" (se guarda en `SharedPreferences`).
 5. Cuando no falta ningún requisito bloqueante, entra a la navegación.
@@ -296,34 +297,65 @@ Reglas comunes en `ui/format/` (dueño: 100). La clasificación es pura y se pru
 
 ## 12. Contenido visible de la pantalla de permisos
 
+Diseño: marco "P1 · Permisos" del Figma SENDA APP. Lo que Figma no dibuja se marca **(no está en Figma)** y usa el mismo estilo.
+
 ### Variables visibles
 
 | Variable | Origen | Formato | Ejemplo | Si falta |
 |---|---|---|---|---|
-| `rows` | `PermissionChecker` | una fila por requisito, en el orden del enum | ver mensajes | — |
+| `rows` | `PermissionChecker` | `Bluetooth`, `Dispositivos cercanos`, `Ubicación` y `Notificaciones`, más `Ubicación del teléfono` solo mientras el interruptor del sistema está apagado | ver mensajes | — |
+| `recommended` | `PermissionChecker` | `Ubicación en segundo plano` y `Sin restricción de batería` (no bloquean) | ver mensajes | — |
 | `row.state` | `PermissionChecker` + historial de negaciones | `GRANTED`, `MISSING` o `DENIED_PERMANENTLY` | `MISSING` | — |
+| `row.action` | estado de la fila | `REQUEST`, `OPEN_APP_SETTINGS`, `ENABLE_BLUETOOTH`, `OPEN_BLUETOOTH_SETTINGS`, `OPEN_LOCATION_SETTINGS`, `REQUEST_BATTERY_EXCLUSION` u `OPEN_BATTERY_SETTINGS` | `REQUEST` | — |
+| `row.actionEnabled` | `prerequisiteOf` | falso en la ubicación en segundo plano hasta tener la ubicación | `true` | — |
 | `canContinue` | `missingBlocking(...).isEmpty()` | booleano | `false` | — |
-| `samsungAcknowledged` | `SharedPreferences` | booleano | `false` | `false` |
+| `showSamsungStep` | `SharedPreferences` | verdadero hasta tocar "Ya lo hice" | `true` | `true` |
+| `showLostPermissionBanner` | `SharedPreferences` + `canContinue` | ya se había pasado la pantalla y falta un requisito bloqueante | `false` | `false` |
 
 ### Mensajes
 
-| id | Cuándo | Dónde | Tono | Texto provisional | Acción |
+| id | Cuándo | Dónde | Tono | Texto | Acción |
 |---|---|---|---|---|---|
-| `permissions_title` | siempre | barra superior | — | Antes de empezar | — |
-| `permissions_intro` | siempre | encabezado | INFO | Senda necesita estos permisos para enviar y recibir alertas sin internet. | — |
-| `permissions_bluetooth` | fila `BLUETOOTH` | fila | — | Bluetooth cercano: para enviar y recibir alertas de teléfonos cercanos sin internet. | Conceder |
-| `permissions_location` | fila `LOCATION` | fila | — | Ubicación: para compartir dónde estás cuando pides ayuda y calcular la distancia a otras alertas. | Conceder |
-| `permissions_notifications` | fila `NOTIFICATIONS` | fila | — | Notificaciones: para avisarte de alertas cercanas y mantener la app activa. | Conceder |
-| `permissions_bluetooth_on` | fila `BLUETOOTH_ON` sin cumplir | fila | WARNING | El Bluetooth está apagado. | Encender |
-| `permissions_location_on` | fila `LOCATION_ON` sin cumplir | fila | WARNING | La ubicación del teléfono está desactivada. | Activar |
-| `permissions_battery` | fila `BATTERY_UNRESTRICTED` | fila | INFO | Recomendado: quita la restricción de batería para que el sistema no detenga la app. | Permitir |
-| `permissions_samsung` | mientras `samsungAcknowledged = false` | fila | INFO | Samsung: en Ajustes > Batería > Límites de uso en segundo plano, quita Senda de "Aplicaciones en suspensión". | Abrir ajustes · Ya lo hice |
-| `permissions_state_granted` | `row.state = GRANTED` | chip de la fila | SUCCESS | Listo | — |
-| `permissions_state_missing` | `row.state = MISSING` | chip de la fila | WARNING | Falta | — |
-| `permissions_state_denied` | `row.state = DENIED_PERMANENTLY` | chip de la fila | ERROR | Lo negaste antes: actívalo en Ajustes. | Abrir ajustes |
+| `permissions_title` | siempre | encabezado | — | Preparar tu teléfono | — |
+| `permissions_subtitle` | siempre | encabezado | — | Una red de ayuda, incluso sin internet. | — |
+| `permissions_intro` | siempre | bloque de introducción | INFO | Estos permisos permiten compartir y recibir alertas entre teléfonos. | — |
+| `permissions_bluetooth_title` | fila `BLUETOOTH_ON` | fila | — | Bluetooth | — |
+| `permissions_bluetooth_body` | fila `BLUETOOTH_ON` | fila | — | Comparte alertas con la malla cercana. | — |
+| `permissions_nearby_title` | fila `BLUETOOTH` | fila | — | Dispositivos cercanos | — |
+| `permissions_nearby_body` | fila `BLUETOOTH` | fila | — | Detecta y conecta con otros teléfonos. | — |
+| `permissions_location_title` | fila `LOCATION` | fila | — | Ubicación | — |
+| `permissions_location_body` | fila `LOCATION` | fila | — | Añade una posición aproximada a tu alerta. | — |
+| `permissions_notifications_title` | fila `NOTIFICATIONS` | fila | — | Notificaciones | — |
+| `permissions_notifications_body` | fila `NOTIFICATIONS` | fila | — | Recibe avisos aunque no abras la app. | — |
+| `permissions_state_active` | Bluetooth `GRANTED` | estado de la fila | SUCCESS | ✓ Activo | — |
+| `permissions_state_granted_masculine` | Dispositivos cercanos `GRANTED` | estado de la fila | SUCCESS | ✓ Permitido | — |
+| `permissions_state_granted_feminine` | Ubicación o ubicación en segundo plano `GRANTED` | estado de la fila | SUCCESS | ✓ Permitida | — |
+| `permissions_state_pending` | `row.state = MISSING` | estado de la fila | WARNING | ○ Pendiente | — |
+| `permissions_action_review` | `row.state = GRANTED` | botón de la fila | — | Revisar | abre los ajustes que correspondan |
+| `permissions_action_allow` | `row.state = MISSING` | botón de la fila | — | Permitir | `REQUEST` o `REQUEST_BATTERY_EXCLUSION` |
 | `permissions_continue` | siempre | botón principal | — | Continuar | entra a la navegación; deshabilitado si `canContinue = false` |
-| `permissions_missing_hint` | `canContinue = false` | bajo el botón | WARNING | Faltan permisos obligatorios. | — |
-| `common_lost_permission` | una operación falló por falta de permiso (sección 5.2) y la app volvió a esta pantalla | banner superior | ERROR | Se perdió un permiso necesario. Concédelo de nuevo para seguir. | — |
+| `permissions_continue_hint` | `canContinue = true` | sobre el botón | — | Puedes continuar sin notificaciones y activarlas después en Estado. | — |
+| `permissions_demo_notice` | versión de depuración | bajo el botón | — | Demostración · No se enviarán alertas reales | — |
+| `permissions_state_granted_feminine_plural` | Notificaciones `GRANTED` **(no está en Figma)** | estado de la fila | SUCCESS | ✓ Permitidas | — |
+| `permissions_state_battery_ok` | batería `GRANTED` **(no está en Figma)** | estado de la fila | SUCCESS | ✓ Sin restricción | — |
+| `permissions_state_denied` | `row.state = DENIED_PERMANENTLY` **(no está en Figma)** | estado de la fila | ERROR | Lo negaste antes: actívalo en Ajustes. | — |
+| `permissions_action_settings` | `row.state = DENIED_PERMANENTLY` **(no está en Figma)** | botón de la fila | — | Ajustes | `OPEN_APP_SETTINGS` |
+| `permissions_action_enable` | Bluetooth apagado **(no está en Figma)** | botón de la fila | — | Encender | `ENABLE_BLUETOOTH` u `OPEN_BLUETOOTH_SETTINGS` |
+| `permissions_action_activate` | ubicación del sistema apagada **(no está en Figma)** | botón de la fila | — | Activar | `OPEN_LOCATION_SETTINGS` |
+| `permissions_location_services_title` | fila `LOCATION_ON` sin cumplir **(no está en Figma)** | fila | WARNING | Ubicación del teléfono | — |
+| `permissions_location_services_body` | fila `LOCATION_ON` sin cumplir **(no está en Figma)** | fila | WARNING | Activa la ubicación del sistema para calcular distancias. | — |
+| `permissions_recommended_title` | siempre **(no está en Figma)** | título de sección | — | Recomendado | — |
+| `permissions_background_title` | fila `BACKGROUND_LOCATION` **(no está en Figma)** | fila | — | Ubicación en segundo plano | — |
+| `permissions_background_body` | fila `BACKGROUND_LOCATION` **(no está en Figma)** | fila | — | Mantiene la ubicación si el sistema reinicia la app. En Ajustes, elige «Permitir todo el tiempo». | — |
+| `permissions_background_locked` | `actionEnabled = false` **(no está en Figma)** | estado de la fila | WARNING | Primero permite la ubicación. | — |
+| `permissions_battery_title` | fila `BATTERY_UNRESTRICTED` **(no está en Figma)** | fila | — | Sin restricción de batería | — |
+| `permissions_battery_body` | fila `BATTERY_UNRESTRICTED` **(no está en Figma)** | fila | — | Evita que el sistema detenga la app. | — |
+| `permissions_samsung_title` | `showSamsungStep` **(no está en Figma)** | paso informativo | INFO | Aplicaciones en suspensión | — |
+| `permissions_samsung_body` | `showSamsungStep` **(no está en Figma)** | paso informativo | INFO | Samsung: en Ajustes > Batería > Límites de uso en segundo plano, quita Senda de «Aplicaciones en suspensión». | — |
+| `permissions_samsung_open` | `showSamsungStep` **(no está en Figma)** | paso informativo | — | Abrir ajustes | ajustes de la app |
+| `permissions_samsung_done` | `showSamsungStep` **(no está en Figma)** | paso informativo | — | Ya lo hice | guarda `samsungAcknowledged` |
+| `permissions_missing_hint` | `canContinue = false` **(no está en Figma)** | sobre el botón | WARNING | Faltan permisos obligatorios. | — |
+| `common_lost_permission` | `showLostPermissionBanner` **(no está en Figma)** | banner superior | ERROR | Se perdió un permiso necesario. Concédelo de nuevo para seguir. | — |
 
 ## Criterios de aceptación
 

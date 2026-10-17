@@ -72,7 +72,7 @@ Al terminar cada task: commit `spec 100: <qué>` y anotar en el propio `memory/P
 
 ### A3' · Permisos reales (cuando P2 lo pida)
 
-- [ ] **A3'.1** Cambiar `FakePermissionChecker` por `AndroidPermissionChecker` en `AppContainer`.
+- [x] **A3'.1** Cambiar `FakePermissionChecker` por `AndroidPermissionChecker` en `AppContainer`.
   *Hecho cuando:* en una instalación nueva aparece la pantalla de permisos.
   *Depende de:* B5 y el `[PIDE a P1]` de P2.
 
@@ -118,17 +118,17 @@ Al terminar cada task: commit `spec 100: <qué>` y anotar en el propio `memory/P
 
 - [x] **B5.1** `AndroidPermissionChecker`: los tres de Bluetooth juntos, ubicación fina y aproximada juntas, notificaciones, adaptador encendido, ubicación del sistema activada y exclusión de batería.
 - [x] **B5.2** Detección de "negado permanentemente": ya se pidió (guardado en `SharedPreferences`) y `shouldShowRequestPermissionRationale` es falso.
-- [ ] **B5.3** Pantalla según la 100, sección 12: filas con chip de estado (`Listo`, `Falta`, `Lo negaste antes…`) y sus botones (pedir permiso, abrir ajustes de la app, encender Bluetooth, ajustes de ubicación, exclusión de batería). Paso de Samsung con "Ya lo hice" guardado. "Continuar" deshabilitado con `permissions_missing_hint`.
-- [ ] **B5.4** `MainActivity`: consulta `PermissionChecker` en `onResume` y muestra la pantalla de permisos o la navegación; banner `common_lost_permission` si volvió por un permiso perdido.
-- [ ] **B5.5** Al pasar la pantalla de permisos: `MeshServiceStarter.ensureStarted(context)` (contrato de P1). Si todavía no existe, dejarlo anotado y pedirlo con `[PIDE a P1]`.
-- [ ] **B5.6** Pruebas de Compose con `FakePermissionChecker`: pantalla de permisos con un bloqueante faltante; navegación sin ninguno (criterio 7); cada estado de fila (criterio 12).
-- [ ] **B5.7** `[PIDE a P1]` en `memory/P2.md`: cambiar el fake por `AndroidPermissionChecker` en `AppContainer` (A3').
+- [x] **B5.3** Pantalla según la 100, sección 12: filas con chip de estado (`Listo`, `Falta`, `Lo negaste antes…`) y sus botones (pedir permiso, abrir ajustes de la app, encender Bluetooth, ajustes de ubicación, exclusión de batería). Paso de Samsung con "Ya lo hice" guardado. "Continuar" deshabilitado con `permissions_missing_hint`.
+- [x] **B5.4** `MainActivity`: consulta `PermissionChecker` en `onResume` y muestra la pantalla de permisos o la navegación; banner `common_lost_permission` si volvió por un permiso perdido.
+- [x] **B5.5** Al pasar la pantalla de permisos: `MeshServiceStarter.ensureStarted(context)` (contrato de P1). Si todavía no existe, dejarlo anotado y pedirlo con `[PIDE a P1]`.
+- [x] **B5.6** Pruebas de Compose con `FakePermissionChecker`: pantalla de permisos con un bloqueante faltante; navegación sin ninguno (criterio 7); cada estado de fila (criterio 12).
+- [x] **B5.7** `[PIDE a P1]` en `memory/P2.md`: cambiar el fake por `AndroidPermissionChecker` en `AppContainer` (A3').
   *Depende de:* B4.
 
 ### B6 · Textos
 
-- [ ] **B6.1** Todos los `id` de la 100, sección 12, y los `common_*` en `strings.xml`.
-- [ ] **B6.2** Prueba que compara los `id` de `strings.xml` con la lista de la sección 12 (criterio 12).
+- [x] **B6.1** Todos los `id` de la 100, sección 12, y los `common_*` en `strings.xml`.
+- [x] **B6.2** Prueba que compara los `id` de `strings.xml` con la lista de la sección 12 (criterio 12).
   *Depende de:* B5.
 
 ### Cierre de la parte B

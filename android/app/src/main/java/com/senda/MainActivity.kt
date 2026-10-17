@@ -6,10 +6,14 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.senda.navigation.SendaApp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.senda.navigation.SendaRoot
+import com.senda.permissions.PermissionsViewModel
 import com.senda.ui.theme.SendaTheme
 
-// spec 100 · Pantalla única de la app. Los permisos (B5) se agregan antes de la navegación.
+// spec 100 · Pantalla única de la app: permisos primero y, después, la navegación (SendaRoot).
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,8 +22,15 @@ class MainActivity : ComponentActivity() {
         val container = (application as SendaApplication).container
         setContent {
             SendaTheme {
+                val permissions: PermissionsViewModel = viewModel(
+                    factory = viewModelFactory { initializer { PermissionsViewModel(container.permissionsModel) } },
+                )
                 val meshState by container.meshStatus.state.collectAsStateWithLifecycle()
-                SendaApp(meshState = meshState)
+                SendaRoot(
+                    permissions = permissions,
+                    meshState = meshState,
+                    showsRationale = ::shouldShowRequestPermissionRationale,
+                )
             }
         }
     }
