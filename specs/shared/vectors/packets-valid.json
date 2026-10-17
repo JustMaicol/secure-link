@@ -1,0 +1,184 @@
+[
+  {
+    "name": "alert-reference",
+    "packet": {
+      "type": "ALERT",
+      "deviceId": 177789161760246,
+      "counter": 1,
+      "emergencyType": 2,
+      "automatic": false,
+      "children": true,
+      "elderly": false,
+      "injured": true,
+      "reducedMobility": false,
+      "people": 3,
+      "latE7": -335000000,
+      "lonE7": -706500000,
+      "createdAtS": 1760600000,
+      "ttl": 8,
+      "relayTag": 58870
+    },
+    "hex": "a711a1b2c3d4e5f600012a03ec084e40d5e3aa6068f09fc008e5f6",
+    "key": "a1b2c3d4e5f6-0001"
+  },
+  {
+    "name": "on-the-way-reference",
+    "packet": {
+      "type": "ON_THE_WAY",
+      "alertDeviceId": 177789161760246,
+      "alertCounter": 1,
+      "volunteerDeviceId": 13245881256972,
+      "createdAtS": 1760600120,
+      "ttl": 8,
+      "relayTag": 3084
+    },
+    "hex": "a712a1b2c3d4e5f600010c0c0c0c0c0c68f0a038080c0c",
+    "key": "a1b2c3d4e5f6-0001/0c0c0c0c0c0c"
+  },
+  {
+    "name": "status-reference",
+    "packet": {
+      "type": "STATUS",
+      "alertDeviceId": 177789161760246,
+      "alertCounter": 1,
+      "status": 2,
+      "createdAtS": 1760600600,
+      "ttl": 8,
+      "relayTag": 58870
+    },
+    "hex": "a713a1b2c3d4e5f600010268f0a21808e5f6",
+    "key": "a1b2c3d4e5f6-0001#2"
+  },
+  {
+    "name": "alert-automatic",
+    "packet": {
+      "type": "ALERT",
+      "deviceId": 177789161760246,
+      "counter": 2,
+      "emergencyType": 2,
+      "automatic": true,
+      "children": false,
+      "elderly": false,
+      "injured": false,
+      "reducedMobility": false,
+      "people": 1,
+      "latE7": -335000000,
+      "lonE7": -706500000,
+      "createdAtS": 1760600000,
+      "ttl": 8,
+      "relayTag": 58870
+    },
+    "hex": "a711a1b2c3d4e5f600020601ec084e40d5e3aa6068f09fc008e5f6",
+    "key": "a1b2c3d4e5f6-0002"
+  },
+  {
+    "name": "alert-all-vulnerable",
+    "packet": {
+      "type": "ALERT",
+      "deviceId": 12142057818891,
+      "counter": 1,
+      "emergencyType": 0,
+      "automatic": false,
+      "children": true,
+      "elderly": true,
+      "injured": true,
+      "reducedMobility": true,
+      "people": 2,
+      "latE7": -335010000,
+      "lonE7": -706510000,
+      "createdAtS": 1760599700,
+      "ttl": 5,
+      "relayTag": 2827
+    },
+    "hex": "a7110b0b0b0b0b0b00017802ec082730d5e3835068f09e94050b0b",
+    "key": "0b0b0b0b0b0b-0001"
+  },
+  {
+    "name": "alert-people-255",
+    "packet": {
+      "type": "ALERT",
+      "deviceId": 13245881256972,
+      "counter": 3,
+      "emergencyType": 1,
+      "automatic": false,
+      "children": false,
+      "elderly": true,
+      "injured": false,
+      "reducedMobility": false,
+      "people": 255,
+      "latE7": 900000000,
+      "lonE7": 1800000000,
+      "createdAtS": 1760590000,
+      "ttl": 3,
+      "relayTag": 3084
+    },
+    "hex": "a7110c0c0c0c0c0c000311ff35a4e9006b49d20068f078b0030c0c",
+    "key": "0c0c0c0c0c0c-0003"
+  },
+  {
+    "name": "alert-extremes-south-west",
+    "packet": {
+      "type": "ALERT",
+      "deviceId": 12142057818891,
+      "counter": 2,
+      "emergencyType": 0,
+      "automatic": false,
+      "children": false,
+      "elderly": false,
+      "injured": false,
+      "reducedMobility": false,
+      "people": 1,
+      "latE7": -900000000,
+      "lonE7": -1800000000,
+      "createdAtS": 1760600000,
+      "ttl": 8,
+      "relayTag": 2827
+    },
+    "hex": "a7110b0b0b0b0b0b00020001ca5b170094b62e0068f09fc0080b0b",
+    "key": "0b0b0b0b0b0b-0002"
+  },
+  {
+    "name": "alert-extremes-north-east",
+    "packet": {
+      "type": "ALERT",
+      "deviceId": 12142057818891,
+      "counter": 3,
+      "emergencyType": 1,
+      "automatic": false,
+      "children": false,
+      "elderly": false,
+      "injured": false,
+      "reducedMobility": false,
+      "people": 1,
+      "latE7": 900000000,
+      "lonE7": 1800000000,
+      "createdAtS": 1760600000,
+      "ttl": 8,
+      "relayTag": 2827
+    },
+    "hex": "a7110b0b0b0b0b0b0003010135a4e9006b49d20068f09fc0080b0b",
+    "key": "0b0b0b0b0b0b-0003"
+  },
+  {
+    "name": "alert-ttl-1",
+    "packet": {
+      "type": "ALERT",
+      "deviceId": 13245881256972,
+      "counter": 4,
+      "emergencyType": 2,
+      "automatic": false,
+      "children": false,
+      "elderly": false,
+      "injured": false,
+      "reducedMobility": false,
+      "people": 1,
+      "latE7": -335000000,
+      "lonE7": -706500000,
+      "createdAtS": 1760600000,
+      "ttl": 1,
+      "relayTag": 3084
+    },
+    "hex": "a7110c0c0c0c0c0c00040201ec084e40d5e3aa6068f09fc0010c0c",
+    "key": "0c0c0c0c0c0c-0004"
+  }
+]

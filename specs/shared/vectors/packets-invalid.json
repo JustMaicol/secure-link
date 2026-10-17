@@ -1,0 +1,108 @@
+[
+  {
+    "name": "not-our-packet-empty",
+    "hex": "",
+    "error": "NOT_OUR_PACKET"
+  },
+  {
+    "name": "not-our-packet-one-byte",
+    "hex": "a7",
+    "error": "NOT_OUR_PACKET"
+  },
+  {
+    "name": "not-our-packet-magic",
+    "hex": "a811a1b2c3d4e5f600012a03ec084e40d5e3aa6068f09fc008e5f6",
+    "error": "NOT_OUR_PACKET"
+  },
+  {
+    "name": "unsupported-version-2",
+    "hex": "a721a1b2c3d4e5f600012a03ec084e40d5e3aa6068f09fc008e5f6",
+    "error": "UNSUPPORTED_VERSION"
+  },
+  {
+    "name": "unsupported-version-0",
+    "hex": "a701a1b2c3d4e5f600012a03ec084e40d5e3aa6068f09fc008e5f6",
+    "error": "UNSUPPORTED_VERSION"
+  },
+  {
+    "name": "unknown-type-0",
+    "hex": "a710a1b2c3d4e5f600012a03ec084e40d5e3aa6068f09fc008e5f6",
+    "error": "UNKNOWN_TYPE"
+  },
+  {
+    "name": "unknown-type-4",
+    "hex": "a714a1b2c3d4e5f600012a03ec084e40d5e3aa6068f09fc008e5f6",
+    "error": "UNKNOWN_TYPE"
+  },
+  {
+    "name": "invalid-length-short",
+    "hex": "a711a1b2c3d4e5f600012a03ec084e40d5e3aa6068f09fc008e5",
+    "error": "INVALID_LENGTH"
+  },
+  {
+    "name": "invalid-length-long",
+    "hex": "a711a1b2c3d4e5f600012a03ec084e40d5e3aa6068f09fc008e5f600",
+    "error": "INVALID_LENGTH"
+  },
+  {
+    "name": "invalid-field-emergency-type-3",
+    "hex": "a711a1b2c3d4e5f600012b03ec084e40d5e3aa6068f09fc008e5f6",
+    "error": "INVALID_FIELD",
+    "field": "emergencyType"
+  },
+  {
+    "name": "invalid-field-people-0",
+    "hex": "a711a1b2c3d4e5f600012a00ec084e40d5e3aa6068f09fc008e5f6",
+    "error": "INVALID_FIELD",
+    "field": "people"
+  },
+  {
+    "name": "invalid-field-counter-0",
+    "hex": "a711a1b2c3d4e5f600002a03ec084e40d5e3aa6068f09fc008e5f6",
+    "error": "INVALID_FIELD",
+    "field": "counter"
+  },
+  {
+    "name": "invalid-field-ttl-0",
+    "hex": "a711a1b2c3d4e5f600012a03ec084e40d5e3aa6068f09fc000e5f6",
+    "error": "INVALID_FIELD",
+    "field": "ttl"
+  },
+  {
+    "name": "invalid-field-ttl-9",
+    "hex": "a711a1b2c3d4e5f600012a03ec084e40d5e3aa6068f09fc009e5f6",
+    "error": "INVALID_FIELD",
+    "field": "ttl"
+  },
+  {
+    "name": "invalid-field-lat-min",
+    "hex": "a711a1b2c3d4e5f600012a03ca5b16ffd5e3aa6068f09fc008e5f6",
+    "error": "INVALID_FIELD",
+    "field": "latE7"
+  },
+  {
+    "name": "invalid-field-lat-max",
+    "hex": "a711a1b2c3d4e5f600012a0335a4e901d5e3aa6068f09fc008e5f6",
+    "error": "INVALID_FIELD",
+    "field": "latE7"
+  },
+  {
+    "name": "invalid-field-lon-min",
+    "hex": "a711a1b2c3d4e5f600012a03ec084e4094b62dff68f09fc008e5f6",
+    "error": "INVALID_FIELD",
+    "field": "lonE7"
+  },
+  {
+    "name": "invalid-field-lon-max",
+    "hex": "a711a1b2c3d4e5f600012a03ec084e406b49d20168f09fc008e5f6",
+    "error": "INVALID_FIELD",
+    "field": "lonE7"
+  },
+  {
+    "name": "reserved-bit-ignored",
+    "hex": "a711a1b2c3d4e5f60001aa03ec084e40d5e3aa6068f09fc008e5f6",
+    "error": "NONE",
+    "reencodedHex": "a711a1b2c3d4e5f600012a03ec084e40d5e3aa6068f09fc008e5f6",
+    "note": "El bit 7 de info es válido: el paquete se decodifica normal y al re-codificar el bit vuelve a 0."
+  }
+]

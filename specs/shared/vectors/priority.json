@@ -1,0 +1,265 @@
+{
+  "nowMs": 1760600000000,
+  "alerts": [
+    {
+      "alertId": "000000000001-0001",
+      "emergencyType": 0,
+      "people": 50,
+      "children": false,
+      "elderly": false,
+      "injured": false,
+      "reducedMobility": false,
+      "latE7": -335000000,
+      "lonE7": -706500000,
+      "createdAtMs": 1760592800000,
+      "volunteers": 0,
+      "latestStatus": null
+    },
+    {
+      "alertId": "000000000002-0001",
+      "emergencyType": 2,
+      "people": 1,
+      "children": false,
+      "elderly": false,
+      "injured": false,
+      "reducedMobility": false,
+      "latE7": -335010000,
+      "lonE7": -706510000,
+      "createdAtMs": 1760599700000,
+      "volunteers": 0,
+      "latestStatus": null
+    },
+    {
+      "alertId": "000000000003-0001",
+      "emergencyType": 2,
+      "people": 3,
+      "children": true,
+      "elderly": false,
+      "injured": true,
+      "reducedMobility": false,
+      "latE7": -335020000,
+      "lonE7": -706490000,
+      "createdAtMs": 1760598200000,
+      "volunteers": 2,
+      "latestStatus": null
+    },
+    {
+      "alertId": "000000000004-0001",
+      "emergencyType": 1,
+      "people": 2,
+      "children": false,
+      "elderly": true,
+      "injured": false,
+      "reducedMobility": false,
+      "latE7": -334970000,
+      "lonE7": -706470000,
+      "createdAtMs": 1760597300000,
+      "volunteers": 0,
+      "latestStatus": null
+    },
+    {
+      "alertId": "000000000005-0001",
+      "emergencyType": 2,
+      "people": 4,
+      "children": false,
+      "elderly": false,
+      "injured": false,
+      "reducedMobility": false,
+      "latE7": -335000000,
+      "lonE7": -706500000,
+      "createdAtMs": 1760596400000,
+      "volunteers": 0,
+      "latestStatus": 2
+    },
+    {
+      "alertId": "000000000006-0001",
+      "emergencyType": 2,
+      "people": 1,
+      "children": false,
+      "elderly": false,
+      "injured": false,
+      "reducedMobility": false,
+      "latE7": -335010000,
+      "lonE7": -706510000,
+      "createdAtMs": 1760599700000,
+      "volunteers": 0,
+      "latestStatus": null
+    },
+    {
+      "alertId": "000000000010-0001",
+      "emergencyType": 0,
+      "people": 255,
+      "children": false,
+      "elderly": false,
+      "injured": false,
+      "reducedMobility": false,
+      "latE7": 100000000,
+      "lonE7": 100000000,
+      "createdAtMs": 1760600000000,
+      "volunteers": 0,
+      "latestStatus": null
+    },
+    {
+      "alertId": "000000000011-0001",
+      "emergencyType": 0,
+      "people": 1,
+      "children": true,
+      "elderly": true,
+      "injured": true,
+      "reducedMobility": true,
+      "latE7": 0,
+      "lonE7": 0,
+      "createdAtMs": 1760600000000,
+      "volunteers": 0,
+      "latestStatus": null
+    },
+    {
+      "alertId": "000000000012-0001",
+      "emergencyType": 0,
+      "people": 1,
+      "children": false,
+      "elderly": false,
+      "injured": false,
+      "reducedMobility": false,
+      "latE7": 0,
+      "lonE7": 0,
+      "createdAtMs": 1760582000000,
+      "volunteers": 0,
+      "latestStatus": null
+    },
+    {
+      "alertId": "000000000013-0001",
+      "emergencyType": 2,
+      "people": 1,
+      "children": false,
+      "elderly": false,
+      "injured": false,
+      "reducedMobility": false,
+      "latE7": 0,
+      "lonE7": 0,
+      "createdAtMs": 1760600000000,
+      "volunteers": 5,
+      "latestStatus": null
+    },
+    {
+      "alertId": "000000000014-0001",
+      "emergencyType": 0,
+      "people": 255,
+      "children": true,
+      "elderly": true,
+      "injured": true,
+      "reducedMobility": true,
+      "latE7": 0,
+      "lonE7": 0,
+      "createdAtMs": 1760582000000,
+      "volunteers": 0,
+      "latestStatus": null
+    },
+    {
+      "alertId": "000000000015-0001",
+      "emergencyType": 0,
+      "people": 1,
+      "children": false,
+      "elderly": false,
+      "injured": false,
+      "reducedMobility": false,
+      "latE7": 0,
+      "lonE7": 0,
+      "createdAtMs": 1760603600000,
+      "volunteers": 0,
+      "latestStatus": null
+    },
+    {
+      "alertId": "000000000001-0001",
+      "emergencyType": 0,
+      "people": 1,
+      "children": false,
+      "elderly": false,
+      "injured": false,
+      "reducedMobility": false,
+      "latE7": 0,
+      "lonE7": 0,
+      "createdAtMs": 1760600000000,
+      "volunteers": 0,
+      "latestStatus": null
+    }
+  ],
+  "expected": {
+    "priorities": {
+      "000000000003-0001": {
+        "tier": 2,
+        "points": 35,
+        "resolved": false
+      },
+      "000000000002-0001": {
+        "tier": 2,
+        "points": 10,
+        "resolved": false
+      },
+      "000000000006-0001": {
+        "tier": 2,
+        "points": 10,
+        "resolved": false
+      },
+      "000000000013-0001": {
+        "tier": 2,
+        "points": -50,
+        "resolved": false
+      },
+      "000000000004-0001": {
+        "tier": 1,
+        "points": 55,
+        "resolved": false
+      },
+      "000000000014-0001": {
+        "tier": 0,
+        "points": 220,
+        "resolved": false
+      },
+      "000000000001-0001": {
+        "tier": 0,
+        "points": 160,
+        "resolved": false
+      },
+      "000000000010-0001": {
+        "tier": 0,
+        "points": 100,
+        "resolved": false
+      },
+      "000000000012-0001": {
+        "tier": 0,
+        "points": 70,
+        "resolved": false
+      },
+      "000000000011-0001": {
+        "tier": 0,
+        "points": 70,
+        "resolved": false
+      },
+      "000000000015-0001": {
+        "tier": 0,
+        "points": 10,
+        "resolved": false
+      },
+      "000000000005-0001": {
+        "tier": 2,
+        "points": 70,
+        "resolved": true
+      }
+    },
+    "order": [
+      "000000000003-0001",
+      "000000000002-0001",
+      "000000000006-0001",
+      "000000000013-0001",
+      "000000000004-0001",
+      "000000000014-0001",
+      "000000000001-0001",
+      "000000000010-0001",
+      "000000000012-0001",
+      "000000000011-0001",
+      "000000000015-0001",
+      "000000000005-0001"
+    ]
+  }
+}
