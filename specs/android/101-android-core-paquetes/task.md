@@ -8,13 +8,13 @@ Al terminar cada task: commit `spec 101: <qué>` y nota en `memory/P1.md`.
 
 ## C1 · Contrato (fase 0.2)
 
-- [ ] **C1.1** `EmergencyType(code)` (0, 1, 2) y `StatusCode(code)` (1, 2).
-- [ ] **C1.2** `Vulnerable` con 4 booleanos (`false` por defecto).
-- [ ] **C1.3** `sealed interface Packet` con `key` y `createdAtMs`; `Alert`, `OnTheWay`, `Status` y `WirePacket(packet, ttl, relayTag)`. Los constructores **no validan**.
-- [ ] **C1.4** Claves: `PacketKey : Comparable` (compara por `canonical()`), `AlertKey`, `OnTheWayKey`, `StatusKey` y `relayTagOf(deviceId)`.
-- [ ] **C1.5** `ProtocolConfig` con los valores de la 001, sección 8, y `DEFAULT`.
-- [ ] **C1.6** Firmas de `PacketCodec` (`encode`, `decode`), `EncodeResult`, `DecodeResult`, `DecodeError`, `FieldError`, `PacketFactory` (4 funciones) y `CreateResult`. Los cuerpos con `TODO("spec 101: C3")` o `TODO("spec 101: C4")`, para que otros compilen.
-- [ ] **C1.7** `KeyTest`:
+- [x] **C1.1** `EmergencyType(code)` (0, 1, 2) y `StatusCode(code)` (1, 2).
+- [x] **C1.2** `Vulnerable` con 4 booleanos (`false` por defecto).
+- [x] **C1.3** `sealed interface Packet` con `key` y `createdAtMs`; `Alert`, `OnTheWay`, `Status` y `WirePacket(packet, ttl, relayTag)`. Los constructores **no validan**.
+- [x] **C1.4** Claves: `PacketKey : Comparable` (compara por `canonical()`), `AlertKey`, `OnTheWayKey`, `StatusKey` y `relayTagOf(deviceId)`.
+- [x] **C1.5** `ProtocolConfig` con los valores de la 001, sección 8, y `DEFAULT`.
+- [x] **C1.6** Firmas de `PacketCodec` (`encode`, `decode`), `EncodeResult`, `DecodeResult`, `DecodeError`, `FieldError`, `PacketFactory` (4 funciones) y `CreateResult`. Los cuerpos con `TODO("spec 101: C3")` o `TODO("spec 101: C4")`, para que otros compilen.
+- [x] **C1.7** `KeyTest`:
   - formas canónicas exactas: `a1b2c3d4e5f6-0001`, `a1b2c3d4e5f6-0001/0c0c0c0c0c0c`, `a1b2c3d4e5f6-0001#2`;
   - ceros a la izquierda (`deviceId = 1`, `counter = 1`);
   - cambiar `ttl` o `relayTag` no cambia la clave, y cambiar un campo inmutable sí (criterio 5);
